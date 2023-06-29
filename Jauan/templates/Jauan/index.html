@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% include 'Jauan/partials/head-imports.html' %}
+        <title>Jauan JN</title>
+    </head>
+    <body>
+        
+        <div class="top-bar">
+            <i class="fa-solid fa-puzzle-piece top-bar-icon"></i>
+            <span class="top-bar-title">Jauan</span>
+        </div>
+    
+        <div class="conteudo">
+            <div class="sidebar">
+
+                <div class="sidebar-icon">
+                    <button id="save-button" style="background: none; padding: none; border: none; margin: none;"><i class="fa-regular fa-circle-play"></i></button>
+                </div>
+                
+            </div>
+    
+            <div id="editor">
+            </div>
+            <div class="div-log" id="div-log-princ">
+                
+            </div>
+        </div>
+        
+    </body>
+    <script>
+        $(document).ready(function() {
+            $('#formInp').submit(function(e) {
+                e.preventDefault(); // Impede o envio padrão do formulário
+    
+                var meuCampoValor = $('#my-file').val();
+    
+                $.ajax({
+                    type: 'POST',
+                    url: "{% url 'Jauan:minha_view' %}",
+                    data: {
+                        'file': meuCampoValor,
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    success: function() {
+                        // Lógica a ser executada após o envio bem-sucedido
+                        console.log('Formulário enviado com sucesso!');
+                    },
+                    error: function() {
+                        // Lógica a ser executada em caso de erro
+                        console.log('Erro ao enviar o formulário.');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.28.0/min/vs' }});
+        require(["vs/editor/editor.main"], function () {
+            monaco.editor.defineTheme('monokai', {
+                base: 'vs-dark',
+                inherit: true,
+                rules: [
+                    { token: 'comment', foreground: '888888' },
+                    { token: 'keyword', foreground: 'f92672' },
+                    { token: 'string', foreground: 'e6db74' },
+                    { token: 'number', foreground: 'ae81ff' }
+                ],
+                colors: {}
+            });
+    
+            monaco.editor.setTheme('monokai');
+    
+            var editor = monaco.editor.create(document.getElementById('editor'), {
+                value: "{{conteudo}}",
+                language: "sql",
+                automaticLayout: true
+            });
+    
+            var saveButton = document.getElementById('save-button');
+            saveButton.addEventListener('click', function() {
+                // Obtenha o conteúdo do editor
+                var conteudo = editor.getValue();
+            
+                // Enviar o conteúdo via Ajax
+                enviarParaServidor(conteudo);
+            });
+    
+            function enviarParaServidor(conteudo) {
+                // Crie uma instância do objeto XMLHttpRequest
+                var xhttp = new XMLHttpRequest();
+                
+                // Defina a função de retorno de chamada para lidar com a resposta do servidor
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // A resposta do servidor foi recebida com sucesso
+                        console.log("Conteúdo enviado com sucesso!");
+                        console.log("resposta: "+this.response );
+                        var newCode = this.response
+                        if (this.response.includes("Error")){
+                            newCode = "<p style='Color: #f5535a ;'>" + this.response+"</p>"
+                        }
+                        document.getElementById("div-log-princ").innerHTML = newCode
+                    } else if (this.readyState == 4 && this.status != 200) {
+                        // Ocorreu um erro durante a solicitação Ajax
+                        console.log("Erro ao enviar o conteúdo!");
+                    }
+                };
+                
+                // Defina a URL do servidor que receberá o conteúdo
+                var url = "{% url 'Jauan:save_text_file' %}";
+                
+                // Defina o método e os parâmetros da solicitação
+                xhttp.open("POST", url, true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");  // Adicione esta linha para indicar uma requisição AJAX
+                xhttp.send("content=" + encodeURIComponent(conteudo));
+
+            }
+        });
+    </script>
+    
+    
+</html>

@@ -1,0 +1,125 @@
+:root {
+    --cor-fundo: #333;
+    --cor-icone: #00ff80;
+    --cor-bordas: rgba(255, 255, 255, 0.1);
+    --cor-log: #212529;
+    --cor-botoes: rgba(255, 255, 255, 0.4);
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #333;;
+}
+
+.top-bar {
+    background-color: var(--cor-fundo);
+    color: #fff;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    z-index: 10;
+    border-bottom: 1px solid var(--cor-bordas)
+}
+
+.top-bar-icon {
+    margin-right: 10px;
+    margin-left: 11px;
+    color: var(--cor-icone);
+}
+
+.top-bar-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.conteudo {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    width: 100% !important;
+}
+
+.sidebar {
+    width: 50px;
+    background-color: var(--cor-fundo);
+    color: var(--cor-botoes);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: width 0.3s ease;
+    z-index: 1;
+    height: 100vh;
+}
+
+.sidebar-icon {
+    padding: 12px;
+    cursor: pointer;
+}
+
+#save-button{
+    color: var(--cor-botoes);
+    cursor: pointer;
+    padding: 0px 12px 0px 12px;
+}
+
+#save-button:hover {
+    color: var(--cor-icone);
+}
+
+.sidebar-icon:hover {
+    color: var(--cor-icone);
+}
+
+#editor {
+    transition: margin-left 0.3s ease;
+    overflow: hidden;
+    z-index: 0;
+    width: 70%; 
+    border: none !important;
+}
+
+.div-log {
+    width: 30%; 
+    height: 100vh;
+    background-color: var(--cor-log);
+    border-left: 1px solid var(--cor-bordas);
+    padding: 20px;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: 60px;
+        flex-shrink: 0;
+    }
+
+    #editor {
+        margin-top: 60px;
+        margin-left: 0;
+        height: calc(100vh - 90px);
+        width: 100%; 
+    }
+
+    .div-log {
+        width: 100%; 
+    }
+}
