@@ -2,15 +2,15 @@ grammar jauan;
 
 prog: (funcao* main);
 
-funcao: ID '('declaracao+')' ':' TIPO comando+ 'return' (VALUE | ID) ';' 'end';
+funcao: ID '('declaracao+')' ':' TIPO comando+ 'return' ( value | ID ) ';' 'end';
 
 main: ('main' ':' var comando+ 'end'); //Duvida: O main deve conter obrigatoriamente var? e comando?
 
 var: ('var' ':' (declaracao ';')+);
 
-declaracao: ('const' ID '=' VALUE
+declaracao: ('const' ID '=' value
             |ID (',' ID)* ':' TIPO
-            |ID '=' VALUE ':' TIPO
+            |ID '=' value ':' TIPO
             );
 comando: ifElse+ | print | scanf | while; //Fazer os comandos
 
@@ -22,17 +22,16 @@ scanf: 'scanf' '('(ID | ID (',' ID)+)')'';';
 
 print: 'print';
 
-expr: (( VALUE | ID ) OPERADOR ( VALUE | ID )) | 'true' | 'false' ;
+expr: (( value | ID ) OPERADOR ( value | ID )) | 'true' | 'false' ;
 
 TIPO: 'int'
       |'str'
       |'float';
 
-VALUE: [0-9]+
-        |'true'
+value: (DIGITO+ |'true'
         |'false'
-        |'"'[A-Z]+'"'
-        |DIGITO+ '.' DIGITO+; //Isso ta sendo o valor float, verificar se é isso mesmo.
+        |'"'LETRA+'"'
+        |DIGITO+ '.' DIGITO+); //Isso ta sendo o valor float, verificar se é isso mesmo.
 
 ID: LETRA (LETRA | DIGITO)*;
 
