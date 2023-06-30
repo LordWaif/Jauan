@@ -12,9 +12,11 @@ declaracao: ('const' ID '=' VALUE ';'
             |ID (',' ID)* ':' TIPO ';'
             |ID '=' VALUE ':' TIPO ';'
             );
-comando: ifElse+ | 'print'; //Fazer os comandos
+comando: ifElse+ | 'print' | while; //Fazer os comandos
 
-ifElse: 'if' '(' expr ')' ':' comando+ ('[' 'else' ':' comando+ ']')? 'end';
+ifElse: 'if' '(' expr ')' ':' comando+ ('[' 'else' ':' comando+ ']' 'end')?;
+
+while: 'while' '(' expr ')' ':' comando+ 'break'? 'end'; //break em qualquer lugar? quantas vezes puder? obrigado a ter um comando?
 
 expr: (( VALUE | ID ) OPERADOR ( VALUE | ID )) | 'true' | 'false' ;
 
