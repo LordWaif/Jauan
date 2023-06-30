@@ -1,11 +1,1 @@
-main: 
-    var:
-        const PI = 3.14;
-        INT2, FLOAT, inteiro1 : int;
-        string1, string2 : str;
-        const flag = true;
-        x : float;
-        const IES = "UFPI";
-        i : int;
-    comando
-end
+var teste

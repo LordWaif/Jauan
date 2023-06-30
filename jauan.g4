@@ -2,7 +2,7 @@ grammar jauan;
 
 prog: (funcao* main);
 
-funcao: 'funcao';
+funcao: comando+;
 
 main: ('main' ':' var comando+ 'end'); //Duvida: O main deve conter obrigatoriamente var? e comando?
 
@@ -12,7 +12,11 @@ declaracao: ('const' ID '=' VALUE ';'
             |ID (',' ID)* ':' TIPO ';'
             |ID '=' VALUE ':' TIPO ';'
             );
-comando: 'comando'; //Fazer os comandos
+comando: ifElse+ | 'print'; //Fazer os comandos
+
+ifElse: 'if' '(' expr ')' ':' comando+ ('[' 'else' ':' comando+ ']')? 'end';
+
+expr: (( VALUE | ID ) OPERADOR ( VALUE | ID )) | 'true' | 'false' ;
 
 TIPO: 'int'
       |'str'

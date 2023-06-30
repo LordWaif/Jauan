@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b811b4ee-bd3f-4f4a-8468-82d372ba6d7d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/jauan.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jauan.g4" beforeDir="false" afterPath="$PROJECT_DIR$/jauan.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +30,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/marcelo.moraes/PycharmProjects/projeto1/Jauan",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
