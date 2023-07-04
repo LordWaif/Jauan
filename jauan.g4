@@ -1,11 +1,11 @@
 grammar jauan;
 
-prog: (funcao* main);
+prog: (declar_funcao* main);
 
 //--------------------Funções--------------------//
 //Função pode ser sem parâmetros?
 //Uma função sempre deve ter pelo menos um comando?
-funcao: ID '('parametro (',' parametro)*')' ':' tipo_funcao var? comando+ retorno 'end';
+declar_funcao: ID '('parametro (',' parametro)*')' ':' tipo_funcao var? comando+ retorno 'end';
 parametro: TIPO ID;
 //Quais os tipos de função? bool é um tipo válido?
 tipo_funcao: TIPO|'void';
@@ -22,7 +22,7 @@ declaracao: ('const' ID '=' value
             |ID '=' value ':' TIPO
             )';';
 
-comando: ifElse+ | print | scanf | while | operacao_algebrica | comando_atribuicao ; //Fazer os comandos
+comando: ifElse+ | print | scanf | while | operacao_algebrica | comando_atribuicao | inst_funcao ; //Fazer os comandos
 
 comando_atribuicao: ID '=' (
                     operacao_algebrica
@@ -40,7 +40,13 @@ while: 'while' '(' expr ')' ':' (comando+
 
 scanf: 'scanf' '('(ID | ID (',' ID)+)')'';';
 
-print: 'print(' ')'';';
+print: 'print(' (STRING | inst_funcao | expr2) ')'';';
+STRING : '"' (~["])* '"';
+
+inst_funcao : ID '(' args ')';
+args : (ID (',' expr2)*)?;
+
+expr2: ID; // nome temporário. A ideia é abranger qualquer expressão que possa ter em um print. Ex: 1+2; a+b; a+1, funcao()...
 
 expr: (( value|'('value')' | ID|'('ID')' ) OPERADOR ( value|'('value')'| ID |'('ID')' )) | 'true' | 'false' | '('expr')';
 
@@ -53,8 +59,6 @@ ID: (LETRA (LETRA | DIGITO)*);
 
 LETRA: [a-zA-Z];
 DIGITO: [0-9];
-
-
 
 OPERADOR_ALGEBRICO: ('-'
                     |'+'
