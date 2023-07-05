@@ -9,11 +9,10 @@ declar_funcao: ID '('parametro (',' parametro)*')' ':' tipo_funcao var? comando+
 parametro: TIPO ID;
 //Quais os tipos de função? bool é um tipo válido?
 tipo_funcao: TIPO|'void';
-//Existe o tipo bool para variáveis?
 TIPO: 'int'|'str'|'float'|'bool';
 retorno: 'return' (DIGITO|ID) ';';
 
-main: ('main' ':' var comando+ 'end'); //Duvida: O main deve conter obrigatoriamente var? e comando?
+main: ('main' ':' var{,1} comando+ 'end'); //Duvida: O main deve conter obrigatoriamente comando?
 
 var: ('var' ':' declaracao+);
 
@@ -22,16 +21,20 @@ declaracao: ('const' ID '=' value
             |ID '=' value ':' TIPO
             )';';
 
-comando: ifElse+ | print | scanf | while | operacao_algebrica | comando_atribuicao | inst_funcao ; //Fazer os comandos
+comando: ifElse+ | print | scanf | while | op_algebrico | comando_atribuicao | inst_funcao ; //Fazer os comandos
 
 comando_atribuicao: ID '=' (
-                    operacao_algebrica
+                    op_algebrico
                     |ID
                     |value
                     )';';
 
-//Corrigir para aceitar parenteses.
-operacao_algebrica: (ID|value) (OPERADOR_ALGEBRICO (ID|value))+;
+// Falta unário
+op_algebrico: t e1;
+e1: ADD t e1 | SUB t e1 | ;
+t: g t1;
+t1: MUL g t1 | DIV g t1 | ;
+g: (ID|value) | '('op_algebrico')';
 
 ifElse: 'if' '(' expr ')' ':' comando+ ('[' 'else' ':' comando+ ']' 'end')?;
 
@@ -40,8 +43,8 @@ while: 'while' '(' expr ')' ':' (comando+
 
 scanf: 'scanf' '('(ID | ID (',' ID)+)')'';';
 
-print: 'print(' (STRING | inst_funcao | expr2) ')'';';
-STRING : '"' (~["])* '"';
+print: 'print''(' (STRING | inst_funcao | expr2 | ) ')'';';
+STRING : '"' (~["])* '"'; // String é só com aspas duplas ou pode aspas simples também?
 
 inst_funcao : ID '(' args ')';
 args : (ID (',' expr2)*)?;
@@ -50,20 +53,25 @@ expr2: ID; // nome temporário. A ideia é abranger qualquer expressão que poss
 
 expr: (( value|'('value')' | ID|'('ID')' ) OPERADOR ( value|'('value')'| ID |'('ID')' )) | 'true' | 'false' | '('expr')';
 
-value: (DIGITO+ |'true'
+value: (num |'true' // Esse value tá certo. Em operação algébrica pode true + false?
         |'false'
-        |'"'LETRA+'"'
-        |DIGITO+ '.' DIGITO+); //Isso ta sendo o valor float, verificar se é isso mesmo.
+        |'"'LETRA+'"');
 
-ID: (LETRA (LETRA | DIGITO)*);
+num: INT | FLOAT;
+
+INT: DIGITO+;
+FLOAT: DIGITO+ '.' DIGITO+;
+
+ID: (LETRA (LETRA | DIGITO)*); // Adicionar underline ("_")
 
 LETRA: [a-zA-Z];
 DIGITO: [0-9];
 
-OPERADOR_ALGEBRICO: ('-'
-                    |'+'
-                    |'*'
-                    |'/');
+MUL: '*';
+DIV: '/';
+ADD: '+';
+SUB: '-';
+
 OPERADOR: ('!'
           |'=='
           |'!='
