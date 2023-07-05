@@ -29,12 +29,12 @@ comando_atribuicao: ID '=' (
                     |value
                     )';';
 
-// Falta unário
+// Unário tá certo?
 op_algebrico: t e1;
 e1: ADD t e1 | SUB t e1 | ;
 t: g t1;
 t1: MUL g t1 | DIV g t1 | ;
-g: (ID|value) | '('op_algebrico')';
+g: (ADD|SUB) g | (ID|value) | '('op_algebrico')';
 
 ifElse: 'if' '(' expr ')' ':' comando+ ('[' 'else' ':' comando+ ']' 'end')?;
 
