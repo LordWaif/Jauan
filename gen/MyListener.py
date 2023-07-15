@@ -1,11 +1,14 @@
 from antlr4 import *
+
+from .jauanListener import jauanListener
+
 if __name__ is not None and "." in __name__:
     from .jauanParser import jauanParser
 else:
     from jauanParser import jauanParser
 
 # This class defines a complete listener for a parse tree produced by jauanParser.
-class jauanListener(ParseTreeListener):
+class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#prog.
     def enterProg(self, ctx:jauanParser.ProgContext):
@@ -14,7 +17,6 @@ class jauanListener(ParseTreeListener):
     # Exit a parse tree produced by jauanParser#prog.
     def exitProg(self, ctx:jauanParser.ProgContext):
         pass
-
 
     # Enter a parse tree produced by jauanParser#declar_funcao.
     def enterDeclar_funcao(self, ctx:jauanParser.Declar_funcaoContext):
@@ -99,12 +101,20 @@ class jauanListener(ParseTreeListener):
 
     # Enter a parse tree produced by jauanParser#break.
     def enterBreak(self, ctx:jauanParser.BreakContext):
-        pass
+        if not self.inLoop(ctx):
+            print("Erro: O comando 'break' deve estar dentro de um loop.")
 
     # Exit a parse tree produced by jauanParser#break.
     def exitBreak(self, ctx:jauanParser.BreakContext):
         pass
 
+    def inLoop(self, ctx):
+        parent = ctx.parentCtx
+        while parent is not None:
+            if isinstance(parent, jauanParser.WhileContext):
+                return True
+            parent = parent.parentCtx
+        return False
 
     # Enter a parse tree produced by jauanParser#op_algebrico.
     def enterOp_algebrico(self, ctx:jauanParser.Op_algebricoContext):

@@ -1,1 +1,10 @@
-var teste
+main:
+    var:
+    const a = 1;
+    while(a>b):
+        if(a>3):
+            break;
+        end
+    end
+    break
+end
