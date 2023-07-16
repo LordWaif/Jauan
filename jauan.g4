@@ -5,12 +5,17 @@ prog: (declar_funcao* main);
 //--------------------Funções--------------------//
 
 //or e and || ou && vai entrar?
-declar_funcao: ID '('args_formal')' ':' ((TIPO var? comando+ retorno)|('void' var? comando+))'end';
+// Por que void foi separado de TIPO aqui embaixo?
+//declar_funcao: ID '('args_formal')' ':' ((TIPO var? comando+ retorno)|('void' var? comando+))'end';
+
+declar_funcao: ID '('args_formal')' ':' TIPO bloco 'end';
+bloco: var? comando*;
+retorno: 'return' (value|expr)*;
+
 args_formal : (parametro (',' parametro)*)?;
 parametro: TIPO ID;
 
-TIPO: 'int'|'str'|'float'|'bool';
-retorno: 'return' (value|expr) ';';
+TIPO: 'int'|'str'|'float'|'bool'|'void';
 
 main: ('main' ':' var? comando* 'end');
 
@@ -22,7 +27,7 @@ declaracao: ('const' ID '=' value
             )';';
 
 
-comando: ifElse+ | while | ((print | scanf | comando_atribuicao | inst_funcao | break)';') ; //Fazer os comandos
+comando: ifElse+ | while | ((print | scanf | comando_atribuicao | inst_funcao | break | retorno)';') ; //Fazer os comandos
 comando_atribuicao: ID '=' (
                     op_algebrico
                     |value
@@ -30,17 +35,12 @@ comando_atribuicao: ID '=' (
 
 break: 'break';
 
-op_algebrico : (ADD|SUB) op_algebrico
-        |'(' op_algebrico ')'
-        | op_algebrico (MUL|DIV) op_algebrico
-        | op_algebrico (ADD|SUB) op_algebrico
-        | (ID|num);
-/*
-op_algebrico: t e1;
-e1: ADD t e1 | SUB t e1 | ;
-t: g t1;
-t1: MUL g t1 | DIV g t1 | ;
-g: (ADD|SUB) g | (ID|num) | '('op_algebrico')';*/
+op_algebrico : SUB op_algebrico                     # unario
+        |'(' op_algebrico ')'                       # parenteses
+        | op_algebrico op=(MUL|DIV) op_algebrico    # multDiv
+        | op_algebrico op=(ADD|SUB) op_algebrico    # addSub
+        | (ID|num)                                  # operando
+        ;
 
 ifElse: 'if' '(' expr ')' ':' comando+ ('else' ':' comando+)?'end';
 
@@ -49,7 +49,7 @@ while: 'while' '(' expr ')' ':' (comando*
 
 scanf: 'scanf' '('(ID (',' ID)*)')';
 
-print: 'print''(' ( args_real) ')';
+print: 'print''(' args_real ')';
 STRING : '"' (ESC|.)*? '"'; // Permite aspas duplas com escape
 ESC : '\\"' | '\\\\' ;
 
@@ -59,19 +59,19 @@ args_real : ((expr|value|inst_funcao) (',' (expr|value|inst_funcao))*)?;
 expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1;
 expr1 : OPERADOR expr expr1 | ;
 
-value: (num |'true'
+value: num |'true'
         |'false'
         |STRING
-        |ID);
+        |ID;
 
 num: INT | FLOAT;
 
 INT: DIGITO+;
 FLOAT: DIGITO+ '.' DIGITO+;
 
-ID: (LETRA (LETRA | DIGITO)*); // Adicionar underline
+ID: (ID_LETTER (ID_LETTER | DIGITO)*);
 
-LETRA: [a-zA-Z];
+ID_LETTER: [a-zA-Z_];
 DIGITO: [0-9];
 
 MUL: '*';

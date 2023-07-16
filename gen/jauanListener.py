@@ -1,3 +1,4 @@
+# Generated from C:/Users/Reynaldo/Desktop/Jauan/Jauan\jauan.g4 by ANTLR 4.12.0
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .jauanParser import jauanParser
@@ -25,6 +26,24 @@ class jauanListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by jauanParser#bloco.
+    def enterBloco(self, ctx:jauanParser.BlocoContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#bloco.
+    def exitBloco(self, ctx:jauanParser.BlocoContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#retorno.
+    def enterRetorno(self, ctx:jauanParser.RetornoContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#retorno.
+    def exitRetorno(self, ctx:jauanParser.RetornoContext):
+        pass
+
+
     # Enter a parse tree produced by jauanParser#args_formal.
     def enterArgs_formal(self, ctx:jauanParser.Args_formalContext):
         pass
@@ -40,15 +59,6 @@ class jauanListener(ParseTreeListener):
 
     # Exit a parse tree produced by jauanParser#parametro.
     def exitParametro(self, ctx:jauanParser.ParametroContext):
-        pass
-
-
-    # Enter a parse tree produced by jauanParser#retorno.
-    def enterRetorno(self, ctx:jauanParser.RetornoContext):
-        pass
-
-    # Exit a parse tree produced by jauanParser#retorno.
-    def exitRetorno(self, ctx:jauanParser.RetornoContext):
         pass
 
 
@@ -106,48 +116,48 @@ class jauanListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by jauanParser#op_algebrico.
-    def enterOp_algebrico(self, ctx:jauanParser.Op_algebricoContext):
+    # Enter a parse tree produced by jauanParser#unario.
+    def enterUnario(self, ctx:jauanParser.UnarioContext):
         pass
 
-    # Exit a parse tree produced by jauanParser#op_algebrico.
-    def exitOp_algebrico(self, ctx:jauanParser.Op_algebricoContext):
-        pass
-
-
-    # Enter a parse tree produced by jauanParser#e1.
-    def enterE1(self, ctx:jauanParser.E1Context):
-        pass
-
-    # Exit a parse tree produced by jauanParser#e1.
-    def exitE1(self, ctx:jauanParser.E1Context):
+    # Exit a parse tree produced by jauanParser#unario.
+    def exitUnario(self, ctx:jauanParser.UnarioContext):
         pass
 
 
-    # Enter a parse tree produced by jauanParser#t.
-    def enterT(self, ctx:jauanParser.TContext):
+    # Enter a parse tree produced by jauanParser#parenteses.
+    def enterParenteses(self, ctx:jauanParser.ParentesesContext):
         pass
 
-    # Exit a parse tree produced by jauanParser#t.
-    def exitT(self, ctx:jauanParser.TContext):
-        pass
-
-
-    # Enter a parse tree produced by jauanParser#t1.
-    def enterT1(self, ctx:jauanParser.T1Context):
-        pass
-
-    # Exit a parse tree produced by jauanParser#t1.
-    def exitT1(self, ctx:jauanParser.T1Context):
+    # Exit a parse tree produced by jauanParser#parenteses.
+    def exitParenteses(self, ctx:jauanParser.ParentesesContext):
         pass
 
 
-    # Enter a parse tree produced by jauanParser#g.
-    def enterG(self, ctx:jauanParser.GContext):
+    # Enter a parse tree produced by jauanParser#multDiv.
+    def enterMultDiv(self, ctx:jauanParser.MultDivContext):
         pass
 
-    # Exit a parse tree produced by jauanParser#g.
-    def exitG(self, ctx:jauanParser.GContext):
+    # Exit a parse tree produced by jauanParser#multDiv.
+    def exitMultDiv(self, ctx:jauanParser.MultDivContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#addSub.
+    def enterAddSub(self, ctx:jauanParser.AddSubContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#addSub.
+    def exitAddSub(self, ctx:jauanParser.AddSubContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#operando.
+    def enterOperando(self, ctx:jauanParser.OperandoContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#operando.
+    def exitOperando(self, ctx:jauanParser.OperandoContext):
         pass
 
 

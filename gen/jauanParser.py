@@ -1,3 +1,4 @@
+# Generated from C:/Users/Reynaldo/Desktop/Jauan/Jauan\jauan.g4 by ANTLR 4.12.0
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -9,124 +10,114 @@ else:
 
 def serializedATN():
     return [
-        4,1,34,331,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,36,300,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
-        7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,1,0,5,0,54,
-        8,0,10,0,12,0,57,9,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,68,
-        8,1,1,1,4,1,71,8,1,11,1,12,1,72,1,1,1,1,1,1,1,1,3,1,79,8,1,1,1,4,
-        1,82,8,1,11,1,12,1,83,3,1,86,8,1,1,1,1,1,1,2,1,2,1,2,5,2,93,8,2,
-        10,2,12,2,96,9,2,3,2,98,8,2,1,3,1,3,1,3,1,4,1,4,1,4,3,4,106,8,4,
-        1,4,1,4,1,5,1,5,1,5,3,5,113,8,5,1,5,5,5,116,8,5,10,5,12,5,119,9,
-        5,1,5,1,5,1,6,1,6,1,6,4,6,126,8,6,11,6,12,6,127,1,7,1,7,1,7,1,7,
-        1,7,1,7,1,7,5,7,137,8,7,10,7,12,7,140,9,7,1,7,1,7,1,7,1,7,1,7,1,
-        7,1,7,1,7,3,7,150,8,7,1,7,1,7,1,8,4,8,155,8,8,11,8,12,8,156,1,8,
-        1,8,1,8,1,8,1,8,1,8,3,8,165,8,8,1,8,1,8,3,8,169,8,8,1,9,1,9,1,9,
-        1,9,3,9,175,8,9,1,10,1,10,1,11,1,11,1,11,1,12,1,12,1,12,1,12,1,12,
-        1,12,1,12,1,12,1,12,3,12,191,8,12,1,13,1,13,1,13,1,14,1,14,1,14,
-        1,14,1,14,1,14,1,14,1,14,1,14,3,14,205,8,14,1,15,1,15,1,15,1,15,
-        3,15,211,8,15,1,15,1,15,1,15,1,15,3,15,217,8,15,1,16,1,16,1,16,1,
-        16,1,16,1,16,4,16,225,8,16,11,16,12,16,226,1,16,1,16,1,16,4,16,232,
-        8,16,11,16,12,16,233,3,16,236,8,16,1,16,1,16,1,17,1,17,1,17,1,17,
-        1,17,1,17,5,17,246,8,17,10,17,12,17,249,9,17,1,17,3,17,252,8,17,
-        3,17,254,8,17,1,17,1,17,1,18,1,18,1,18,1,18,1,18,5,18,263,8,18,10,
-        18,12,18,266,9,18,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,20,1,20,1,
-        20,1,20,1,20,1,21,1,21,1,21,3,21,283,8,21,1,21,1,21,1,21,1,21,3,
-        21,289,8,21,5,21,291,8,21,10,21,12,21,294,9,21,3,21,296,8,21,1,22,
-        1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,1,22,
-        1,22,3,22,313,8,22,1,23,1,23,1,23,1,23,1,23,3,23,320,8,23,1,24,1,
-        24,1,24,1,24,1,24,3,24,327,8,24,1,25,1,25,1,25,0,0,26,0,2,4,6,8,
-        10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,0,
-        2,1,0,31,32,1,0,24,25,355,0,55,1,0,0,0,2,60,1,0,0,0,4,97,1,0,0,0,
-        6,99,1,0,0,0,8,102,1,0,0,0,10,109,1,0,0,0,12,122,1,0,0,0,14,149,
-        1,0,0,0,16,168,1,0,0,0,18,170,1,0,0,0,20,176,1,0,0,0,22,178,1,0,
-        0,0,24,190,1,0,0,0,26,192,1,0,0,0,28,204,1,0,0,0,30,216,1,0,0,0,
-        32,218,1,0,0,0,34,239,1,0,0,0,36,257,1,0,0,0,38,269,1,0,0,0,40,274,
-        1,0,0,0,42,295,1,0,0,0,44,312,1,0,0,0,46,319,1,0,0,0,48,326,1,0,
-        0,0,50,328,1,0,0,0,52,54,3,2,1,0,53,52,1,0,0,0,54,57,1,0,0,0,55,
-        53,1,0,0,0,55,56,1,0,0,0,56,58,1,0,0,0,57,55,1,0,0,0,58,59,3,10,
-        5,0,59,1,1,0,0,0,60,61,5,26,0,0,61,62,5,1,0,0,62,63,3,4,2,0,63,64,
-        5,2,0,0,64,85,5,3,0,0,65,67,5,22,0,0,66,68,3,12,6,0,67,66,1,0,0,
-        0,67,68,1,0,0,0,68,70,1,0,0,0,69,71,3,16,8,0,70,69,1,0,0,0,71,72,
-        1,0,0,0,72,70,1,0,0,0,72,73,1,0,0,0,73,74,1,0,0,0,74,75,3,8,4,0,
-        75,86,1,0,0,0,76,78,5,4,0,0,77,79,3,12,6,0,78,77,1,0,0,0,78,79,1,
-        0,0,0,79,81,1,0,0,0,80,82,3,16,8,0,81,80,1,0,0,0,82,83,1,0,0,0,83,
-        81,1,0,0,0,83,84,1,0,0,0,84,86,1,0,0,0,85,65,1,0,0,0,85,76,1,0,0,
-        0,86,87,1,0,0,0,87,88,5,5,0,0,88,3,1,0,0,0,89,94,3,6,3,0,90,91,5,
-        6,0,0,91,93,3,6,3,0,92,90,1,0,0,0,93,96,1,0,0,0,94,92,1,0,0,0,94,
-        95,1,0,0,0,95,98,1,0,0,0,96,94,1,0,0,0,97,89,1,0,0,0,97,98,1,0,0,
-        0,98,5,1,0,0,0,99,100,5,22,0,0,100,101,5,26,0,0,101,7,1,0,0,0,102,
-        105,5,7,0,0,103,106,3,48,24,0,104,106,3,44,22,0,105,103,1,0,0,0,
-        105,104,1,0,0,0,106,107,1,0,0,0,107,108,5,8,0,0,108,9,1,0,0,0,109,
-        110,5,9,0,0,110,112,5,3,0,0,111,113,3,12,6,0,112,111,1,0,0,0,112,
-        113,1,0,0,0,113,117,1,0,0,0,114,116,3,16,8,0,115,114,1,0,0,0,116,
-        119,1,0,0,0,117,115,1,0,0,0,117,118,1,0,0,0,118,120,1,0,0,0,119,
-        117,1,0,0,0,120,121,5,5,0,0,121,11,1,0,0,0,122,123,5,10,0,0,123,
-        125,5,3,0,0,124,126,3,14,7,0,125,124,1,0,0,0,126,127,1,0,0,0,127,
-        125,1,0,0,0,127,128,1,0,0,0,128,13,1,0,0,0,129,130,5,11,0,0,130,
-        131,5,26,0,0,131,132,5,12,0,0,132,150,3,48,24,0,133,138,5,26,0,0,
-        134,135,5,6,0,0,135,137,5,26,0,0,136,134,1,0,0,0,137,140,1,0,0,0,
-        138,136,1,0,0,0,138,139,1,0,0,0,139,141,1,0,0,0,140,138,1,0,0,0,
-        141,142,5,3,0,0,142,150,5,22,0,0,143,144,5,26,0,0,144,145,5,12,0,
-        0,145,146,3,48,24,0,146,147,5,3,0,0,147,148,5,22,0,0,148,150,1,0,
-        0,0,149,129,1,0,0,0,149,133,1,0,0,0,149,143,1,0,0,0,150,151,1,0,
-        0,0,151,152,5,8,0,0,152,15,1,0,0,0,153,155,3,32,16,0,154,153,1,0,
-        0,0,155,156,1,0,0,0,156,154,1,0,0,0,156,157,1,0,0,0,157,169,1,0,
-        0,0,158,169,3,34,17,0,159,165,3,38,19,0,160,165,3,36,18,0,161,165,
-        3,18,9,0,162,165,3,40,20,0,163,165,3,20,10,0,164,159,1,0,0,0,164,
-        160,1,0,0,0,164,161,1,0,0,0,164,162,1,0,0,0,164,163,1,0,0,0,165,
-        166,1,0,0,0,166,167,5,8,0,0,167,169,1,0,0,0,168,154,1,0,0,0,168,
-        158,1,0,0,0,168,164,1,0,0,0,169,17,1,0,0,0,170,171,5,26,0,0,171,
-        174,5,12,0,0,172,175,3,22,11,0,173,175,3,48,24,0,174,172,1,0,0,0,
-        174,173,1,0,0,0,175,19,1,0,0,0,176,177,5,13,0,0,177,21,1,0,0,0,178,
-        179,3,26,13,0,179,180,3,24,12,0,180,23,1,0,0,0,181,182,5,31,0,0,
-        182,183,3,26,13,0,183,184,3,24,12,0,184,191,1,0,0,0,185,186,5,32,
-        0,0,186,187,3,26,13,0,187,188,3,24,12,0,188,191,1,0,0,0,189,191,
-        1,0,0,0,190,181,1,0,0,0,190,185,1,0,0,0,190,189,1,0,0,0,191,25,1,
-        0,0,0,192,193,3,30,15,0,193,194,3,28,14,0,194,27,1,0,0,0,195,196,
-        5,29,0,0,196,197,3,30,15,0,197,198,3,28,14,0,198,205,1,0,0,0,199,
-        200,5,30,0,0,200,201,3,30,15,0,201,202,3,28,14,0,202,205,1,0,0,0,
-        203,205,1,0,0,0,204,195,1,0,0,0,204,199,1,0,0,0,204,203,1,0,0,0,
-        205,29,1,0,0,0,206,207,7,0,0,0,207,217,3,30,15,0,208,211,5,26,0,
-        0,209,211,3,50,25,0,210,208,1,0,0,0,210,209,1,0,0,0,211,217,1,0,
-        0,0,212,213,5,1,0,0,213,214,3,22,11,0,214,215,5,2,0,0,215,217,1,
-        0,0,0,216,206,1,0,0,0,216,210,1,0,0,0,216,212,1,0,0,0,217,31,1,0,
-        0,0,218,219,5,14,0,0,219,220,5,1,0,0,220,221,3,44,22,0,221,222,5,
-        2,0,0,222,224,5,3,0,0,223,225,3,16,8,0,224,223,1,0,0,0,225,226,1,
-        0,0,0,226,224,1,0,0,0,226,227,1,0,0,0,227,235,1,0,0,0,228,229,5,
-        15,0,0,229,231,5,3,0,0,230,232,3,16,8,0,231,230,1,0,0,0,232,233,
-        1,0,0,0,233,231,1,0,0,0,233,234,1,0,0,0,234,236,1,0,0,0,235,228,
-        1,0,0,0,235,236,1,0,0,0,236,237,1,0,0,0,237,238,5,5,0,0,238,33,1,
-        0,0,0,239,240,5,16,0,0,240,241,5,1,0,0,241,242,3,44,22,0,242,243,
-        5,2,0,0,243,253,5,3,0,0,244,246,3,16,8,0,245,244,1,0,0,0,246,249,
-        1,0,0,0,247,245,1,0,0,0,247,248,1,0,0,0,248,254,1,0,0,0,249,247,
-        1,0,0,0,250,252,5,13,0,0,251,250,1,0,0,0,251,252,1,0,0,0,252,254,
-        1,0,0,0,253,247,1,0,0,0,253,251,1,0,0,0,254,255,1,0,0,0,255,256,
-        5,5,0,0,256,35,1,0,0,0,257,258,5,17,0,0,258,259,5,1,0,0,259,264,
-        5,26,0,0,260,261,5,6,0,0,261,263,5,26,0,0,262,260,1,0,0,0,263,266,
-        1,0,0,0,264,262,1,0,0,0,264,265,1,0,0,0,265,267,1,0,0,0,266,264,
-        1,0,0,0,267,268,5,2,0,0,268,37,1,0,0,0,269,270,5,18,0,0,270,271,
-        5,1,0,0,271,272,3,42,21,0,272,273,5,2,0,0,273,39,1,0,0,0,274,275,
-        5,26,0,0,275,276,5,1,0,0,276,277,3,42,21,0,277,278,5,2,0,0,278,41,
-        1,0,0,0,279,283,3,44,22,0,280,283,3,48,24,0,281,283,3,40,20,0,282,
-        279,1,0,0,0,282,280,1,0,0,0,282,281,1,0,0,0,283,292,1,0,0,0,284,
-        288,5,6,0,0,285,289,3,44,22,0,286,289,3,48,24,0,287,289,3,40,20,
-        0,288,285,1,0,0,0,288,286,1,0,0,0,288,287,1,0,0,0,289,291,1,0,0,
-        0,290,284,1,0,0,0,291,294,1,0,0,0,292,290,1,0,0,0,292,293,1,0,0,
-        0,293,296,1,0,0,0,294,292,1,0,0,0,295,282,1,0,0,0,295,296,1,0,0,
-        0,296,43,1,0,0,0,297,298,5,1,0,0,298,299,3,44,22,0,299,300,5,2,0,
-        0,300,301,3,46,23,0,301,313,1,0,0,0,302,303,5,19,0,0,303,304,3,44,
-        22,0,304,305,3,46,23,0,305,313,1,0,0,0,306,307,3,48,24,0,307,308,
-        3,46,23,0,308,313,1,0,0,0,309,310,3,22,11,0,310,311,3,46,23,0,311,
-        313,1,0,0,0,312,297,1,0,0,0,312,302,1,0,0,0,312,306,1,0,0,0,312,
-        309,1,0,0,0,313,45,1,0,0,0,314,315,5,33,0,0,315,316,3,44,22,0,316,
-        317,3,46,23,0,317,320,1,0,0,0,318,320,1,0,0,0,319,314,1,0,0,0,319,
-        318,1,0,0,0,320,47,1,0,0,0,321,327,3,50,25,0,322,327,5,20,0,0,323,
-        327,5,21,0,0,324,327,5,23,0,0,325,327,5,26,0,0,326,321,1,0,0,0,326,
-        322,1,0,0,0,326,323,1,0,0,0,326,324,1,0,0,0,326,325,1,0,0,0,327,
-        49,1,0,0,0,328,329,7,1,0,0,329,51,1,0,0,0,36,55,67,72,78,83,85,94,
-        97,105,112,117,127,138,149,156,164,168,174,190,204,210,216,226,233,
-        235,247,251,253,264,282,288,292,295,312,319,326
+        7,20,2,21,7,21,2,22,7,22,1,0,5,0,48,8,0,10,0,12,0,51,9,0,1,0,1,0,
+        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,3,2,65,8,2,1,2,5,2,68,8,
+        2,10,2,12,2,71,9,2,1,3,1,3,1,3,5,3,76,8,3,10,3,12,3,79,9,3,1,4,1,
+        4,1,4,5,4,84,8,4,10,4,12,4,87,9,4,3,4,89,8,4,1,5,1,5,1,5,1,6,1,6,
+        1,6,3,6,97,8,6,1,6,5,6,100,8,6,10,6,12,6,103,9,6,1,6,1,6,1,7,1,7,
+        1,7,4,7,110,8,7,11,7,12,7,111,1,8,1,8,1,8,1,8,1,8,1,8,1,8,5,8,121,
+        8,8,10,8,12,8,124,9,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,3,8,134,8,
+        8,1,8,1,8,1,9,4,9,139,8,9,11,9,12,9,140,1,9,1,9,1,9,1,9,1,9,1,9,
+        1,9,3,9,150,8,9,1,9,1,9,3,9,154,8,9,1,10,1,10,1,10,1,10,3,10,160,
+        8,10,1,11,1,11,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,1,12,3,12,
+        173,8,12,3,12,175,8,12,1,12,1,12,1,12,1,12,1,12,1,12,5,12,183,8,
+        12,10,12,12,12,186,9,12,1,13,1,13,1,13,1,13,1,13,1,13,4,13,194,8,
+        13,11,13,12,13,195,1,13,1,13,1,13,4,13,201,8,13,11,13,12,13,202,
+        3,13,205,8,13,1,13,1,13,1,14,1,14,1,14,1,14,1,14,1,14,5,14,215,8,
+        14,10,14,12,14,218,9,14,1,14,3,14,221,8,14,3,14,223,8,14,1,14,1,
+        14,1,15,1,15,1,15,1,15,1,15,5,15,232,8,15,10,15,12,15,235,9,15,1,
+        15,1,15,1,16,1,16,1,16,1,16,1,16,1,17,1,17,1,17,1,17,1,17,1,18,1,
+        18,1,18,3,18,252,8,18,1,18,1,18,1,18,1,18,3,18,258,8,18,5,18,260,
+        8,18,10,18,12,18,263,9,18,3,18,265,8,18,1,19,1,19,1,19,1,19,1,19,
+        1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,3,19,282,8,19,
+        1,20,1,20,1,20,1,20,1,20,3,20,289,8,20,1,21,1,21,1,21,1,21,1,21,
+        3,21,296,8,21,1,22,1,22,1,22,0,1,24,23,0,2,4,6,8,10,12,14,16,18,
+        20,22,24,26,28,30,32,34,36,38,40,42,44,0,3,1,0,29,30,1,0,31,32,1,
+        0,24,25,324,0,49,1,0,0,0,2,54,1,0,0,0,4,64,1,0,0,0,6,72,1,0,0,0,
+        8,88,1,0,0,0,10,90,1,0,0,0,12,93,1,0,0,0,14,106,1,0,0,0,16,133,1,
+        0,0,0,18,153,1,0,0,0,20,155,1,0,0,0,22,161,1,0,0,0,24,174,1,0,0,
+        0,26,187,1,0,0,0,28,208,1,0,0,0,30,226,1,0,0,0,32,238,1,0,0,0,34,
+        243,1,0,0,0,36,264,1,0,0,0,38,281,1,0,0,0,40,288,1,0,0,0,42,295,
+        1,0,0,0,44,297,1,0,0,0,46,48,3,2,1,0,47,46,1,0,0,0,48,51,1,0,0,0,
+        49,47,1,0,0,0,49,50,1,0,0,0,50,52,1,0,0,0,51,49,1,0,0,0,52,53,3,
+        12,6,0,53,1,1,0,0,0,54,55,5,26,0,0,55,56,5,1,0,0,56,57,3,8,4,0,57,
+        58,5,2,0,0,58,59,5,3,0,0,59,60,5,21,0,0,60,61,3,4,2,0,61,62,5,4,
+        0,0,62,3,1,0,0,0,63,65,3,14,7,0,64,63,1,0,0,0,64,65,1,0,0,0,65,69,
+        1,0,0,0,66,68,3,18,9,0,67,66,1,0,0,0,68,71,1,0,0,0,69,67,1,0,0,0,
+        69,70,1,0,0,0,70,5,1,0,0,0,71,69,1,0,0,0,72,77,5,5,0,0,73,76,3,42,
+        21,0,74,76,3,38,19,0,75,73,1,0,0,0,75,74,1,0,0,0,76,79,1,0,0,0,77,
+        75,1,0,0,0,77,78,1,0,0,0,78,7,1,0,0,0,79,77,1,0,0,0,80,85,3,10,5,
+        0,81,82,5,6,0,0,82,84,3,10,5,0,83,81,1,0,0,0,84,87,1,0,0,0,85,83,
+        1,0,0,0,85,86,1,0,0,0,86,89,1,0,0,0,87,85,1,0,0,0,88,80,1,0,0,0,
+        88,89,1,0,0,0,89,9,1,0,0,0,90,91,5,21,0,0,91,92,5,26,0,0,92,11,1,
+        0,0,0,93,94,5,7,0,0,94,96,5,3,0,0,95,97,3,14,7,0,96,95,1,0,0,0,96,
+        97,1,0,0,0,97,101,1,0,0,0,98,100,3,18,9,0,99,98,1,0,0,0,100,103,
+        1,0,0,0,101,99,1,0,0,0,101,102,1,0,0,0,102,104,1,0,0,0,103,101,1,
+        0,0,0,104,105,5,4,0,0,105,13,1,0,0,0,106,107,5,8,0,0,107,109,5,3,
+        0,0,108,110,3,16,8,0,109,108,1,0,0,0,110,111,1,0,0,0,111,109,1,0,
+        0,0,111,112,1,0,0,0,112,15,1,0,0,0,113,114,5,9,0,0,114,115,5,26,
+        0,0,115,116,5,10,0,0,116,134,3,42,21,0,117,122,5,26,0,0,118,119,
+        5,6,0,0,119,121,5,26,0,0,120,118,1,0,0,0,121,124,1,0,0,0,122,120,
+        1,0,0,0,122,123,1,0,0,0,123,125,1,0,0,0,124,122,1,0,0,0,125,126,
+        5,3,0,0,126,134,5,21,0,0,127,128,5,26,0,0,128,129,5,10,0,0,129,130,
+        3,42,21,0,130,131,5,3,0,0,131,132,5,21,0,0,132,134,1,0,0,0,133,113,
+        1,0,0,0,133,117,1,0,0,0,133,127,1,0,0,0,134,135,1,0,0,0,135,136,
+        5,11,0,0,136,17,1,0,0,0,137,139,3,26,13,0,138,137,1,0,0,0,139,140,
+        1,0,0,0,140,138,1,0,0,0,140,141,1,0,0,0,141,154,1,0,0,0,142,154,
+        3,28,14,0,143,150,3,32,16,0,144,150,3,30,15,0,145,150,3,20,10,0,
+        146,150,3,34,17,0,147,150,3,22,11,0,148,150,3,6,3,0,149,143,1,0,
+        0,0,149,144,1,0,0,0,149,145,1,0,0,0,149,146,1,0,0,0,149,147,1,0,
+        0,0,149,148,1,0,0,0,150,151,1,0,0,0,151,152,5,11,0,0,152,154,1,0,
+        0,0,153,138,1,0,0,0,153,142,1,0,0,0,153,149,1,0,0,0,154,19,1,0,0,
+        0,155,156,5,26,0,0,156,159,5,10,0,0,157,160,3,24,12,0,158,160,3,
+        42,21,0,159,157,1,0,0,0,159,158,1,0,0,0,160,21,1,0,0,0,161,162,5,
+        12,0,0,162,23,1,0,0,0,163,164,6,12,-1,0,164,165,5,32,0,0,165,175,
+        3,24,12,5,166,167,5,1,0,0,167,168,3,24,12,0,168,169,5,2,0,0,169,
+        175,1,0,0,0,170,173,5,26,0,0,171,173,3,44,22,0,172,170,1,0,0,0,172,
+        171,1,0,0,0,173,175,1,0,0,0,174,163,1,0,0,0,174,166,1,0,0,0,174,
+        172,1,0,0,0,175,184,1,0,0,0,176,177,10,3,0,0,177,178,7,0,0,0,178,
+        183,3,24,12,4,179,180,10,2,0,0,180,181,7,1,0,0,181,183,3,24,12,3,
+        182,176,1,0,0,0,182,179,1,0,0,0,183,186,1,0,0,0,184,182,1,0,0,0,
+        184,185,1,0,0,0,185,25,1,0,0,0,186,184,1,0,0,0,187,188,5,13,0,0,
+        188,189,5,1,0,0,189,190,3,38,19,0,190,191,5,2,0,0,191,193,5,3,0,
+        0,192,194,3,18,9,0,193,192,1,0,0,0,194,195,1,0,0,0,195,193,1,0,0,
+        0,195,196,1,0,0,0,196,204,1,0,0,0,197,198,5,14,0,0,198,200,5,3,0,
+        0,199,201,3,18,9,0,200,199,1,0,0,0,201,202,1,0,0,0,202,200,1,0,0,
+        0,202,203,1,0,0,0,203,205,1,0,0,0,204,197,1,0,0,0,204,205,1,0,0,
+        0,205,206,1,0,0,0,206,207,5,4,0,0,207,27,1,0,0,0,208,209,5,15,0,
+        0,209,210,5,1,0,0,210,211,3,38,19,0,211,212,5,2,0,0,212,222,5,3,
+        0,0,213,215,3,18,9,0,214,213,1,0,0,0,215,218,1,0,0,0,216,214,1,0,
+        0,0,216,217,1,0,0,0,217,223,1,0,0,0,218,216,1,0,0,0,219,221,5,12,
+        0,0,220,219,1,0,0,0,220,221,1,0,0,0,221,223,1,0,0,0,222,216,1,0,
+        0,0,222,220,1,0,0,0,223,224,1,0,0,0,224,225,5,4,0,0,225,29,1,0,0,
+        0,226,227,5,16,0,0,227,228,5,1,0,0,228,233,5,26,0,0,229,230,5,6,
+        0,0,230,232,5,26,0,0,231,229,1,0,0,0,232,235,1,0,0,0,233,231,1,0,
+        0,0,233,234,1,0,0,0,234,236,1,0,0,0,235,233,1,0,0,0,236,237,5,2,
+        0,0,237,31,1,0,0,0,238,239,5,17,0,0,239,240,5,1,0,0,240,241,3,36,
+        18,0,241,242,5,2,0,0,242,33,1,0,0,0,243,244,5,26,0,0,244,245,5,1,
+        0,0,245,246,3,36,18,0,246,247,5,2,0,0,247,35,1,0,0,0,248,252,3,38,
+        19,0,249,252,3,42,21,0,250,252,3,34,17,0,251,248,1,0,0,0,251,249,
+        1,0,0,0,251,250,1,0,0,0,252,261,1,0,0,0,253,257,5,6,0,0,254,258,
+        3,38,19,0,255,258,3,42,21,0,256,258,3,34,17,0,257,254,1,0,0,0,257,
+        255,1,0,0,0,257,256,1,0,0,0,258,260,1,0,0,0,259,253,1,0,0,0,260,
+        263,1,0,0,0,261,259,1,0,0,0,261,262,1,0,0,0,262,265,1,0,0,0,263,
+        261,1,0,0,0,264,251,1,0,0,0,264,265,1,0,0,0,265,37,1,0,0,0,266,267,
+        5,1,0,0,267,268,3,38,19,0,268,269,5,2,0,0,269,270,3,40,20,0,270,
+        282,1,0,0,0,271,272,5,18,0,0,272,273,3,38,19,0,273,274,3,40,20,0,
+        274,282,1,0,0,0,275,276,3,42,21,0,276,277,3,40,20,0,277,282,1,0,
+        0,0,278,279,3,24,12,0,279,280,3,40,20,0,280,282,1,0,0,0,281,266,
+        1,0,0,0,281,271,1,0,0,0,281,275,1,0,0,0,281,278,1,0,0,0,282,39,1,
+        0,0,0,283,284,5,33,0,0,284,285,3,38,19,0,285,286,3,40,20,0,286,289,
+        1,0,0,0,287,289,1,0,0,0,288,283,1,0,0,0,288,287,1,0,0,0,289,41,1,
+        0,0,0,290,296,3,44,22,0,291,296,5,19,0,0,292,296,5,20,0,0,293,296,
+        5,22,0,0,294,296,5,26,0,0,295,290,1,0,0,0,295,291,1,0,0,0,295,292,
+        1,0,0,0,295,293,1,0,0,0,295,294,1,0,0,0,296,43,1,0,0,0,297,298,7,
+        2,0,0,298,45,1,0,0,0,34,49,64,69,75,77,85,88,96,101,111,122,133,
+        140,149,153,159,172,174,182,184,195,202,204,216,220,222,233,251,
+        257,261,264,281,288,295
     ]
 
 class jauanParser ( Parser ):
@@ -139,52 +130,50 @@ class jauanParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'('", "')'", "':'", "'void'", "'end'", 
-                     "','", "'return'", "';'", "'main'", "'var'", "'const'", 
-                     "'='", "'break'", "'if'", "'else'", "'while'", "'scanf'", 
+    literalNames = [ "<INVALID>", "'('", "')'", "':'", "'end'", "'return'", 
+                     "','", "'main'", "'var'", "'const'", "'='", "';'", 
+                     "'break'", "'if'", "'else'", "'while'", "'scanf'", 
                      "'print'", "'!'", "'true'", "'false'", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "'*'", "'/'", "'+'", "'-'" ]
+                     "<INVALID>", "<INVALID>", "<INVALID>", "'*'", "'/'", 
+                     "'+'", "'-'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "TIPO", "STRING", "INT", 
-                      "FLOAT", "ID", "LETRA", "DIGITO", "MUL", "DIV", "ADD", 
-                      "SUB", "OPERADOR", "WS" ]
+                      "<INVALID>", "TIPO", "STRING", "ESC", "INT", "FLOAT", 
+                      "ID", "ID_LETTER", "DIGITO", "MUL", "DIV", "ADD", 
+                      "SUB", "OPERADOR", "WS", "LINE_COMMENT", "COMMENT" ]
 
     RULE_prog = 0
     RULE_declar_funcao = 1
-    RULE_args_formal = 2
-    RULE_parametro = 3
-    RULE_retorno = 4
-    RULE_main = 5
-    RULE_var = 6
-    RULE_declaracao = 7
-    RULE_comando = 8
-    RULE_comando_atribuicao = 9
-    RULE_break = 10
-    RULE_op_algebrico = 11
-    RULE_e1 = 12
-    RULE_t = 13
-    RULE_t1 = 14
-    RULE_g = 15
-    RULE_ifElse = 16
-    RULE_while = 17
-    RULE_scanf = 18
-    RULE_print = 19
-    RULE_inst_funcao = 20
-    RULE_args_real = 21
-    RULE_expr = 22
-    RULE_expr1 = 23
-    RULE_value = 24
-    RULE_num = 25
+    RULE_bloco = 2
+    RULE_retorno = 3
+    RULE_args_formal = 4
+    RULE_parametro = 5
+    RULE_main = 6
+    RULE_var = 7
+    RULE_declaracao = 8
+    RULE_comando = 9
+    RULE_comando_atribuicao = 10
+    RULE_break = 11
+    RULE_op_algebrico = 12
+    RULE_ifElse = 13
+    RULE_while = 14
+    RULE_scanf = 15
+    RULE_print = 16
+    RULE_inst_funcao = 17
+    RULE_args_real = 18
+    RULE_expr = 19
+    RULE_expr1 = 20
+    RULE_value = 21
+    RULE_num = 22
 
-    ruleNames =  [ "prog", "declar_funcao", "args_formal", "parametro", 
-                   "retorno", "main", "var", "declaracao", "comando", "comando_atribuicao", 
-                   "break", "op_algebrico", "e1", "t", "t1", "g", "ifElse", 
+    ruleNames =  [ "prog", "declar_funcao", "bloco", "retorno", "args_formal", 
+                   "parametro", "main", "var", "declaracao", "comando", 
+                   "comando_atribuicao", "break", "op_algebrico", "ifElse", 
                    "while", "scanf", "print", "inst_funcao", "args_real", 
                    "expr", "expr1", "value", "num" ]
 
@@ -209,13 +198,13 @@ class jauanParser ( Parser ):
     T__17=18
     T__18=19
     T__19=20
-    T__20=21
-    TIPO=22
-    STRING=23
+    TIPO=21
+    STRING=22
+    ESC=23
     INT=24
     FLOAT=25
     ID=26
-    LETRA=27
+    ID_LETTER=27
     DIGITO=28
     MUL=29
     DIV=30
@@ -223,6 +212,8 @@ class jauanParser ( Parser ):
     SUB=32
     OPERADOR=33
     WS=34
+    LINE_COMMENT=35
+    COMMENT=36
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -272,17 +263,17 @@ class jauanParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 55
+            self.state = 49
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==26:
-                self.state = 52
+                self.state = 46
                 self.declar_funcao()
-                self.state = 57
+                self.state = 51
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 58
+            self.state = 52
             self.main()
         except RecognitionException as re:
             localctx.exception = re
@@ -310,19 +301,8 @@ class jauanParser ( Parser ):
         def TIPO(self):
             return self.getToken(jauanParser.TIPO, 0)
 
-        def retorno(self):
-            return self.getTypedRuleContext(jauanParser.RetornoContext,0)
-
-
-        def var(self):
-            return self.getTypedRuleContext(jauanParser.VarContext,0)
-
-
-        def comando(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(jauanParser.ComandoContext)
-            else:
-                return self.getTypedRuleContext(jauanParser.ComandoContext,i)
+        def bloco(self):
+            return self.getTypedRuleContext(jauanParser.BlocoContext,0)
 
 
         def getRuleIndex(self):
@@ -343,77 +323,165 @@ class jauanParser ( Parser ):
 
         localctx = jauanParser.Declar_funcaoContext(self, self._ctx, self.state)
         self.enterRule(localctx, 2, self.RULE_declar_funcao)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 54
+            self.match(jauanParser.ID)
+            self.state = 55
+            self.match(jauanParser.T__0)
+            self.state = 56
+            self.args_formal()
+            self.state = 57
+            self.match(jauanParser.T__1)
+            self.state = 58
+            self.match(jauanParser.T__2)
+            self.state = 59
+            self.match(jauanParser.TIPO)
+            self.state = 60
+            self.bloco()
+            self.state = 61
+            self.match(jauanParser.T__3)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class BlocoContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def var(self):
+            return self.getTypedRuleContext(jauanParser.VarContext,0)
+
+
+        def comando(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(jauanParser.ComandoContext)
+            else:
+                return self.getTypedRuleContext(jauanParser.ComandoContext,i)
+
+
+        def getRuleIndex(self):
+            return jauanParser.RULE_bloco
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterBloco" ):
+                listener.enterBloco(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitBloco" ):
+                listener.exitBloco(self)
+
+
+
+
+    def bloco(self):
+
+        localctx = jauanParser.BlocoContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 4, self.RULE_bloco)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 60
-            self.match(jauanParser.ID)
-            self.state = 61
-            self.match(jauanParser.T__0)
-            self.state = 62
-            self.args_formal()
-            self.state = 63
-            self.match(jauanParser.T__1)
             self.state = 64
-            self.match(jauanParser.T__2)
-            self.state = 85
             self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [22]:
-                self.state = 65
-                self.match(jauanParser.TIPO)
-                self.state = 67
+            _la = self._input.LA(1)
+            if _la==8:
+                self.state = 63
+                self.var()
+
+
+            self.state = 69
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 67350560) != 0):
+                self.state = 66
+                self.comando()
+                self.state = 71
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==10:
-                    self.state = 66
-                    self.var()
+
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
 
 
-                self.state = 70 
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                while True:
-                    self.state = 69
-                    self.comando()
-                    self.state = 72 
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
-                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 67592192) != 0)):
-                        break
+    class RetornoContext(ParserRuleContext):
+        __slots__ = 'parser'
 
-                self.state = 74
-                self.retorno()
-                pass
-            elif token in [4]:
-                self.state = 76
-                self.match(jauanParser.T__3)
-                self.state = 78
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                if _la==10:
-                    self.state = 77
-                    self.var()
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
 
-
-                self.state = 81 
-                self._errHandler.sync(self)
-                _la = self._input.LA(1)
-                while True:
-                    self.state = 80
-                    self.comando()
-                    self.state = 83 
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
-                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 67592192) != 0)):
-                        break
-
-                pass
+        def value(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(jauanParser.ValueContext)
             else:
-                raise NoViableAltException(self)
+                return self.getTypedRuleContext(jauanParser.ValueContext,i)
 
-            self.state = 87
+
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(jauanParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(jauanParser.ExprContext,i)
+
+
+        def getRuleIndex(self):
+            return jauanParser.RULE_retorno
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterRetorno" ):
+                listener.enterRetorno(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitRetorno" ):
+                listener.exitRetorno(self)
+
+
+
+
+    def retorno(self):
+
+        localctx = jauanParser.RetornoContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 6, self.RULE_retorno)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 72
             self.match(jauanParser.T__4)
+            self.state = 77
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 4418437122) != 0):
+                self.state = 75
+                self._errHandler.sync(self)
+                la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
+                if la_ == 1:
+                    self.state = 73
+                    self.value()
+                    pass
+
+                elif la_ == 2:
+                    self.state = 74
+                    self.expr()
+                    pass
+
+
+                self.state = 79
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -454,25 +522,25 @@ class jauanParser ( Parser ):
     def args_formal(self):
 
         localctx = jauanParser.Args_formalContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 4, self.RULE_args_formal)
+        self.enterRule(localctx, 8, self.RULE_args_formal)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 97
+            self.state = 88
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==22:
-                self.state = 89
+            if _la==21:
+                self.state = 80
                 self.parametro()
-                self.state = 94
+                self.state = 85
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==6:
-                    self.state = 90
+                    self.state = 81
                     self.match(jauanParser.T__5)
-                    self.state = 91
+                    self.state = 82
                     self.parametro()
-                    self.state = 96
+                    self.state = 87
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -517,75 +585,13 @@ class jauanParser ( Parser ):
     def parametro(self):
 
         localctx = jauanParser.ParametroContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_parametro)
+        self.enterRule(localctx, 10, self.RULE_parametro)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 99
+            self.state = 90
             self.match(jauanParser.TIPO)
-            self.state = 100
+            self.state = 91
             self.match(jauanParser.ID)
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class RetornoContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def value(self):
-            return self.getTypedRuleContext(jauanParser.ValueContext,0)
-
-
-        def expr(self):
-            return self.getTypedRuleContext(jauanParser.ExprContext,0)
-
-
-        def getRuleIndex(self):
-            return jauanParser.RULE_retorno
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterRetorno" ):
-                listener.enterRetorno(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitRetorno" ):
-                listener.exitRetorno(self)
-
-
-
-
-    def retorno(self):
-
-        localctx = jauanParser.RetornoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 8, self.RULE_retorno)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 102
-            self.match(jauanParser.T__6)
-            self.state = 105
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
-            if la_ == 1:
-                self.state = 103
-                self.value()
-                pass
-
-            elif la_ == 2:
-                self.state = 104
-                self.expr()
-                pass
-
-
-            self.state = 107
-            self.match(jauanParser.T__7)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -630,34 +636,34 @@ class jauanParser ( Parser ):
     def main(self):
 
         localctx = jauanParser.MainContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 10, self.RULE_main)
+        self.enterRule(localctx, 12, self.RULE_main)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 109
-            self.match(jauanParser.T__8)
-            self.state = 110
+            self.state = 93
+            self.match(jauanParser.T__6)
+            self.state = 94
             self.match(jauanParser.T__2)
-            self.state = 112
+            self.state = 96
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==10:
-                self.state = 111
+            if _la==8:
+                self.state = 95
                 self.var()
 
 
-            self.state = 117
+            self.state = 101
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 67592192) != 0):
-                self.state = 114
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 67350560) != 0):
+                self.state = 98
                 self.comando()
-                self.state = 119
+                self.state = 103
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 120
-            self.match(jauanParser.T__4)
+            self.state = 104
+            self.match(jauanParser.T__3)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -698,26 +704,26 @@ class jauanParser ( Parser ):
     def var(self):
 
         localctx = jauanParser.VarContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_var)
+        self.enterRule(localctx, 14, self.RULE_var)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 122
-            self.match(jauanParser.T__9)
-            self.state = 123
+            self.state = 106
+            self.match(jauanParser.T__7)
+            self.state = 107
             self.match(jauanParser.T__2)
-            self.state = 125 
+            self.state = 109 
             self._errHandler.sync(self)
             _alt = 1
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
-                    self.state = 124
+                    self.state = 108
                     self.declaracao()
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 127 
+                self.state = 111 
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,11,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,9,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -765,61 +771,61 @@ class jauanParser ( Parser ):
     def declaracao(self):
 
         localctx = jauanParser.DeclaracaoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_declaracao)
+        self.enterRule(localctx, 16, self.RULE_declaracao)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 149
+            self.state = 133
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
             if la_ == 1:
-                self.state = 129
-                self.match(jauanParser.T__10)
-                self.state = 130
+                self.state = 113
+                self.match(jauanParser.T__8)
+                self.state = 114
                 self.match(jauanParser.ID)
-                self.state = 131
-                self.match(jauanParser.T__11)
-                self.state = 132
+                self.state = 115
+                self.match(jauanParser.T__9)
+                self.state = 116
                 self.value()
                 pass
 
             elif la_ == 2:
-                self.state = 133
+                self.state = 117
                 self.match(jauanParser.ID)
-                self.state = 138
+                self.state = 122
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==6:
-                    self.state = 134
+                    self.state = 118
                     self.match(jauanParser.T__5)
-                    self.state = 135
+                    self.state = 119
                     self.match(jauanParser.ID)
-                    self.state = 140
+                    self.state = 124
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 141
+                self.state = 125
                 self.match(jauanParser.T__2)
-                self.state = 142
+                self.state = 126
                 self.match(jauanParser.TIPO)
                 pass
 
             elif la_ == 3:
-                self.state = 143
+                self.state = 127
                 self.match(jauanParser.ID)
-                self.state = 144
-                self.match(jauanParser.T__11)
-                self.state = 145
+                self.state = 128
+                self.match(jauanParser.T__9)
+                self.state = 129
                 self.value()
-                self.state = 146
+                self.state = 130
                 self.match(jauanParser.T__2)
-                self.state = 147
+                self.state = 131
                 self.match(jauanParser.TIPO)
                 pass
 
 
-            self.state = 151
-            self.match(jauanParser.T__7)
+            self.state = 135
+            self.match(jauanParser.T__10)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -867,6 +873,10 @@ class jauanParser ( Parser ):
             return self.getTypedRuleContext(jauanParser.BreakContext,0)
 
 
+        def retorno(self):
+            return self.getTypedRuleContext(jauanParser.RetornoContext,0)
+
+
         def getRuleIndex(self):
             return jauanParser.RULE_comando
 
@@ -884,66 +894,71 @@ class jauanParser ( Parser ):
     def comando(self):
 
         localctx = jauanParser.ComandoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_comando)
+        self.enterRule(localctx, 18, self.RULE_comando)
         try:
-            self.state = 168
+            self.state = 153
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [14]:
+            if token in [13]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 154 
+                self.state = 138 
                 self._errHandler.sync(self)
                 _alt = 1
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
-                        self.state = 153
+                        self.state = 137
                         self.ifElse()
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 156 
+                    self.state = 140 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,12,self._ctx)
 
                 pass
-            elif token in [16]:
+            elif token in [15]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 158
+                self.state = 142
                 self.while_()
                 pass
-            elif token in [13, 17, 18, 26]:
+            elif token in [5, 12, 16, 17, 26]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 164
+                self.state = 149
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
                 if la_ == 1:
-                    self.state = 159
+                    self.state = 143
                     self.print_()
                     pass
 
                 elif la_ == 2:
-                    self.state = 160
+                    self.state = 144
                     self.scanf()
                     pass
 
                 elif la_ == 3:
-                    self.state = 161
+                    self.state = 145
                     self.comando_atribuicao()
                     pass
 
                 elif la_ == 4:
-                    self.state = 162
+                    self.state = 146
                     self.inst_funcao()
                     pass
 
                 elif la_ == 5:
-                    self.state = 163
+                    self.state = 147
                     self.break_()
                     pass
 
+                elif la_ == 6:
+                    self.state = 148
+                    self.retorno()
+                    pass
 
-                self.state = 166
-                self.match(jauanParser.T__7)
+
+                self.state = 151
+                self.match(jauanParser.T__10)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -992,23 +1007,23 @@ class jauanParser ( Parser ):
     def comando_atribuicao(self):
 
         localctx = jauanParser.Comando_atribuicaoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_comando_atribuicao)
+        self.enterRule(localctx, 20, self.RULE_comando_atribuicao)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 170
+            self.state = 155
             self.match(jauanParser.ID)
-            self.state = 171
-            self.match(jauanParser.T__11)
-            self.state = 174
+            self.state = 156
+            self.match(jauanParser.T__9)
+            self.state = 159
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
             if la_ == 1:
-                self.state = 172
-                self.op_algebrico()
+                self.state = 157
+                self.op_algebrico(0)
                 pass
 
             elif la_ == 2:
-                self.state = 173
+                self.state = 158
                 self.value()
                 pass
 
@@ -1047,11 +1062,11 @@ class jauanParser ( Parser ):
     def break_(self):
 
         localctx = jauanParser.BreakContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_break)
+        self.enterRule(localctx, 22, self.RULE_break)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 176
-            self.match(jauanParser.T__12)
+            self.state = 161
+            self.match(jauanParser.T__11)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1068,347 +1083,248 @@ class jauanParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def t(self):
-            return self.getTypedRuleContext(jauanParser.TContext,0)
-
-
-        def e1(self):
-            return self.getTypedRuleContext(jauanParser.E1Context,0)
-
 
         def getRuleIndex(self):
             return jauanParser.RULE_op_algebrico
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterOp_algebrico" ):
-                listener.enterOp_algebrico(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitOp_algebrico" ):
-                listener.exitOp_algebrico(self)
+     
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
 
 
+    class UnarioContext(Op_algebricoContext):
 
-
-    def op_algebrico(self):
-
-        localctx = jauanParser.Op_algebricoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_op_algebrico)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 178
-            self.t()
-            self.state = 179
-            self.e1()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class E1Context(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def ADD(self):
-            return self.getToken(jauanParser.ADD, 0)
-
-        def t(self):
-            return self.getTypedRuleContext(jauanParser.TContext,0)
-
-
-        def e1(self):
-            return self.getTypedRuleContext(jauanParser.E1Context,0)
-
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a jauanParser.Op_algebricoContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def SUB(self):
             return self.getToken(jauanParser.SUB, 0)
+        def op_algebrico(self):
+            return self.getTypedRuleContext(jauanParser.Op_algebricoContext,0)
 
-        def getRuleIndex(self):
-            return jauanParser.RULE_e1
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterE1" ):
-                listener.enterE1(self)
+            if hasattr( listener, "enterUnario" ):
+                listener.enterUnario(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitE1" ):
-                listener.exitE1(self)
+            if hasattr( listener, "exitUnario" ):
+                listener.exitUnario(self)
 
 
+    class ParentesesContext(Op_algebricoContext):
 
-
-    def e1(self):
-
-        localctx = jauanParser.E1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_e1)
-        try:
-            self.state = 190
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [31]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 181
-                self.match(jauanParser.ADD)
-                self.state = 182
-                self.t()
-                self.state = 183
-                self.e1()
-                pass
-            elif token in [32]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 185
-                self.match(jauanParser.SUB)
-                self.state = 186
-                self.t()
-                self.state = 187
-                self.e1()
-                pass
-            elif token in [2, 6, 8, 33]:
-                self.enterOuterAlt(localctx, 3)
-
-                pass
-            else:
-                raise NoViableAltException(self)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class TContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def g(self):
-            return self.getTypedRuleContext(jauanParser.GContext,0)
-
-
-        def t1(self):
-            return self.getTypedRuleContext(jauanParser.T1Context,0)
-
-
-        def getRuleIndex(self):
-            return jauanParser.RULE_t
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterT" ):
-                listener.enterT(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitT" ):
-                listener.exitT(self)
-
-
-
-
-    def t(self):
-
-        localctx = jauanParser.TContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_t)
-        try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 192
-            self.g()
-            self.state = 193
-            self.t1()
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class T1Context(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def MUL(self):
-            return self.getToken(jauanParser.MUL, 0)
-
-        def g(self):
-            return self.getTypedRuleContext(jauanParser.GContext,0)
-
-
-        def t1(self):
-            return self.getTypedRuleContext(jauanParser.T1Context,0)
-
-
-        def DIV(self):
-            return self.getToken(jauanParser.DIV, 0)
-
-        def getRuleIndex(self):
-            return jauanParser.RULE_t1
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterT1" ):
-                listener.enterT1(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitT1" ):
-                listener.exitT1(self)
-
-
-
-
-    def t1(self):
-
-        localctx = jauanParser.T1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_t1)
-        try:
-            self.state = 204
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [29]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 195
-                self.match(jauanParser.MUL)
-                self.state = 196
-                self.g()
-                self.state = 197
-                self.t1()
-                pass
-            elif token in [30]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 199
-                self.match(jauanParser.DIV)
-                self.state = 200
-                self.g()
-                self.state = 201
-                self.t1()
-                pass
-            elif token in [2, 6, 8, 31, 32, 33]:
-                self.enterOuterAlt(localctx, 3)
-
-                pass
-            else:
-                raise NoViableAltException(self)
-
-        except RecognitionException as re:
-            localctx.exception = re
-            self._errHandler.reportError(self, re)
-            self._errHandler.recover(self, re)
-        finally:
-            self.exitRule()
-        return localctx
-
-
-    class GContext(ParserRuleContext):
-        __slots__ = 'parser'
-
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
-            super().__init__(parent, invokingState)
-            self.parser = parser
-
-        def g(self):
-            return self.getTypedRuleContext(jauanParser.GContext,0)
-
-
-        def ADD(self):
-            return self.getToken(jauanParser.ADD, 0)
-
-        def SUB(self):
-            return self.getToken(jauanParser.SUB, 0)
-
-        def ID(self):
-            return self.getToken(jauanParser.ID, 0)
-
-        def num(self):
-            return self.getTypedRuleContext(jauanParser.NumContext,0)
-
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a jauanParser.Op_algebricoContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def op_algebrico(self):
             return self.getTypedRuleContext(jauanParser.Op_algebricoContext,0)
 
 
-        def getRuleIndex(self):
-            return jauanParser.RULE_g
-
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterG" ):
-                listener.enterG(self)
+            if hasattr( listener, "enterParenteses" ):
+                listener.enterParenteses(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitG" ):
-                listener.exitG(self)
+            if hasattr( listener, "exitParenteses" ):
+                listener.exitParenteses(self)
+
+
+    class MultDivContext(Op_algebricoContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a jauanParser.Op_algebricoContext
+            super().__init__(parser)
+            self.op = None # Token
+            self.copyFrom(ctx)
+
+        def op_algebrico(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(jauanParser.Op_algebricoContext)
+            else:
+                return self.getTypedRuleContext(jauanParser.Op_algebricoContext,i)
+
+        def MUL(self):
+            return self.getToken(jauanParser.MUL, 0)
+        def DIV(self):
+            return self.getToken(jauanParser.DIV, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterMultDiv" ):
+                listener.enterMultDiv(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitMultDiv" ):
+                listener.exitMultDiv(self)
+
+
+    class AddSubContext(Op_algebricoContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a jauanParser.Op_algebricoContext
+            super().__init__(parser)
+            self.op = None # Token
+            self.copyFrom(ctx)
+
+        def op_algebrico(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(jauanParser.Op_algebricoContext)
+            else:
+                return self.getTypedRuleContext(jauanParser.Op_algebricoContext,i)
+
+        def ADD(self):
+            return self.getToken(jauanParser.ADD, 0)
+        def SUB(self):
+            return self.getToken(jauanParser.SUB, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAddSub" ):
+                listener.enterAddSub(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAddSub" ):
+                listener.exitAddSub(self)
+
+
+    class OperandoContext(Op_algebricoContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a jauanParser.Op_algebricoContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def ID(self):
+            return self.getToken(jauanParser.ID, 0)
+        def num(self):
+            return self.getTypedRuleContext(jauanParser.NumContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterOperando" ):
+                listener.enterOperando(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitOperando" ):
+                listener.exitOperando(self)
 
 
 
-
-    def g(self):
-
-        localctx = jauanParser.GContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_g)
+    def op_algebrico(self, _p:int=0):
+        _parentctx = self._ctx
+        _parentState = self.state
+        localctx = jauanParser.Op_algebricoContext(self, self._ctx, _parentState)
+        _prevctx = localctx
+        _startState = 24
+        self.enterRecursionRule(localctx, 24, self.RULE_op_algebrico, _p)
         self._la = 0 # Token type
         try:
-            self.state = 216
+            self.enterOuterAlt(localctx, 1)
+            self.state = 174
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [31, 32]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 206
-                _la = self._input.LA(1)
-                if not(_la==31 or _la==32):
-                    self._errHandler.recoverInline(self)
-                else:
-                    self._errHandler.reportMatch(self)
-                    self.consume()
-                self.state = 207
-                self.g()
+            if token in [32]:
+                localctx = jauanParser.UnarioContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+
+                self.state = 164
+                self.match(jauanParser.SUB)
+                self.state = 165
+                self.op_algebrico(5)
+                pass
+            elif token in [1]:
+                localctx = jauanParser.ParentesesContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 166
+                self.match(jauanParser.T__0)
+                self.state = 167
+                self.op_algebrico(0)
+                self.state = 168
+                self.match(jauanParser.T__1)
                 pass
             elif token in [24, 25, 26]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 210
+                localctx = jauanParser.OperandoContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+                self.state = 172
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [26]:
-                    self.state = 208
+                    self.state = 170
                     self.match(jauanParser.ID)
                     pass
                 elif token in [24, 25]:
-                    self.state = 209
+                    self.state = 171
                     self.num()
                     pass
                 else:
                     raise NoViableAltException(self)
 
                 pass
-            elif token in [1]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 212
-                self.match(jauanParser.T__0)
-                self.state = 213
-                self.op_algebrico()
-                self.state = 214
-                self.match(jauanParser.T__1)
-                pass
             else:
                 raise NoViableAltException(self)
+
+            self._ctx.stop = self._input.LT(-1)
+            self.state = 184
+            self._errHandler.sync(self)
+            _alt = self._interp.adaptivePredict(self._input,19,self._ctx)
+            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                if _alt==1:
+                    if self._parseListeners is not None:
+                        self.triggerExitRuleEvent()
+                    _prevctx = localctx
+                    self.state = 182
+                    self._errHandler.sync(self)
+                    la_ = self._interp.adaptivePredict(self._input,18,self._ctx)
+                    if la_ == 1:
+                        localctx = jauanParser.MultDivContext(self, jauanParser.Op_algebricoContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_op_algebrico)
+                        self.state = 176
+                        if not self.precpred(self._ctx, 3):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
+                        self.state = 177
+                        localctx.op = self._input.LT(1)
+                        _la = self._input.LA(1)
+                        if not(_la==29 or _la==30):
+                            localctx.op = self._errHandler.recoverInline(self)
+                        else:
+                            self._errHandler.reportMatch(self)
+                            self.consume()
+                        self.state = 178
+                        self.op_algebrico(4)
+                        pass
+
+                    elif la_ == 2:
+                        localctx = jauanParser.AddSubContext(self, jauanParser.Op_algebricoContext(self, _parentctx, _parentState))
+                        self.pushNewRecursionContext(localctx, _startState, self.RULE_op_algebrico)
+                        self.state = 179
+                        if not self.precpred(self._ctx, 2):
+                            from antlr4.error.Errors import FailedPredicateException
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
+                        self.state = 180
+                        localctx.op = self._input.LT(1)
+                        _la = self._input.LA(1)
+                        if not(_la==31 or _la==32):
+                            localctx.op = self._errHandler.recoverInline(self)
+                        else:
+                            self._errHandler.reportMatch(self)
+                            self.consume()
+                        self.state = 181
+                        self.op_algebrico(3)
+                        pass
+
+             
+                self.state = 186
+                self._errHandler.sync(self)
+                _alt = self._interp.adaptivePredict(self._input,19,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
             self._errHandler.recover(self, re)
         finally:
-            self.exitRule()
+            self.unrollRecursionContexts(_parentctx)
         return localctx
 
 
@@ -1447,56 +1363,56 @@ class jauanParser ( Parser ):
     def ifElse(self):
 
         localctx = jauanParser.IfElseContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_ifElse)
+        self.enterRule(localctx, 26, self.RULE_ifElse)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 218
-            self.match(jauanParser.T__13)
-            self.state = 219
+            self.state = 187
+            self.match(jauanParser.T__12)
+            self.state = 188
             self.match(jauanParser.T__0)
-            self.state = 220
+            self.state = 189
             self.expr()
-            self.state = 221
+            self.state = 190
             self.match(jauanParser.T__1)
-            self.state = 222
+            self.state = 191
             self.match(jauanParser.T__2)
-            self.state = 224 
+            self.state = 193 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 223
+                self.state = 192
                 self.comando()
-                self.state = 226 
+                self.state = 195 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 67592192) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 67350560) != 0)):
                     break
 
-            self.state = 235
+            self.state = 204
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==15:
-                self.state = 228
-                self.match(jauanParser.T__14)
-                self.state = 229
+            if _la==14:
+                self.state = 197
+                self.match(jauanParser.T__13)
+                self.state = 198
                 self.match(jauanParser.T__2)
-                self.state = 231 
+                self.state = 200 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 230
+                    self.state = 199
                     self.comando()
-                    self.state = 233 
+                    self.state = 202 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 67592192) != 0)):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 67350560) != 0)):
                         break
 
 
 
-            self.state = 237
-            self.match(jauanParser.T__4)
+            self.state = 206
+            self.match(jauanParser.T__3)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1541,50 +1457,50 @@ class jauanParser ( Parser ):
     def while_(self):
 
         localctx = jauanParser.WhileContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_while)
+        self.enterRule(localctx, 28, self.RULE_while)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 239
-            self.match(jauanParser.T__15)
-            self.state = 240
+            self.state = 208
+            self.match(jauanParser.T__14)
+            self.state = 209
             self.match(jauanParser.T__0)
-            self.state = 241
+            self.state = 210
             self.expr()
-            self.state = 242
+            self.state = 211
             self.match(jauanParser.T__1)
-            self.state = 243
+            self.state = 212
             self.match(jauanParser.T__2)
-            self.state = 253
+            self.state = 222
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,27,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,25,self._ctx)
             if la_ == 1:
-                self.state = 247
+                self.state = 216
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while (((_la) & ~0x3f) == 0 and ((1 << _la) & 67592192) != 0):
-                    self.state = 244
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & 67350560) != 0):
+                    self.state = 213
                     self.comando()
-                    self.state = 249
+                    self.state = 218
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
                 pass
 
             elif la_ == 2:
-                self.state = 251
+                self.state = 220
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==13:
-                    self.state = 250
-                    self.match(jauanParser.T__12)
+                if _la==12:
+                    self.state = 219
+                    self.match(jauanParser.T__11)
 
 
                 pass
 
 
-            self.state = 255
-            self.match(jauanParser.T__4)
+            self.state = 224
+            self.match(jauanParser.T__3)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1624,30 +1540,30 @@ class jauanParser ( Parser ):
     def scanf(self):
 
         localctx = jauanParser.ScanfContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_scanf)
+        self.enterRule(localctx, 30, self.RULE_scanf)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 257
-            self.match(jauanParser.T__16)
-            self.state = 258
+            self.state = 226
+            self.match(jauanParser.T__15)
+            self.state = 227
             self.match(jauanParser.T__0)
 
-            self.state = 259
+            self.state = 228
             self.match(jauanParser.ID)
-            self.state = 264
+            self.state = 233
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==6:
-                self.state = 260
+                self.state = 229
                 self.match(jauanParser.T__5)
-                self.state = 261
+                self.state = 230
                 self.match(jauanParser.ID)
-                self.state = 266
+                self.state = 235
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 267
+            self.state = 236
             self.match(jauanParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -1686,17 +1602,16 @@ class jauanParser ( Parser ):
     def print_(self):
 
         localctx = jauanParser.PrintContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_print)
+        self.enterRule(localctx, 32, self.RULE_print)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 269
-            self.match(jauanParser.T__17)
-            self.state = 270
+            self.state = 238
+            self.match(jauanParser.T__16)
+            self.state = 239
             self.match(jauanParser.T__0)
-
-            self.state = 271
+            self.state = 240
             self.args_real()
-            self.state = 272
+            self.state = 241
             self.match(jauanParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -1738,16 +1653,16 @@ class jauanParser ( Parser ):
     def inst_funcao(self):
 
         localctx = jauanParser.Inst_funcaoContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_inst_funcao)
+        self.enterRule(localctx, 34, self.RULE_inst_funcao)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 274
+            self.state = 243
             self.match(jauanParser.ID)
-            self.state = 275
+            self.state = 244
             self.match(jauanParser.T__0)
-            self.state = 276
+            self.state = 245
             self.args_real()
-            self.state = 277
+            self.state = 246
             self.match(jauanParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -1803,59 +1718,59 @@ class jauanParser ( Parser ):
     def args_real(self):
 
         localctx = jauanParser.Args_realContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_args_real)
+        self.enterRule(localctx, 36, self.RULE_args_real)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 295
+            self.state = 264
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 6571950082) != 0):
-                self.state = 282
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 4418437122) != 0):
+                self.state = 251
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,29,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input,27,self._ctx)
                 if la_ == 1:
-                    self.state = 279
+                    self.state = 248
                     self.expr()
                     pass
 
                 elif la_ == 2:
-                    self.state = 280
+                    self.state = 249
                     self.value()
                     pass
 
                 elif la_ == 3:
-                    self.state = 281
+                    self.state = 250
                     self.inst_funcao()
                     pass
 
 
-                self.state = 292
+                self.state = 261
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==6:
-                    self.state = 284
+                    self.state = 253
                     self.match(jauanParser.T__5)
-                    self.state = 288
+                    self.state = 257
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,30,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input,28,self._ctx)
                     if la_ == 1:
-                        self.state = 285
+                        self.state = 254
                         self.expr()
                         pass
 
                     elif la_ == 2:
-                        self.state = 286
+                        self.state = 255
                         self.value()
                         pass
 
                     elif la_ == 3:
-                        self.state = 287
+                        self.state = 256
                         self.inst_funcao()
                         pass
 
 
-                    self.state = 294
+                    self.state = 263
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -1910,46 +1825,46 @@ class jauanParser ( Parser ):
     def expr(self):
 
         localctx = jauanParser.ExprContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_expr)
+        self.enterRule(localctx, 38, self.RULE_expr)
         try:
-            self.state = 312
+            self.state = 281
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,33,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,31,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 297
+                self.state = 266
                 self.match(jauanParser.T__0)
-                self.state = 298
+                self.state = 267
                 self.expr()
-                self.state = 299
+                self.state = 268
                 self.match(jauanParser.T__1)
-                self.state = 300
+                self.state = 269
                 self.expr1()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 302
-                self.match(jauanParser.T__18)
-                self.state = 303
+                self.state = 271
+                self.match(jauanParser.T__17)
+                self.state = 272
                 self.expr()
-                self.state = 304
+                self.state = 273
                 self.expr1()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 306
+                self.state = 275
                 self.value()
-                self.state = 307
+                self.state = 276
                 self.expr1()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 309
-                self.op_algebrico()
-                self.state = 310
+                self.state = 278
+                self.op_algebrico(0)
+                self.state = 279
                 self.expr1()
                 pass
 
@@ -1998,18 +1913,18 @@ class jauanParser ( Parser ):
     def expr1(self):
 
         localctx = jauanParser.Expr1Context(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_expr1)
+        self.enterRule(localctx, 40, self.RULE_expr1)
         try:
-            self.state = 319
+            self.state = 288
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,34,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,32,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 314
+                self.state = 283
                 self.match(jauanParser.OPERADOR)
-                self.state = 315
+                self.state = 284
                 self.expr()
-                self.state = 316
+                self.state = 285
                 self.expr1()
                 pass
 
@@ -2062,30 +1977,34 @@ class jauanParser ( Parser ):
     def value(self):
 
         localctx = jauanParser.ValueContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_value)
+        self.enterRule(localctx, 42, self.RULE_value)
         try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 326
+            self.state = 295
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [24, 25]:
-                self.state = 321
+                self.enterOuterAlt(localctx, 1)
+                self.state = 290
                 self.num()
                 pass
+            elif token in [19]:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 291
+                self.match(jauanParser.T__18)
+                pass
             elif token in [20]:
-                self.state = 322
+                self.enterOuterAlt(localctx, 3)
+                self.state = 292
                 self.match(jauanParser.T__19)
                 pass
-            elif token in [21]:
-                self.state = 323
-                self.match(jauanParser.T__20)
-                pass
-            elif token in [23]:
-                self.state = 324
+            elif token in [22]:
+                self.enterOuterAlt(localctx, 4)
+                self.state = 293
                 self.match(jauanParser.STRING)
                 pass
             elif token in [26]:
-                self.state = 325
+                self.enterOuterAlt(localctx, 5)
+                self.state = 294
                 self.match(jauanParser.ID)
                 pass
             else:
@@ -2130,11 +2049,11 @@ class jauanParser ( Parser ):
     def num(self):
 
         localctx = jauanParser.NumContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_num)
+        self.enterRule(localctx, 44, self.RULE_num)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 328
+            self.state = 297
             _la = self._input.LA(1)
             if not(_la==24 or _la==25):
                 self._errHandler.recoverInline(self)
@@ -2149,6 +2068,26 @@ class jauanParser ( Parser ):
             self.exitRule()
         return localctx
 
+
+
+    def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
+        if self._predicates == None:
+            self._predicates = dict()
+        self._predicates[12] = self.op_algebrico_sempred
+        pred = self._predicates.get(ruleIndex, None)
+        if pred is None:
+            raise Exception("No predicate with index:" + str(ruleIndex))
+        else:
+            return pred(localctx, predIndex)
+
+    def op_algebrico_sempred(self, localctx:Op_algebricoContext, predIndex:int):
+            if predIndex == 0:
+                return self.precpred(self._ctx, 3)
+         
+
+            if predIndex == 1:
+                return self.precpred(self._ctx, 2)
+         
 
 
 
