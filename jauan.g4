@@ -30,11 +30,17 @@ comando_atribuicao: ID '=' (
 
 break: 'break';
 
+op_algebrico : (ADD|SUB) op_algebrico
+        |'(' op_algebrico ')'
+        | op_algebrico (MUL|DIV) op_algebrico
+        | op_algebrico (ADD|SUB) op_algebrico
+        | (ID|num);
+/*
 op_algebrico: t e1;
 e1: ADD t e1 | SUB t e1 | ;
 t: g t1;
 t1: MUL g t1 | DIV g t1 | ;
-g: (ADD|SUB) g | (ID|num) | '('op_algebrico')';
+g: (ADD|SUB) g | (ID|num) | '('op_algebrico')';*/
 
 ifElse: 'if' '(' expr ')' ':' comando+ ('else' ':' comando+)?'end';
 
@@ -44,7 +50,8 @@ while: 'while' '(' expr ')' ':' (comando*
 scanf: 'scanf' '('(ID (',' ID)*)')';
 
 print: 'print''(' ( args_real) ')';
-STRING : '"' (~["])* '"';
+STRING : '"' (ESC|.)*? '"'; // Permite aspas duplas com escape
+ESC : '\\"' | '\\\\' ;
 
 inst_funcao : ID '(' args_real ')';
 args_real : ((expr|value|inst_funcao) (',' (expr|value|inst_funcao))*)?;
@@ -81,3 +88,5 @@ OPERADOR: ('!'
           |'<');
 
 WS: [ \f\t\r\n] -> skip;
+LINE_COMMENT : '//' .*? '\r'? '\n' -> skip; // Dá match e ignora "//" qualquer coisa '\n'
+COMMENT : '/*' .*? '*/' -> skip;  // Dá match e ignora /* qualquer coisa */
