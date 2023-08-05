@@ -1,13 +1,11 @@
 main:
     var:
     const a = 1;
-    /*
+
     while(a>b):
         if(a>3):
             break;
         end
     end
-    break*/
 
-    print(1+2);
 end

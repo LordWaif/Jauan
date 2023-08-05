@@ -99,5 +99,3 @@ class MyListener(jauanListener):
             ctx.val = int(ctx.INT().getText())
         elif ctx.FLOAT() is not None:
             ctx.val = float(ctx.FLOAT().getText())
-
-del jauanParser
