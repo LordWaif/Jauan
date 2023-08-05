@@ -1,4 +1,4 @@
-# Generated from D:/Victor/Projetos/Jauan\jauan.g4 by ANTLR 4.12.0
+# Generated from C:/Users/Reynaldo/Desktop/Jauan/Jauan\jauan.g4 by ANTLR 4.12.0
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .jauanParser import jauanParser
@@ -17,30 +17,21 @@ class jauanListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by jauanParser#main.
+    def enterMain(self, ctx:jauanParser.MainContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#main.
+    def exitMain(self, ctx:jauanParser.MainContext):
+        pass
+
+
     # Enter a parse tree produced by jauanParser#declar_funcao.
     def enterDeclar_funcao(self, ctx:jauanParser.Declar_funcaoContext):
         pass
 
     # Exit a parse tree produced by jauanParser#declar_funcao.
     def exitDeclar_funcao(self, ctx:jauanParser.Declar_funcaoContext):
-        pass
-
-
-    # Enter a parse tree produced by jauanParser#bloco.
-    def enterBloco(self, ctx:jauanParser.BlocoContext):
-        pass
-
-    # Exit a parse tree produced by jauanParser#bloco.
-    def exitBloco(self, ctx:jauanParser.BlocoContext):
-        pass
-
-
-    # Enter a parse tree produced by jauanParser#retorno.
-    def enterRetorno(self, ctx:jauanParser.RetornoContext):
-        pass
-
-    # Exit a parse tree produced by jauanParser#retorno.
-    def exitRetorno(self, ctx:jauanParser.RetornoContext):
         pass
 
 
@@ -53,21 +44,39 @@ class jauanListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by jauanParser#bloco.
+    def enterBloco(self, ctx:jauanParser.BlocoContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#bloco.
+    def exitBloco(self, ctx:jauanParser.BlocoContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#comando.
+    def enterComando(self, ctx:jauanParser.ComandoContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#comando.
+    def exitComando(self, ctx:jauanParser.ComandoContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#retorno.
+    def enterRetorno(self, ctx:jauanParser.RetornoContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#retorno.
+    def exitRetorno(self, ctx:jauanParser.RetornoContext):
+        pass
+
+
     # Enter a parse tree produced by jauanParser#parametro.
     def enterParametro(self, ctx:jauanParser.ParametroContext):
         pass
 
     # Exit a parse tree produced by jauanParser#parametro.
     def exitParametro(self, ctx:jauanParser.ParametroContext):
-        pass
-
-
-    # Enter a parse tree produced by jauanParser#main.
-    def enterMain(self, ctx:jauanParser.MainContext):
-        pass
-
-    # Exit a parse tree produced by jauanParser#main.
-    def exitMain(self, ctx:jauanParser.MainContext):
         pass
 
 
@@ -89,30 +98,12 @@ class jauanListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by jauanParser#comando.
-    def enterComando(self, ctx:jauanParser.ComandoContext):
-        pass
-
-    # Exit a parse tree produced by jauanParser#comando.
-    def exitComando(self, ctx:jauanParser.ComandoContext):
-        pass
-
-
     # Enter a parse tree produced by jauanParser#comando_atribuicao.
     def enterComando_atribuicao(self, ctx:jauanParser.Comando_atribuicaoContext):
         pass
 
     # Exit a parse tree produced by jauanParser#comando_atribuicao.
     def exitComando_atribuicao(self, ctx:jauanParser.Comando_atribuicaoContext):
-        pass
-
-
-    # Enter a parse tree produced by jauanParser#break.
-    def enterBreak(self, ctx:jauanParser.BreakContext):
-        pass
-
-    # Exit a parse tree produced by jauanParser#break.
-    def exitBreak(self, ctx:jauanParser.BreakContext):
         pass
 
 
@@ -194,6 +185,15 @@ class jauanListener(ParseTreeListener):
 
     # Exit a parse tree produced by jauanParser#print.
     def exitPrint(self, ctx:jauanParser.PrintContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#break.
+    def enterBreak(self, ctx:jauanParser.BreakContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#break.
+    def exitBreak(self, ctx:jauanParser.BreakContext):
         pass
 
 

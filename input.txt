@@ -7,5 +7,5 @@ main:
             break;
         end
     end
-
+    print(50+35);
 end

@@ -27,7 +27,7 @@ comando:
     |retorno)';');
 
 retorno:
-    'return' (value | exprAlgebrica | exprRelacional)*;
+    'return' (value | expr | expr)*;
 
 parametro:
     TIPO ID;
@@ -49,20 +49,20 @@ op_algebrico : SUB op_algebrico                     # unario
         | (ID|num)                                  # operando
         ;
 
-ifElse: 'if' '(' exprRelacional ')' ':' comando+ ('else' ':' comando+)? 'end';
-while: 'while' '(' exprRelacional ')' ':' comando+ 'end';
+ifElse: 'if' '(' expr ')' ':' comando+ ('else' ':' comando+)? 'end';
+while: 'while' '(' expr ')' ':' comando+ 'end';
 scanf: 'scanf' '('(ID (',' ID)*)')';
 print: 'print''(' args_real ')';
 break: 'break';
 
 inst_funcao : ID '(' args_real ')';
-args_real : ((exprAlgebrica|value|inst_funcao) (',' (exprAlgebrica|value|inst_funcao))*)?;
+args_real : ((expr|value|inst_funcao) (',' (expr|value|inst_funcao))*)?;
 
-exprAlgebrica: (ID | value) op_algebrico(ID | value) (op_algebrico(ID | value))*;
-exprRelacional: (ID | value) OPERADOR (ID | value);
+//exprAlgebrica: (ID | value) op_algebrico(ID | value) (op_algebrico(ID | value))*;
+//exprRelacional: (ID | value) OPERADOR (ID | value);
 
-//expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1;
-//expr1 : OPERADOR expr expr1 | ;
+expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1;
+expr1 : OPERADOR expr expr1 | ;
 
 value: num | 'true' | 'false' | STRING | ID;
 num: INT | FLOAT;
