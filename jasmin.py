@@ -167,26 +167,26 @@ def execute(jasmin_path):
     print(stdout.decode('utf-8'))
     print(stderr.decode('utf-8'))
 
-if __name__ == '__main__':
-    jasmin = Jasmin('Teste')
-    jasmin.createMain(10,10)
-    jasmin.createScanner(0)
-    adress_count = jasmin.while_loop_init('loop',0)
-    jasmin.print(adress_count)
+# if __name__ == '__main__':
+#     jasmin = Jasmin('Teste')
+#     jasmin.createMain(10,10)
+#     jasmin.createScanner(0)
+#     adress_count = jasmin.while_loop_init('loop',0)
+#     jasmin.print(adress_count)
 
-    jasmin.loadConst(10)
-    max_ = jasmin.newStoreInt()
-    jasmin.loadConst(1)
-    adress_1 = jasmin.newStoreInt()
-    jasmin.addInt(adress_count,adress_1)
-    jasmin.storeInt(adress_count)
+#     jasmin.loadConst(10)
+#     max_ = jasmin.newStoreInt()
+#     jasmin.loadConst(1)
+#     adress_1 = jasmin.newStoreInt()
+#     jasmin.addInt(adress_count,adress_1)
+#     jasmin.storeInt(adress_count)
 
-    jasmin._if(adress_count,max_,'loop_end','>')
+#     jasmin._if(adress_count,max_,'loop_end','>')
     
-    jasmin.while_loop_end('loop',adress_count)
-    jasmin.endMain()
-    jasmin.jasmin_file.close()
-    compile('Teste')
+#     jasmin.while_loop_end('loop',adress_count)
+#     jasmin.endMain()
+#     jasmin.jasmin_file.close()
+#     compile('Teste')
 
 
     

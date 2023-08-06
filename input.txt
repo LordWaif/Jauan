@@ -1,9 +1,20 @@
+funcao(): void
+    var:
+        a: int;
+
+end
+
+
 main:
     var:
-    const a = 1;
+    const a = 1, b = 3, c = true;
+    d,e,f: int;
+    g: float;
+    h: bool;
+    i: bool;
 
-    while(a>b):
-        if(a>3):
+    while(x>0):
+        if(5>5):
             break;
         end
     end

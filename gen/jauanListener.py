@@ -89,12 +89,21 @@ class jauanListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by jauanParser#declaracao.
-    def enterDeclaracao(self, ctx:jauanParser.DeclaracaoContext):
+    # Enter a parse tree produced by jauanParser#declaraConstante.
+    def enterDeclaraConstante(self, ctx:jauanParser.DeclaraConstanteContext):
         pass
 
-    # Exit a parse tree produced by jauanParser#declaracao.
-    def exitDeclaracao(self, ctx:jauanParser.DeclaracaoContext):
+    # Exit a parse tree produced by jauanParser#declaraConstante.
+    def exitDeclaraConstante(self, ctx:jauanParser.DeclaraConstanteContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#declaraVariavel.
+    def enterDeclaraVariavel(self, ctx:jauanParser.DeclaraVariavelContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#declaraVariavel.
+    def exitDeclaraVariavel(self, ctx:jauanParser.DeclaraVariavelContext):
         pass
 
 
@@ -215,21 +224,21 @@ class jauanListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by jauanParser#expr.
-    def enterExpr(self, ctx:jauanParser.ExprContext):
+    # Enter a parse tree produced by jauanParser#exprRelacional.
+    def enterExprRelacional(self, ctx:jauanParser.ExprRelacionalContext):
         pass
 
-    # Exit a parse tree produced by jauanParser#expr.
-    def exitExpr(self, ctx:jauanParser.ExprContext):
+    # Exit a parse tree produced by jauanParser#exprRelacional.
+    def exitExprRelacional(self, ctx:jauanParser.ExprRelacionalContext):
         pass
 
 
-    # Enter a parse tree produced by jauanParser#expr1.
-    def enterExpr1(self, ctx:jauanParser.Expr1Context):
+    # Enter a parse tree produced by jauanParser#exprAlgebrica.
+    def enterExprAlgebrica(self, ctx:jauanParser.ExprAlgebricaContext):
         pass
 
-    # Exit a parse tree produced by jauanParser#expr1.
-    def exitExpr1(self, ctx:jauanParser.Expr1Context):
+    # Exit a parse tree produced by jauanParser#exprAlgebrica.
+    def exitExprAlgebrica(self, ctx:jauanParser.ExprAlgebricaContext):
         pass
 
 

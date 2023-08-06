@@ -2,7 +2,7 @@ grammar jauan;
 
 //Lembrar do return das funções, deve ser obrigatório ter retorno, mas o retorno pode aparecer em qualquer lugar da função, inclusive dentro de um if ou while.
 
-prmog: (declar_funcao* main);
+prog: (declar_funcao* main);
 
 main:
     ('main' ':' bloco 'end');
@@ -32,13 +32,12 @@ retorno:
 parametro:
     TIPO ID;
 
-var:
+var:                                
     'var' ':' declaracao+;
 
 declaracao:
-     'const' ID '=' value ';'
-    |'const' ID '=' value (',' ID '=' value)* ';'
-    |ID (',' ID)* ':' TIPO ';';
+    (CONST ID '=' value | CONST ID '=' value (',' ID '=' value)*) ';' #declaraConstante
+    |ID (',' ID)* ':' TIPO ';' #declaraVariavel;
 
 comando_atribuicao: ID '=' op_algebrico | value;
 
@@ -64,10 +63,14 @@ exprAlgebrica: op_algebrico;
 //expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1;
 //expr1 : OPERADOR expr expr1 | ;
 
-value: num | 'true' | 'false' | STRING | ID;
+value: num | TRUE | FALSE | STRING | ID;
 num: INT | FLOAT;
 
+
+TRUE: 'true';
+FALSE: 'false';
 INT: DIGITO+;
+CONST: 'const';
 FLOAT: DIGITO+ '.' DIGITO+;
 TIPO: 'int' | 'str' | 'float' | 'bool' | 'void';
 ID: (ID_LETTER (ID_LETTER | DIGITO)*);
@@ -77,6 +80,7 @@ MUL: '*';
 DIV: '/';
 ADD: '+';
 SUB: '-';
+//Separar a exclamação (NOT) para funcionar somente em operadores unários, exemplo: !a > b.
 OPERADOR: ('!'|'=='|'!='|'>='|'<='|'>'|'<');
 STRING : '"' (ESC|.)*? '"'; // Permite aspas duplas com escape
 ESC : '\\"' | '\\\\' ;
