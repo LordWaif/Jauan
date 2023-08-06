@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b811b4ee-bd3f-4f4a-8468-82d372ba6d7d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gen/MyListener.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/MyListener.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauan.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauan.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanLexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanLexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanListener.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanListener.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jauan.g4" beforeDir="false" afterPath="$PROJECT_DIR$/jauan.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

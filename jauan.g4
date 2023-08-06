@@ -2,7 +2,7 @@ grammar jauan;
 
 //Lembrar do return das funções, deve ser obrigatório ter retorno, mas o retorno pode aparecer em qualquer lugar da função, inclusive dentro de um if ou while.
 
-prog: (declar_funcao* main);
+prmog: (declar_funcao* main);
 
 main:
     ('main' ':' bloco 'end');
@@ -27,7 +27,7 @@ comando:
     |retorno)';');
 
 retorno:
-    'return' (value | expr | expr)*;
+    'return' (value | exprAlgebrica | exprRelacional)*;
 
 parametro:
     TIPO ID;
@@ -49,20 +49,20 @@ op_algebrico : SUB op_algebrico                     # unario
         | (ID|num)                                  # operando
         ;
 
-ifElse: 'if' '(' expr ')' ':' comando+ ('else' ':' comando+)? 'end';
-while: 'while' '(' expr ')' ':' comando+ 'end';
+ifElse: 'if' '(' exprRelacional ')' ':' comando+ ('else' ':' comando+)? 'end';
+while: 'while' '(' exprRelacional ')' ':' comando+ 'end';
 scanf: 'scanf' '('(ID (',' ID)*)')';
 print: 'print''(' args_real ')';
 break: 'break';
 
 inst_funcao : ID '(' args_real ')';
-args_real : ((expr|value|inst_funcao) (',' (expr|value|inst_funcao))*)?;
+args_real : ((exprAlgebrica|exprRelacional|value|inst_funcao) (',' (exprAlgebrica|exprRelacional|value|inst_funcao))*)?;
 
-//exprAlgebrica: (ID | value) op_algebrico(ID | value) (op_algebrico(ID | value))*;
-//exprRelacional: (ID | value) OPERADOR (ID | value);
+exprRelacional: (ID | value) OPERADOR (ID | value);
+exprAlgebrica: op_algebrico;
 
-expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1;
-expr1 : OPERADOR expr expr1 | ;
+//expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1;
+//expr1 : OPERADOR expr expr1 | ;
 
 value: num | 'true' | 'false' | STRING | ID;
 num: INT | FLOAT;
