@@ -36,20 +36,17 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#unario.
     def exitUnario(self, ctx:jauanParser.UnarioContext):
         ctx.val = -ctx.op_algebrico().val
-        self.stack.append(ctx.val)
 
     # Exit a parse tree produced by jauanParser#parenteses.
     def exitParenteses(self, ctx:jauanParser.ParentesesContext):
         ctx.val = ctx.op_algebrico().val
-        self.stack.append(ctx.val)
 
     # Exit a parse tree produced by jauanParser#multDiv.
     def exitMultDiv(self, ctx:jauanParser.MultDivContext):
-        if ctx.op.text == 'MUL':
+        if ctx.op.text == '*':
             ctx.val = ctx.op_algebrico(0).val * ctx.op_algebrico(1).val
-        elif ctx.op.text == 'DIV':
+        elif ctx.op.text == '/':
             ctx.val = ctx.op_algebrico(0).val / ctx.op_algebrico(1).val
-        self.stack.append(ctx.val)
 
     # Exit a parse tree produced by jauanParser#addSub.
     def exitAddSub(self, ctx:jauanParser.AddSubContext):
