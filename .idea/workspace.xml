@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b811b4ee-bd3f-4f4a-8468-82d372ba6d7d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/programaJasmin.j" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.antlr/jauan.interp" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauan.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.antlr/jauan.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauan.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.antlr/jauanLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauanLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.antlr/jauanLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauanLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.antlr/jauanLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauanLexer.tokens" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.antlr/jauanParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauanParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Jauan.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Jauan.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/MyListener.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/MyListener.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/jauan.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauan.interp" afterDir="false" />
@@ -22,8 +17,8 @@
       <change beforePath="$PROJECT_DIR$/gen/jauanListener.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanListener.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/jauanParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanParser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jasmin.py" beforeDir="false" afterPath="$PROJECT_DIR$/jasmin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jauan.g4" beforeDir="false" afterPath="$PROJECT_DIR$/jauan.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/programaJasmin.j" beforeDir="false" afterPath="$PROJECT_DIR$/programaJasmin.j" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +34,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: -1
+}</component>
   <component name="ProjectId" id="2RtODNfacnXtjMxSplRLG7VCNOO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />

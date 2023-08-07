@@ -1,4 +1,4 @@
-# Generated from D:/Victor/Projetos/Jauan\jauan.g4 by ANTLR 4.12.0
+# Generated from C:/Users/victor.silva/Documents/Projetos/Jauan\jauan.g4 by ANTLR 4.12.0
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .jauanParser import jauanParser
@@ -224,12 +224,30 @@ class jauanListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by jauanParser#exprRelacional.
-    def enterExprRelacional(self, ctx:jauanParser.ExprRelacionalContext):
+    # Enter a parse tree produced by jauanParser#exprRelacionalBinaria.
+    def enterExprRelacionalBinaria(self, ctx:jauanParser.ExprRelacionalBinariaContext):
         pass
 
-    # Exit a parse tree produced by jauanParser#exprRelacional.
-    def exitExprRelacional(self, ctx:jauanParser.ExprRelacionalContext):
+    # Exit a parse tree produced by jauanParser#exprRelacionalBinaria.
+    def exitExprRelacionalBinaria(self, ctx:jauanParser.ExprRelacionalBinariaContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#op_relacional.
+    def enterOp_relacional(self, ctx:jauanParser.Op_relacionalContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#op_relacional.
+    def exitOp_relacional(self, ctx:jauanParser.Op_relacionalContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#exprRelacionalUnaria.
+    def enterExprRelacionalUnaria(self, ctx:jauanParser.ExprRelacionalUnariaContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#exprRelacionalUnaria.
+    def exitExprRelacionalUnaria(self, ctx:jauanParser.ExprRelacionalUnariaContext):
         pass
 
 

@@ -27,19 +27,19 @@ comando:
     |retorno)';');
 
 retorno:
-    'return' (value | exprAlgebrica | exprRelacional)*;
+    'return' (value | ID | exprAlgebrica | exprRelacionalBinaria | exprRelacionalUnaria)*;
 
 parametro:
     TIPO ID;
 
-var:                                
+var:
     'var' ':' declaracao+;
 
 declaracao:
-    (CONST ID '=' value | CONST ID '=' value (',' ID '=' value)*) ';' #declaraConstante
+    CONST ID '=' value (',' ID '=' value)* ';' #declaraConstante
     |ID (',' ID)* ':' TIPO ';' #declaraVariavel;
 
-comando_atribuicao: ID '=' op_algebrico | value;
+comando_atribuicao: ID '=' (op_algebrico | value | ID) ;
 
 op_algebrico : SUB op_algebrico                     # unario
         |'(' op_algebrico ')'                       # parenteses
@@ -48,22 +48,24 @@ op_algebrico : SUB op_algebrico                     # unario
         | (ID|num)                                  # operando
         ;
 
-ifElse: 'if' '(' exprRelacional ')' ':' comando+ ('else' ':' comando+)? 'end';
-while: 'while' '(' exprRelacional ')' ':' comando+ 'end';
+ifElse: 'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' comando+ ('else' ':' comando+)? 'end';
+while: 'while' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' comando+ 'end';
 scanf: 'scanf' '('(ID (',' ID)*)')';
 print: 'print''(' args_real ')';
 break: 'break';
 
 inst_funcao : ID '(' args_real ')';
-args_real : ((exprAlgebrica|exprRelacional|value|inst_funcao) (',' (exprAlgebrica|exprRelacional|value|inst_funcao))*)?;
+args_real : ((exprAlgebrica|exprRelacionalBinaria|exprRelacionalUnaria|value|ID|inst_funcao) (',' (exprAlgebrica|exprRelacionalBinaria|exprRelacionalUnaria|value|ID|inst_funcao))*)?;
 
-exprRelacional: (ID | value) OPERADOR (ID | value);
+exprRelacionalBinaria: (op_relacional OPERADOR op_relacional);
+op_relacional: (ID | value | exprRelacionalUnaria);
+exprRelacionalUnaria: ('!' (ID | value));
 exprAlgebrica: op_algebrico;
 
 //expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1;
 //expr1 : OPERADOR expr expr1 | ;
 
-value: num | TRUE | FALSE | STRING | ID;
+value: num | TRUE | FALSE | STRING;
 num: INT | FLOAT;
 
 
@@ -81,7 +83,7 @@ DIV: '/';
 ADD: '+';
 SUB: '-';
 //Separar a exclamação (NOT) para funcionar somente em operadores unários, exemplo: !a > b.
-OPERADOR: ('!'|'=='|'!='|'>='|'<='|'>'|'<');
+OPERADOR: ('=='|'!='|'>='|'<='|'>'|'<');
 STRING : '"' (ESC|.)*? '"'; // Permite aspas duplas com escape
 ESC : '\\"' | '\\\\' ;
 WS: [ \f\t\r\n] -> skip;
