@@ -14,11 +14,15 @@ TIPO = 2
 ESCOPO = 3
 VAR_OR_CONST = 4
 
+#Tratar o escopo de variáveis, como armazenar parâmetros das funções e usar somente naquela função?
+
 
 # This class defines a complete listener for a parse tree produced by jauanParser.
 class MyListener(jauanListener):
     tabelaDeSimbolos = {}
-    escopoMain = True
+    argumentosDeFuncoes = {}
+    blocoDePilha = []
+    escopoMain = False
 
     def __init__(self):
         self.stack = []
@@ -35,17 +39,19 @@ class MyListener(jauanListener):
     # Enter a parse tree produced by jauanParser#main.
     def enterMain(self, ctx: jauanParser.MainContext):
         self.jasmin.createMain(10, 10)
+        self.escopoMain = True
         pass
 
     # Exit a parse tree produced by jauanParser#main.
     def exitMain(self, ctx: jauanParser.MainContext):
-        #print(self.tabelaDeSimbolos)
+        self.escopoMain = False
         self.jasmin.endMain()
+        print(self.tabelaDeSimbolos)
         pass
 
     # Enter a parse tree produced by jauanParser#declar_funcao.
     def enterDeclar_funcao(self, ctx: jauanParser.Declar_funcaoContext):
-        self.escopoMain = False
+        self.escopoMain=False
         pass
 
     # Exit a parse tree produced by jauanParser#declar_funcao.
@@ -99,7 +105,6 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#var.
     def exitVar(self, ctx: jauanParser.VarContext):
-        # ctx.val = ctx.declaracao().val
         pass
 
     # Enter a parse tree produced by jauanParser#declaraConstante.
@@ -125,7 +130,7 @@ class MyListener(jauanListener):
                                                                                          ctx.value()[indice].val, type(
                             ctx.value()[indice].val).__name__, self.escopoMain, "const"]
             else:
-                print("Erro: Constante já declarada")
+                raise Exception("A constante " + constante.getText() + " já foi declarada")
 
     # Enter a parse tree produced by jauanParser#declaraVariavel.
     def enterDeclaraVariavel(self, ctx: jauanParser.DeclaraVariavelContext):
@@ -145,7 +150,7 @@ class MyListener(jauanListener):
                                                                                          ctx.TIPO().getText(),
                                                                                          self.escopoMain, "var"]
             else:
-                print("Erro: Variável já declarada")
+                raise Exception("A variavel '" + variavel.getText() + "' já foi declarada")
 
     # Enter a parse tree produced by jauanParser#comando_atribuicao.
     def enterComando_atribuicao(self, ctx: jauanParser.Comando_atribuicaoContext):
@@ -153,9 +158,12 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#comando_atribuicao.
     def exitComando_atribuicao(self, ctx: jauanParser.Comando_atribuicaoContext):
-        print(ctx.op_algebrico().val)
-        #CONTINUAR DAQUI, FAZER A ATRIBUIÇÃO
-        pass
+        var = self.searchSymbolTable(str(ctx.ID(0)))
+        if type(self.tabelaDeSimbolos[var][VALOR]) == type(ctx.op_algebrico().val):
+            ctx.val = ctx.op_algebrico().val
+            self.tabelaDeSimbolos[var][VALOR] = ctx.op_algebrico().val
+        else:
+            raise Exception("A variável " + str(ctx.ID(0)) + " não é do mesmo tipo do valor atribuído")
 
     # Enter a parse tree produced by jauanParser#unario.
     def enterUnario(self, ctx: jauanParser.UnarioContext):
@@ -278,8 +286,10 @@ class MyListener(jauanListener):
             ctx.val = ctx.value().val
         elif ctx.exprAlgebrica():
             ctx.val = ctx.exprAlgebrica()[0].val
-        elif ctx.exprRelacional():
-            ctx.val = ctx.exprRelacional()[0].val
+        elif ctx.exprRelacionalBinaria():
+            ctx.val = ctx.exprRelacionalBinaria()[0].val
+        elif ctx.exprRelacionalUnaria():
+            ctx.val = ctx.exprRelacionalUnaria()[0].val
 
     # Enter a parse tree produced by jauanParser#exprRelacional.
     def enterExprRelacionalBinaria(self, ctx: jauanParser.ExprRelacionalBinariaContext):
@@ -300,7 +310,7 @@ class MyListener(jauanListener):
             elif ctx.OPERADOR().getText() == '==':
                 ctx.val = ctx.op_relacional(0).val == ctx.op_relacional(1).val
         else:
-            raise Exception("Erro: Tipos incompativeis.")
+            raise Exception("Tipos das variaveis '" + ctx.op_relacional(0).getText() + "' e '" + ctx.op_relacional(1).getText() + "' incompativeis.")
 
 
     # Enter a parse tree produced by jauanParser#op_relacional.
@@ -349,7 +359,6 @@ class MyListener(jauanListener):
     def exitExprAlgebrica(self, ctx: jauanParser.ExprAlgebricaContext):
         if ctx.op_algebrico():
             ctx.val = ctx.op_algebrico().val
-        pass
 
     # Enter a parse tree produced by jauanParser#value.
     def enterValue(self, ctx: jauanParser.ValueContext):

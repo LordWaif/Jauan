@@ -1,11 +1,18 @@
+media (float n1, float n2, int n3) : float
+    var:
+    a,b:int;
+    return m;
+end
+
+
 main:
     var:
     a,b:int;
     a = 1;
-    b = 1;
+    b = 1;  
 
     while(a<5):
-        a = b + 1;
+        a = a - 5;
         print(a);
     end
 end

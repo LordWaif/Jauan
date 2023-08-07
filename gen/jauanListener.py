@@ -1,4 +1,4 @@
-# Generated from C:/Users/victor.silva/Documents/Projetos/Jauan\jauan.g4 by ANTLR 4.12.0
+# Generated from D:/Victor/Projetos/Jauan\jauan.g4 by ANTLR 4.12.0
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .jauanParser import jauanParser
