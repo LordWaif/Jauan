@@ -159,11 +159,14 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#comando_atribuicao.
     def exitComando_atribuicao(self, ctx: jauanParser.Comando_atribuicaoContext):
         var = self.searchSymbolTable(str(ctx.ID(0)))
-        if type(self.tabelaDeSimbolos[var][VALOR]) == type(ctx.op_algebrico().val):
-            ctx.val = ctx.op_algebrico().val
-            self.tabelaDeSimbolos[var][VALOR] = ctx.op_algebrico().val
+        if self.tabelaDeSimbolos[var][VAR_OR_CONST] == 'var':
+            if type(self.tabelaDeSimbolos[var][VALOR]) == type(ctx.op_algebrico().val):
+                ctx.val = ctx.op_algebrico().val
+                self.tabelaDeSimbolos[var][VALOR] = ctx.op_algebrico().val
+            else:
+                raise Exception("A variável " + str(ctx.ID(0)) + " não é do mesmo tipo do valor atribuído")
         else:
-            raise Exception("A variável " + str(ctx.ID(0)) + " não é do mesmo tipo do valor atribuído")
+            raise Exception(str(ctx.ID(0)) + " é uma constante. Era esperado uma variável")
 
     # Enter a parse tree produced by jauanParser#unario.
     def enterUnario(self, ctx: jauanParser.UnarioContext):
