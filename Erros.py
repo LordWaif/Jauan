@@ -1,4 +1,4 @@
-class ErroVariavelNaoDeclarada(Exception):
-    def __init__(self, line, id):
-        mensagem = 'Linha {}: ID não foi declarado: {}'.format(line, id)
+class ErroDeSintaxe(Exception):
+    def __init__(self, msg):
+        mensagem = '{}'.format(msg)
         super().__init__(mensagem)

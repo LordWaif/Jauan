@@ -1,5 +1,6 @@
 from antlr4 import *
 from jasmin import Jasmin
+from Erros import *
 
 from .jauanListener import jauanListener
 
@@ -46,7 +47,6 @@ class MyListener(jauanListener):
     def exitMain(self, ctx: jauanParser.MainContext):
         self.escopoMain = False
         self.jasmin.endMain()
-        print(self.tabelaDeSimbolos)
         pass
 
     # Enter a parse tree produced by jauanParser#declar_funcao.
@@ -85,7 +85,8 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#retorno.
     def enterRetorno(self, ctx: jauanParser.RetornoContext):
-        pass
+        if not self.inFunction(ctx):
+            raise Exception("'return' fora de função.")
 
     # Exit a parse tree produced by jauanParser#retorno.
     def exitRetorno(self, ctx: jauanParser.RetornoContext):
@@ -265,7 +266,7 @@ class MyListener(jauanListener):
     # Enter a parse tree produced by jauanParser#break.
     def enterBreak(self, ctx: jauanParser.BreakContext):
         if not self.inLoop(ctx):
-            print("Erro: O comando 'break' deve estar dentro de um loop.")
+            raise Exception("'break' fora de loop.")
 
     # Exit a parse tree produced by jauanParser#break.
     def exitBreak(self, ctx: jauanParser.BreakContext):
@@ -393,6 +394,14 @@ class MyListener(jauanListener):
         parent = ctx.parentCtx
         while parent is not None:
             if isinstance(parent, jauanParser.WhileContext):
+                return True
+            parent = parent.parentCtx
+        return False
+
+    def inFunction(self, ctx):
+        parent = ctx.parentCtx
+        while parent is not None:
+            if isinstance(parent, jauanParser.Declar_funcaoContext):
                 return True
             parent = parent.parentCtx
         return False
