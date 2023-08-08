@@ -237,6 +237,7 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#ifElse.
     def exitIfElse(self, ctx: jauanParser.IfElseContext):
+        print(ctx.exprRelacionalBinaria().val)
         pass
 
     # Enter a parse tree produced by jauanParser#while.
@@ -261,7 +262,7 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#print.
     def exitPrint(self, ctx: jauanParser.PrintContext):
-        print(ctx.args_real().val)
+        print(" ".join([str(_) for _ in ctx.args_real().val]))
 
     # Enter a parse tree produced by jauanParser#break.
     def enterBreak(self, ctx: jauanParser.BreakContext):
@@ -286,14 +287,26 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#args_real.
     def exitArgs_real(self, ctx: jauanParser.Args_realContext):
+        ctx.val = []
+        if ctx.ID():
+            for _id in ctx.ID():
+                if self.searchSymbolTable(_id.getText()) == None:
+                    raise Exception("Erro: Variavel '" + _id.getText() + "' nao declarada.")
+                else:
+                    key = self.searchSymbolTable(_id.getText())
+                    ctx.val.append(self.tabelaDeSimbolos[key][VALOR])
         if ctx.value():
-            ctx.val = ctx.value().val
-        elif ctx.exprAlgebrica():
-            ctx.val = ctx.exprAlgebrica()[0].val
-        elif ctx.exprRelacionalBinaria():
-            ctx.val = ctx.exprRelacionalBinaria()[0].val
-        elif ctx.exprRelacionalUnaria():
-            ctx.val = ctx.exprRelacionalUnaria()[0].val
+            for _value in ctx.value():
+                ctx.val.append(_value.val)
+        if ctx.exprAlgebrica():
+            for _exprAlgebrica in ctx.exprAlgebrica():
+                ctx.val.append(_exprAlgebrica.val)
+        if ctx.exprRelacionalBinaria():
+            for _exprRelacionalBinaria in ctx.exprRelacionalBinaria():
+                ctx.val.append(_exprRelacionalBinaria.val)
+        if ctx.exprRelacionalUnaria():
+            for _exprRelacionalUnaria in ctx.exprRelacionalUnaria():
+                ctx.val.append(_exprRelacionalUnaria.val)
 
     # Enter a parse tree produced by jauanParser#exprRelacional.
     def enterExprRelacionalBinaria(self, ctx: jauanParser.ExprRelacionalBinariaContext):
@@ -373,7 +386,7 @@ class MyListener(jauanListener):
         if ctx.num():
             ctx.val = ctx.num().val
         elif ctx.STRING():
-            ctx.val = ctx.STRING().val
+            ctx.val = ctx.STRING().getText()
         elif ctx.TRUE():
             ctx.val = ctx.TRUE().getText()
         elif ctx.FALSE():
