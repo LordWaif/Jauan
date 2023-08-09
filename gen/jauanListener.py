@@ -1,4 +1,4 @@
-# Generated from D:/Victor/Projetos/Jauan\jauan.g4 by ANTLR 4.12.0
+# Generated from C:/Users/bibil/Dropbox/PC/Documents/Jauan\jauan.g4 by ANTLR 4.11.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .jauanParser import jauanParser
@@ -170,6 +170,15 @@ class jauanListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by jauanParser#else.
+    def enterElse(self, ctx:jauanParser.ElseContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#else.
+    def exitElse(self, ctx:jauanParser.ElseContext):
+        pass
+
+
     # Enter a parse tree produced by jauanParser#while.
     def enterWhile(self, ctx:jauanParser.WhileContext):
         pass
@@ -275,6 +284,15 @@ class jauanListener(ParseTreeListener):
 
     # Exit a parse tree produced by jauanParser#num.
     def exitNum(self, ctx:jauanParser.NumContext):
+        pass
+
+
+    # Enter a parse tree produced by jauanParser#id.
+    def enterId(self, ctx:jauanParser.IdContext):
+        pass
+
+    # Exit a parse tree produced by jauanParser#id.
+    def exitId(self, ctx:jauanParser.IdContext):
         pass
 
 

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // Generated from c:\Users\marce\OneDrive\Área de Trabalho\Jauan\jauan.g4 by ANTLR 4.9.2
+=======
+// Generated from c:\Users\bibil\Dropbox\PC\Documents\Jauan\jauan.g4 by ANTLR 4.9.2
+>>>>>>> 9516a86a2ce2748c99f26876962638343069734e
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

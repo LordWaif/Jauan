@@ -1,0 +1,9 @@
+main:
+    var:
+    a,b : int;
+    a = "hello"; 
+    if (b<=4):
+        print(a);
+    print("world");
+    end
+end

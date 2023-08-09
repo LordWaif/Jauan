@@ -9,6 +9,7 @@ class Jasmin():
         self.labels = self.gerar_labels()
         self.ops = {'>=':'ge','<=':'le','>':'gt','<':'lt','==':'eq','!=':'ne'}
         self.if_module = {'comparador':'','label_if':'','tipo':'','label_end':'','label_else':'',}
+        self.types_args = {"int":"I","float":"F","bool":"I","str":"Ljava/lang/String;"}
         self.stack = list()
         self.in_execution = list()
         self.labels_history = list()
@@ -35,6 +36,9 @@ class Jasmin():
             self.storeFloat(adress)
         elif _type == 'bool':
             self.storeInt(adress)
+        elif _type == 'str':
+            self.Astore(adress)
+        self.max_locals_used += 1
 
     def gerar_labels(self):
         contador = 1
@@ -53,19 +57,20 @@ class Jasmin():
         self.jasmin_file.write('.end method\n')
 
     def printConst(self, value):
-        self.jasmin_file.write('getstatic java/lang/System/out Ljava/io/PrintStream;\n')
         if isinstance(value, int):
-            self.jasmin_file.write('ldc '+str(value)+'\n')
+            #self.jasmin_file.write('ldc '+str(value)+'\n')
             self.jasmin_file.write('invokevirtual java/io/PrintStream/println(I)V\n')
         elif isinstance(value,str):
-            self.jasmin_file.write('ldc "'+str(value)+'"\n')
+            #self.jasmin_file.write('ldc "'+str(value)+'"\n')
             self.jasmin_file.write('invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n')
         elif isinstance(value,float):
-            self.jasmin_file.write('ldc '+str(value)+'\n')
+            #self.jasmin_file.write('ldc '+str(value)+'\n')
             self.jasmin_file.write('invokevirtual java/io/PrintStream/println(F)V\n')
 
-    def print(self, adress):
+    def init_print(self):
         self.jasmin_file.write('getstatic java/lang/System/out Ljava/io/PrintStream;\n')
+
+    def print(self, adress):
         if isinstance(adress, int):
             self.jasmin_file.write('iload '+str(adress)+'\n')
             self.jasmin_file.write('invokevirtual java/io/PrintStream/println(I)V\n')
@@ -85,7 +90,6 @@ class Jasmin():
             func(self,*args, **kwargs)
         return wrapper
 
-    @verifyLimitLocals
     def createScanner(self,adress):
         self.scanner_adress = adress
         self.jasmin_file.write('new java/util/Scanner\n')
@@ -93,6 +97,19 @@ class Jasmin():
         self.jasmin_file.write('getstatic java/lang/System/in Ljava/io/InputStream;\n')
         self.jasmin_file.write('invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V\n')
         self.jasmin_file.write('astore '+str(self.scanner_adress)+'\n')
+        self.max_locals_used += 1
+
+    def createStringBuilder(self):
+        self.jasmin_file.write('new java/lang/StringBuilder\n')
+        self.jasmin_file.write('dup\n')
+        self.jasmin_file.write('invokespecial java/lang/StringBuilder/<init>()V\n')
+
+    def StringBuilderAppend(self,_type):
+        self.jasmin_file.write('invokevirtual java/lang/StringBuilder/append('+self.types_args[_type]+')Ljava/lang/StringBuilder;\n')
+
+        self.loadConst(' ',_type='str')
+        self.jasmin_file.write('invokevirtual java/lang/StringBuilder/append(Ljava/lang/String;)Ljava/lang/StringBuilder;\n')
+
 
     @verifyLimitLocals
     def readInt(self,adress):
@@ -135,18 +152,33 @@ class Jasmin():
         self.max_locals_used += 1
         return self.max_locals_used
 
+    def newAStore(self):
+        self.jasmin_file.write('astore '+str(self.max_locals_used+1)+'\n')
+        self.max_locals_used += 1
+        return self.max_locals_used
+
     def newStoreFloat(self):
         self.jasmin_file.write('fstore '+str(self.max_locals_used+1)+'\n')
         self.max_locals_used += 1
         return self.max_locals_used
 
     def jump(self,label):
-        if label not in self.labels:
+        if label not in self.labels_history:
             Warning('Label not found')
         self.jasmin_file.write('goto '+label+'\n')
 
-    def loadConst(self,value):
-        self.jasmin_file.write('ldc '+str(value)+'\n')
+    def loadConst(self,value,_type=''):
+        if _type == 'str':
+            self.jasmin_file.write('ldc "'+str(value)+'"\n')
+        else:
+            self.jasmin_file.write('ldc '+str(value)+'\n')
+
+    def Aload(self,adress):
+        self.jasmin_file.write('aload '+str(adress)+'\n')
+
+    def Astore(self,adress):
+        self.jasmin_file.write('astore '+str(adress)+'\n')
+        self.max_locals_used += 1
 
     def copy(self,adress):
         self.jasmin_file.write('iload '+str(adress)+'\n')
@@ -228,6 +260,25 @@ class Jasmin():
         self.createLabel(if_atual['label_if'])
         self.in_execution.append(if_atual)
         return if_atual['label_else'],if_atual['label_end']
+
+    def toString(self,_type):
+        if _type == 'int':
+            self.jasmin_file.write('invokestatic java/lang/Integer/toString(I)Ljava/lang/String;\n')
+        elif _type == 'float':
+            self.jasmin_file.write('f2s\n')
+
+    def swap(self):
+        self.jasmin_file.write('swap\n')
+
+    def concat(self,num_args):
+        self.jasmin_file.write(f'invokevirtual java/lang/StringBuilder/append(Ljava/lang/String;)Ljava/lang/StringBuilder;\n')  
+
+    def makeStringBuilder(self):
+        self.jasmin_file.write('invokevirtual java/lang/StringBuilder/toString()Ljava/lang/String;\n')
+        return self.newAStore()    
+
+    def exit(self):
+        self.jasmin_file.close()
 
 from subprocess import Popen, PIPE
 def compile(jasmin_path):

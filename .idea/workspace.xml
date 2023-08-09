@@ -5,11 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b811b4ee-bd3f-4f4a-8468-82d372ba6d7d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Jauan.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Jauan.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.antlr/jauan.interp" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauan.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.antlr/jauan.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauan.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.antlr/jauanLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauanLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.antlr/jauanLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauanLexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.antlr/jauanLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauanLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.antlr/jauanParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/.antlr/jauanParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Erros.py" beforeDir="false" afterPath="$PROJECT_DIR$/Erros.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gen/MyListener.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/MyListener.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauan.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauan.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauan.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauan.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanLexer.interp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanLexer.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanLexer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanLexer.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanLexer.tokens" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanListener.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanListener.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/jauanParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/gen/jauanParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jasmin.py" beforeDir="false" afterPath="$PROJECT_DIR$/jasmin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jauan.g4" beforeDir="false" afterPath="$PROJECT_DIR$/jauan.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/programaJasmin.j" beforeDir="false" afterPath="$PROJECT_DIR$/programaJasmin.j" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,16 +45,9 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/marcelo.moraes/PycharmProjects/projeto1/Jauan&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Jauan" />

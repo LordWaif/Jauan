@@ -54,8 +54,9 @@ op_algebrico:
 
 ifElse:
 	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' (
-		comando+ ( 'else' ':' comando+)? 'end'
+		comando+ (else)? 'end'
 	);
+else: 'else' ':' comando+;
 while:
 	'while' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' comando+ 'end';
 scanf: 'scanf' '(' (id (',' id)*) ')';
