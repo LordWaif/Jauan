@@ -6,7 +6,7 @@ prog: (declar_funcao* main);
 
 main: ('main' ':' bloco 'end');
 
-declar_funcao: ID '(' args_formal ')' ':' TIPO bloco 'end';
+declar_funcao: id '(' args_formal ')' ':' TIPO bloco 'end';
 
 args_formal: (parametro (',' parametro)*)?;
 
@@ -29,43 +29,43 @@ comando:
 retorno:
 	'return' (
 		value
-		| ID
+		| id
 		| exprAlgebrica
 		| exprRelacionalBinaria
 		| exprRelacionalUnaria
 	)*;
 
-parametro: TIPO ID;
+parametro: TIPO id;
 
 var: 'var' ':' declaracao+;
 
 declaracao:
-	CONST ID '=' value (',' ID '=' value)* ';'	# declaraConstante
-	| ID (',' ID)* ':' TIPO ';'					# declaraVariavel;
+	CONST ID_L '=' value (',' ID_L '=' value)* ';'	# declaraConstante
+	| ID_L (',' ID_L)* ':' TIPO ';'					# declaraVariavel;
 
-comando_atribuicao: ID '=' (op_algebrico | value | ID);
+comando_atribuicao: id '=' (id | value | op_algebrico);
 
 op_algebrico:
 	SUB op_algebrico								# unario
 	| '(' op_algebrico ')'							# parenteses
 	| op_algebrico op = (MUL | DIV) op_algebrico	# multDiv
 	| op_algebrico op = (ADD | SUB) op_algebrico	# addSub
-	| (ID | num)									# operando;
+	| (id | num)									# operando;
 
 ifElse:
-	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' comando+ (
-		'else' ':' comando+
-	)? 'end';
+	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' (
+		comando+ ( 'else' ':' comando+)? 'end'
+	);
 while:
 	'while' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' comando+ 'end';
-scanf: 'scanf' '(' (ID (',' ID)*) ')';
+scanf: 'scanf' '(' (id (',' id)*) ')';
 print: 'print' '(' args_real ')';
 break: 'break';
 
-inst_funcao: ID '(' args_real ')';
+inst_funcao: id '(' args_real ')';
 args_real: (
 		(
-			ID
+			id
 			| value
 			| exprAlgebrica
 			| exprRelacionalBinaria
@@ -73,7 +73,7 @@ args_real: (
 			| inst_funcao
 		) (
 			',' (
-				ID
+				id
 				| value
 				| exprAlgebrica
 				| exprRelacionalBinaria
@@ -84,8 +84,8 @@ args_real: (
 	)?;
 
 exprRelacionalBinaria: (op_relacional OPERADOR op_relacional);
-op_relacional: (ID | value | exprRelacionalUnaria);
-exprRelacionalUnaria: ('!' (ID | value));
+op_relacional: (id | value | exprRelacionalUnaria);
+exprRelacionalUnaria: ('!' (id | value));
 exprAlgebrica: op_algebrico;
 
 //expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1; expr1 : OPERADOR expr
@@ -100,8 +100,8 @@ INT: DIGITO+;
 CONST: 'const';
 FLOAT: DIGITO+ '.' DIGITO+;
 TIPO: 'int' | 'str' | 'float' | 'bool' | 'void';
-ID: (ID_LETTER (ID_LETTER | DIGITO)*);
-ID_LETTER: [a-zA-Z_];
+id: ID_L;
+ID_L: ([a-zA-Z_] ([a-zA-Z_] | DIGITO)*);
 DIGITO: [0-9];
 MUL: '*';
 DIV: '/';

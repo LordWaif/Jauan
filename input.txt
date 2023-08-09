@@ -1,11 +1,11 @@
 main:
     var:
-    a,b:int;
-    a = 1;
+    b,a:int;
+    a = 3;
     b = 1;  
 
-    a = a - 5;
-    if (a<0):
+    b = 2 - 5;
+    if (a<4):
         print("A é negativo",a);
     end
 end

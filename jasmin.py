@@ -1,5 +1,4 @@
 from functools import wraps
-
 class Jasmin():
     def __init__(self, jasmin_path):
         self.jasmin_path = jasmin_path
@@ -7,8 +6,41 @@ class Jasmin():
         self.jasmin_file.write('.class public '+jasmin_path+'\n')
         self.jasmin_file.write('.super java/lang/Object\n')
         self.max_locals_used = 0
-        self.labels = []
+        self.labels = self.gerar_labels()
         self.ops = {'>=':'ge','<=':'le','>':'gt','<':'lt','==':'eq','!=':'ne'}
+        self.if_module = {'comparador':'','label_if':'','tipo':'','label_end':'','label_else':'',}
+        self.stack = list()
+        self.in_execution = list()
+        self.labels_history = list()
+
+    def createNewTemp(self,_type):
+        if _type == 'int':
+            return self.newStoreInt()
+        elif _type == 'float':
+            return self.newStoreFloat()
+        return self.max_locals_used
+
+    def load(self,adress,_type):
+        if _type == 'int':
+            self.loadInt(adress)
+        elif _type == 'float':
+            self.loadFloat(adress)
+        elif _type == 'bool':
+            self.loadInt(adress) 
+
+    def store(self,adress,_type):
+        if _type == 'int':
+            self.storeInt(adress)
+        elif _type == 'float':
+            self.storeFloat(adress)
+        elif _type == 'bool':
+            self.storeInt(adress)
+
+    def gerar_labels(self):
+        contador = 1
+        while True:
+            yield f"L{contador}"
+            contador += 1
 
     def createMain(self,limit_stack,limit_locals):
         self.limit_locals = limit_locals
@@ -79,7 +111,7 @@ class Jasmin():
         self.jasmin_file.write('fstore '+str(adress)+'\n')
 
     def createLabel(self,label):
-        self.labels.append(label)
+        self.labels_history.append(label)
         self.jasmin_file.write(label+':\n')
 
     @verifyLimitLocals
@@ -137,22 +169,65 @@ class Jasmin():
     def _return(self):
         self.jasmin_file.write('return\n')
 
-    def addInt(self,adress1,adress2):
-        self.jasmin_file.write('iload '+str(adress1)+'\n')
-        self.jasmin_file.write('iload '+str(adress2)+'\n')
+    def addInt(self):
         self.jasmin_file.write('iadd\n')
 
-    def _if(self,address1,address2,label,op='>='):
-        if_label = 'if'
-        if address2 == None:
-            if_label += self.ops[op]
-            if_label += ' '+label
+    def addFloat(self):
+        self.jasmin_file.write('fadd\n')
+
+    def subInt(self):
+        self.jasmin_file.write('isub\n')
+
+    def subFloat(self):
+        self.jasmin_file.write('fsub\n')
+
+    def mulInt(self):
+        self.jasmin_file.write('imul\n')
+
+    def mulFloat(self):
+        self.jasmin_file.write('fmul\n')
+
+    def add(self,_type):
+        if _type == 'int':
+            self.addInt()
+        elif _type == 'float':
+            self.addFloat()
+
+    def sub(self,_type):
+        if _type == 'int':
+            self.subInt()
+        elif _type == 'float':
+            self.subFloat()
+
+    def mul(self,_type):
+        if _type == 'int':
+            self.mulInt()
+        elif _type == 'float':
+            self.mulFloat()
+
+    def createIfElse(self):
+        if_atual = self.if_module.copy()
+        if_atual['label_if'] = next(self.labels)
+        if_atual['label_else'] = next(self.labels)
+        if_atual['label_end'] = next(self.labels)
+        self.stack.append(if_atual)
+
+    def constructIf(self,op,_type):
+        if_atual = self.stack.pop()
+        if _type == 'zero':
+            if_atual['comparador'] = 'if'+self.ops[op]
         else:
-            if_label += '_icmp'+self.ops[op]
-            if_label += ' '+label
-        self.jasmin_file.write('iload '+str(address1)+'\n')
-        self.jasmin_file.write('iload '+str(address2)+'\n')
-        self.jasmin_file.write(if_label+'\n')
+            if_atual['comparador'] = 'if_icmp'+self.ops[op]
+        if_atual['tipo'] = _type
+        self.stack.append(if_atual)
+
+    def executeIf(self):
+        if_atual = self.stack.pop()
+        self.jasmin_file.write(if_atual['comparador']+' '+if_atual['label_if']+'\n')
+        self.jasmin_file.write('goto '+if_atual['label_else']+'\n')
+        self.createLabel(if_atual['label_if'])
+        self.in_execution.append(if_atual)
+        return if_atual['label_else'],if_atual['label_end']
 
 from subprocess import Popen, PIPE
 def compile(jasmin_path):
@@ -167,26 +242,9 @@ def execute(jasmin_path):
     print(stdout.decode('utf-8'))
     print(stderr.decode('utf-8'))
 
-# if __name__ == '__main__':
-#     jasmin = Jasmin('Teste')
-#     jasmin.createMain(10,10)
-#     jasmin.createScanner(0)
-#     adress_count = jasmin.while_loop_init('loop',0)
-#     jasmin.print(adress_count)
-
-#     jasmin.loadConst(10)
-#     max_ = jasmin.newStoreInt()
-#     jasmin.loadConst(1)
-#     adress_1 = jasmin.newStoreInt()
-#     jasmin.addInt(adress_count,adress_1)
-#     jasmin.storeInt(adress_count)
-
-#     jasmin._if(adress_count,max_,'loop_end','>')
-    
-#     jasmin.while_loop_end('loop',adress_count)
-#     jasmin.endMain()
-#     jasmin.jasmin_file.close()
-#     compile('Teste')
+if __name__ == '__main__':
+    # jasmin = Jasmin('Teste')
+    ...
 
 
     
