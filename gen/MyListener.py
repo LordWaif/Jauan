@@ -39,7 +39,8 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#main.
     def enterMain(self, ctx: jauanParser.MainContext):
-        self.jasmin.createMain(10, 10)
+        self.jasmin.createMain(20, 20)
+        self.jasmin.createScanner()
         self.escopoMain = True
         pass
 
@@ -50,15 +51,58 @@ class MyListener(jauanListener):
         self.jasmin.exit()
         pass
 
-    # Enter a parse tree produced by jauanParser#declar_funcao.
     def enterDeclar_funcao(self, ctx: jauanParser.Declar_funcaoContext):
-        self.escopoMain=False
-        pass
+        self.escopoMain = False
+
+        function_name = ctx.ID_L().getText()
+        return_type = ctx.TIPO().getText()
+
+        print("TABELA")
+        if self.searchSymbolTable(function_name) == None:
+            if len(self.tabelaDeSimbolos.keys()) == 0:
+                self.tabelaDeSimbolos[0] = [function_name,
+                                           None, return_type,
+                                           0, "function"]
+            else:
+                self.tabelaDeSimbolos[list(self.tabelaDeSimbolos.keys())[-1] + 1] = [function_name,
+                                                                                    None, return_type,
+                                                                                    0, "function"]
+        else:
+            raise Exception("Erro: Função '" + function_name + "' já foi declarada.")
 
     # Exit a parse tree produced by jauanParser#declar_funcao.
     def exitDeclar_funcao(self, ctx: jauanParser.Declar_funcaoContext):
+        function_name = ctx.ID_L().getText()
+
+        arg_form = ctx.args_formal().val
+        print(arg_form)
+        if arg_form:
+            args = arg_form.val
+            argument_list = []
+            for i,v in enumerate(args):
+                arg_type = args[i][0]
+                arg_name = args[i][1]
+                argument_info = [
+                    arg_name,
+                    None, arg_type,
+                    0, "parameter"
+                ]
+
+                if self.searchSymbolTable(arg_name) == None:
+                    if len(self.tabelaDeSimbolos.keys()) == 0:
+                        self.tabelaDeSimbolos[0] = argument_info
+                    else:
+                        self.tabelaDeSimbolos[list(self.tabelaDeSimbolos.keys())[-1] + 1] = argument_info
+                else:
+                    raise Exception("Erro: Argumento '" + arg_name + "' já foi utilizado.")
+
+                argument_list.append(arg_name)
+
+            self.argumentosDeFuncoes[function_name] = argument_list
+        print("TABELA")
+        print(self.tabelaDeSimbolos)
+        
         self.escopoMain = True
-        pass
 
     # Enter a parse tree produced by jauanParser#args_formal.
     def enterArgs_formal(self, ctx: jauanParser.Args_formalContext):
@@ -66,7 +110,7 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#args_formal.
     def exitArgs_formal(self, ctx: jauanParser.Args_formalContext):
-        pass
+        ctx.val = [[param.TIPO().getText(), param.ID_L().getText()] for param in ctx.parametro()]
 
     # Enter a parse tree produced by jauanParser#bloco.
     def enterBloco(self, ctx: jauanParser.BlocoContext):
@@ -99,7 +143,10 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#parametro.
     def exitParametro(self, ctx: jauanParser.ParametroContext):
-        pass
+        if ctx.TIPO():
+            ctx.val = ctx.TIPO().getText()
+        if ctx.ID_L():
+            ctx.val = ctx.ID_L().getText()
 
     # Enter a parse tree produced by jauanParser#var.
     def enterVar(self, ctx: jauanParser.VarContext):
@@ -144,8 +191,9 @@ class MyListener(jauanListener):
             if self.searchSymbolTable(variavel.getText()) == None:
                 valorInicial = self.atribuirValorInicial(ctx)
                 if len(self.tabelaDeSimbolos.keys()) == 0:
-                    _id = indice
-                    self.tabelaDeSimbolos[indice] = [variavel.getText(), valorInicial, ctx.TIPO().getText(),
+                    _id = self.jasmin.max_locals_used
+                    self.jasmin.max_locals_used += 1
+                    self.tabelaDeSimbolos[_id] = [variavel.getText(), valorInicial, ctx.TIPO().getText(),
                                                      self.escopoMain, "var"]
                 else:
                     _id = list(self.tabelaDeSimbolos.keys())[-1] + 1
@@ -279,11 +327,15 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#scanf.
     def enterScanf(self, ctx: jauanParser.ScanfContext):
-        pass
+        for _id in ctx.id_():
+            _id.inh = 'scanf'
 
     # Exit a parse tree produced by jauanParser#scanf.
     def exitScanf(self, ctx: jauanParser.ScanfContext):
-        pass
+        for _id in ctx.id_():
+            self.jasmin.Aload(self.jasmin.scanner_adress)
+            self.jasmin.invokeScanner(_id.type)
+            self.jasmin.store(_id.id,_id.type)
 
     # Enter a parse tree produced by jauanParser#print.
     def enterPrint(self, ctx: jauanParser.PrintContext):
@@ -372,7 +424,7 @@ class MyListener(jauanListener):
             if ctx.inh == 'if':
                 self.jasmin.load(ctx.result_address,'int')
                 lb_else,lb_end = self.jasmin.executeIf()
-                if hasattr(ctx.parentCtx,'lb_else') and hasattr(ctx.parentCtx,'lb_end'):
+                if isinstance(ctx.parentCtx.else_(), jauanParser.ElseContext):
                     ctx.parentCtx.else_().lb_else = lb_else
                     ctx.parentCtx.else_().lb_end = lb_end
         else:
@@ -483,6 +535,8 @@ class MyListener(jauanListener):
         ctx.val = self.tabelaDeSimbolos[var][VALOR]
         ctx.type = self.tabelaDeSimbolos[var][TIPO]
         ctx.id = var
+        if hasattr(ctx,'inh') and ctx.inh == 'scanf':
+            return
         if not (hasattr(ctx,'side') and ctx.side == 'left'):
             if ctx.type == 'str':
                 self.jasmin.Aload(ctx.id)

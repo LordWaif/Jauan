@@ -6,7 +6,7 @@ prog: (declar_funcao* main);
 
 main: ('main' ':' bloco 'end');
 
-declar_funcao: id '(' args_formal ')' ':' TIPO bloco 'end';
+declar_funcao: ID_L '(' args_formal ')' ':' TIPO bloco 'end';
 
 args_formal: (parametro (',' parametro)*)?;
 
@@ -35,7 +35,7 @@ retorno:
 		| exprRelacionalUnaria
 	)*;
 
-parametro: TIPO id;
+parametro: TIPO ID_L;
 
 var: 'var' ':' declaracao+;
 

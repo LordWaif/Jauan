@@ -46,7 +46,7 @@ def serializedATN():
         0,0,54,56,3,4,2,0,55,54,1,0,0,0,56,59,1,0,0,0,57,55,1,0,0,0,57,58,
         1,0,0,0,58,60,1,0,0,0,59,57,1,0,0,0,60,61,3,2,1,0,61,1,1,0,0,0,62,
         63,5,1,0,0,63,64,5,2,0,0,64,65,3,8,4,0,65,66,5,3,0,0,66,3,1,0,0,
-        0,67,68,3,52,26,0,68,69,5,4,0,0,69,70,3,6,3,0,70,71,5,5,0,0,71,72,
+        0,67,68,5,24,0,0,68,69,5,4,0,0,69,70,3,6,3,0,70,71,5,5,0,0,71,72,
         5,2,0,0,72,73,5,23,0,0,73,74,3,8,4,0,74,75,5,3,0,0,75,5,1,0,0,0,
         76,81,3,14,7,0,77,78,5,6,0,0,78,80,3,14,7,0,79,77,1,0,0,0,80,83,
         1,0,0,0,81,79,1,0,0,0,81,82,1,0,0,0,82,85,1,0,0,0,83,81,1,0,0,0,
@@ -63,7 +63,7 @@ def serializedATN():
         120,3,52,26,0,116,120,3,46,23,0,117,120,3,40,20,0,118,120,3,44,22,
         0,119,114,1,0,0,0,119,115,1,0,0,0,119,116,1,0,0,0,119,117,1,0,0,
         0,119,118,1,0,0,0,120,123,1,0,0,0,121,119,1,0,0,0,121,122,1,0,0,
-        0,122,13,1,0,0,0,123,121,1,0,0,0,124,125,5,23,0,0,125,126,3,52,26,
+        0,122,13,1,0,0,0,123,121,1,0,0,0,124,125,5,23,0,0,125,126,5,24,0,
         0,126,15,1,0,0,0,127,128,5,9,0,0,128,130,5,2,0,0,129,131,3,18,9,
         0,130,129,1,0,0,0,131,132,1,0,0,0,132,130,1,0,0,0,132,133,1,0,0,
         0,133,17,1,0,0,0,134,135,5,21,0,0,135,136,5,24,0,0,136,137,5,10,
@@ -346,9 +346,8 @@ class jauanParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def id_(self):
-            return self.getTypedRuleContext(jauanParser.IdContext,0)
-
+        def ID_L(self):
+            return self.getToken(jauanParser.ID_L, 0)
 
         def args_formal(self):
             return self.getTypedRuleContext(jauanParser.Args_formalContext,0)
@@ -382,7 +381,7 @@ class jauanParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 67
-            self.id_()
+            self.match(jauanParser.ID_L)
             self.state = 68
             self.match(jauanParser.T__3)
             self.state = 69
@@ -794,9 +793,8 @@ class jauanParser ( Parser ):
         def TIPO(self):
             return self.getToken(jauanParser.TIPO, 0)
 
-        def id_(self):
-            return self.getTypedRuleContext(jauanParser.IdContext,0)
-
+        def ID_L(self):
+            return self.getToken(jauanParser.ID_L, 0)
 
         def getRuleIndex(self):
             return jauanParser.RULE_parametro
@@ -821,7 +819,7 @@ class jauanParser ( Parser ):
             self.state = 124
             self.match(jauanParser.TIPO)
             self.state = 125
-            self.id_()
+            self.match(jauanParser.ID_L)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

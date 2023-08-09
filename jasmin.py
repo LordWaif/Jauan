@@ -90,14 +90,17 @@ class Jasmin():
             func(self,*args, **kwargs)
         return wrapper
 
-    def createScanner(self,adress):
-        self.scanner_adress = adress
+    def createScanner(self):
+        self.scanner_adress = self.max_locals_used
         self.jasmin_file.write('new java/util/Scanner\n')
         self.jasmin_file.write('dup\n')
         self.jasmin_file.write('getstatic java/lang/System/in Ljava/io/InputStream;\n')
         self.jasmin_file.write('invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V\n')
-        self.jasmin_file.write('astore '+str(self.scanner_adress)+'\n')
-        self.max_locals_used += 1
+        self.Astore(self.scanner_adress)
+
+    def invokeScanner(self,_type):
+        methods = {'str':'nextLine()Ljava/lang/String;','float':'nextFloat()F','int':'nextInt()I'}
+        self.jasmin_file.write(f'invokevirtual java/util/Scanner/{methods[_type]}\n')
 
     def createStringBuilder(self):
         self.jasmin_file.write('new java/lang/StringBuilder\n')

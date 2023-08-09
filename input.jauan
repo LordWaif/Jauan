@@ -1,9 +1,22 @@
+/*
+media (int a, int b, int c):float
+    var:
+        m : float;
+    m = (a+b+c)/3;
+    return m;
+*/
+
 main:
     var:
-    a,b : int;
-    a = "hello"; 
-    if (b<=4):
-        print(a);
-    print("world");
+        a,b : int;
+    
+    print("Digite o primeiro numero: ");
+    scanf(a);
+    print("Digite o segundo numero: ");
+    scanf(b);
+    if (a> b):
+        print("O primeiro numero",a," e maior que o segundo",b);
+    else:
+        print("O segundo numero",b," e maior que o primeiro",a);
     end
 end
