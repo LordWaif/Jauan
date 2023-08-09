@@ -6,6 +6,7 @@ main:
 
     b = 2 - 5;
     if (a<4):
+        scanf(a, b);
         print("A é negativo",a);
     end
 end
