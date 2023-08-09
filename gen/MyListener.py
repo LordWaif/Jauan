@@ -140,7 +140,7 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#declaraVariavel.
     def exitDeclaraVariavel(self, ctx: jauanParser.DeclaraVariavelContext):
-        for indice, variavel in enumerate(ctx.ID()):
+        for indice, variavel in enumerate(ctx.ID_L()):
             if self.searchSymbolTable(variavel.getText()) == None:
                 valorInicial = self.atribuirValorInicial(ctx)
                 if len(self.tabelaDeSimbolos.keys()) == 0:
@@ -165,7 +165,8 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#comando_atribuicao.
     def exitComando_atribuicao(self, ctx: jauanParser.Comando_atribuicaoContext):
-        var = self.searchSymbolTable(str(ctx.ID(0)))
+        var = ctx.id_(0).id
+        child = ctx.getChild(2)
         if self.tabelaDeSimbolos[var][VAR_OR_CONST] == 'var':
             if ctx.id_(0).type == type(child.val).__name__:
                 ctx.val = child.val
@@ -176,9 +177,9 @@ class MyListener(jauanListener):
                     self.jasmin.store(var,ctx.id_(0).type)
                 self.tabelaDeSimbolos[var][VALOR] = child.val
             else:
-                raise Exception("A variável " + str(ctx.ID(0)) + " não é do mesmo tipo do valor atribuído")
+                raise Exception("A variável " + str(ctx.id_(0).name) + " não é do mesmo tipo do valor atribuído")
         else:
-            raise Exception(str(ctx.ID(0)) + " é uma constante. Era esperado uma variável")
+            raise Exception(str(child.name) + " é uma constante. Era esperado uma variável")
 
     # Enter a parse tree produced by jauanParser#unario.
     def enterUnario(self, ctx: jauanParser.UnarioContext):
@@ -219,8 +220,10 @@ class MyListener(jauanListener):
         if type(ctx.op_algebrico(0).val) == type(ctx.op_algebrico(1).val):
             if ctx.op.text == '+':
                 ctx.val = ctx.op_algebrico(0).val + ctx.op_algebrico(1).val
+                self.jasmin.add(type(ctx.op_algebrico(0).val).__name__)
             elif ctx.op.text == '-':
                 ctx.val = ctx.op_algebrico(0).val - ctx.op_algebrico(1).val
+                self.jasmin.sub(type(ctx.op_algebrico(0).val).__name__)
         else:
             raise Exception("Erro: Tipos incompativeis.")
 
@@ -230,17 +233,15 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#operando.
     def exitOperando(self, ctx: jauanParser.OperandoContext):
-        if ctx.ID():
-            var = self.searchSymbolTable(ctx.ID().getText())
-            if var == None:
-                raise Exception("Erro: Variavel '" + ctx.ID().getText() + "' nao declarada.")
-            if self.tabelaDeSimbolos[var][TIPO] == 'int' or self.tabelaDeSimbolos[var][TIPO] == 'float':
-                ctx.val = self.tabelaDeSimbolos[var][VALOR]
+        if ctx.id_():
+            if ctx.id_().type == 'int' or ctx.id_().type == 'float':
+                ctx.val = ctx.id_().val
+                self.jasmin.load(ctx.id_().id,ctx.id_().type)
             else:
-                raise Exception("Erro: Variavel '" + ctx.ID().getText() + "' é do tipo '" + self.tabelaDeSimbolos[var][
-                    TIPO] + "' e nao do tipo int ou float.")
+                raise Exception("Erro: Variavel '" + ctx.id_().name + "' é do tipo '" + ctx.id_().type + "' e nao do tipo int ou float.")
         elif ctx.num():
             ctx.val = ctx.num().val
+            self.jasmin.loadConst(ctx.val)
 
     # Enter a parse tree produced by jauanParser#ifElse.
     def enterIfElse(self, ctx: jauanParser.IfElseContext):
@@ -282,13 +283,7 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#scanf.
     def exitScanf(self, ctx: jauanParser.ScanfContext):
-        for i in ctx.ID():
-            if self.searchSymbolTable(i.getText()) == None:
-                    raise Exception("Erro: Variavel '" + i.getText() + "' nao declarada.")
-            else:
-                key = self.searchSymbolTable(i.getText())
-                ctx.val.append(self.tabelaDeSimbolos[key][VALOR])
-                
+        pass
 
     # Enter a parse tree produced by jauanParser#print.
     def enterPrint(self, ctx: jauanParser.PrintContext):
@@ -404,15 +399,11 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#exprRelacionalUnaria.
     def exitExprRelacionalUnaria(self, ctx: jauanParser.ExprRelacionalUnariaContext):
-        if ctx.ID():
-            var = self.searchSymbolTable(ctx.ID().getText())
-            if var:
-                if self.tabelaDeSimbolos[var][TIPO] == 'bool':
-                    ctx.val = not self.tabelaDeSimbolos[var][VALOR]
-                else:
-                    raise Exception("Erro: era esperado da variável '" + self.tabelaDeSimbolos[var][ID] + "' o tipo 'bool', mas foi recebido '" + self.tabelaDeSimbolos[var][TIPO] +"'")
+        if ctx.id():
+            if ctx.id().type == 'bool':
+                ctx.val = not ctx.id().val
             else:
-                raise Exception("Erro: Variavel '" + ctx.exprRelacionalUnaria().getText()[1] + "' nao declarada.")
+                raise Exception("Erro: era esperado da variável '" + ctx.id().name + "' o tipo 'bool', mas foi recebido '" + ctx.id().type +"'")
         elif ctx.value():
             ctx.val = not ctx.value().val
 
@@ -445,8 +436,10 @@ class MyListener(jauanListener):
                 self.jasmin.StringBuilderAppend("str")
         elif ctx.TRUE():
             ctx.val = ctx.TRUE().getText()
+            self.jasmin.loadConst(1)
         elif ctx.FALSE():
             ctx.val = ctx.FALSE().getText()
+            self.jasmin.loadConst(0)
 
     # Enter a parse tree produced by jauanParser#num.
     def enterNum(self, ctx: jauanParser.NumContext):
