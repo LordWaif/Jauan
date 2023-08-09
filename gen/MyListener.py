@@ -144,13 +144,17 @@ class MyListener(jauanListener):
             if self.searchSymbolTable(variavel.getText()) == None:
                 valorInicial = self.atribuirValorInicial(ctx)
                 if len(self.tabelaDeSimbolos.keys()) == 0:
+                    _id = indice
                     self.tabelaDeSimbolos[indice] = [variavel.getText(), valorInicial, ctx.TIPO().getText(),
                                                      self.escopoMain, "var"]
                 else:
-                    self.tabelaDeSimbolos[list(self.tabelaDeSimbolos.keys())[-1] + 1] = [variavel.getText(),
-                                                                                         valorInicial,
-                                                                                         ctx.TIPO().getText(),
-                                                                                         self.escopoMain, "var"]
+                    _id = list(self.tabelaDeSimbolos.keys())[-1] + 1
+                    self.tabelaDeSimbolos[_id] = [variavel.getText(),
+                                                valorInicial,
+                                                ctx.TIPO().getText(),
+                                                self.escopoMain, "var"]
+                self.jasmin.loadConst(valorInicial,ctx.TIPO().getText())
+                self.jasmin.store(_id,ctx.TIPO().getText())
             else:
                 raise Exception("A variavel '" + variavel.getText() + "' já foi declarada")
 
@@ -249,9 +253,20 @@ class MyListener(jauanListener):
     def exitIfElse(self, ctx: jauanParser.IfElseContext):
         _if = self.jasmin.in_execution.pop()
         self.jasmin.jump(_if['label_end'])
-        self.jasmin.createLabel(_if['label_else'])
-        # Bloco do else
-        self.jasmin.createLabel(_if['label_end'])
+        if isinstance(ctx.else_(),jauanParser.ElseContext):
+            self.jasmin.createLabel(_if['label_end'])
+        else:
+            self.jasmin.createLabel(_if['label_else'])
+            self.jasmin.createLabel(_if['label_end'])
+
+    # Enter a parse tree produced by jauanParser#else.
+    def enterElse(self, ctx:jauanParser.ElseContext):
+        self.jasmin.jump(ctx.lb_end)
+        self.jasmin.createLabel(ctx.lb_else)
+        pass
+
+    # Exit a parse tree produced by jauanParser#else.
+    def exitElse(self, ctx:jauanParser.ElseContext):
         pass
 
     # Enter a parse tree produced by jauanParser#while.
@@ -356,7 +371,10 @@ class MyListener(jauanListener):
             ctx.result_address = temp
             if ctx.inh == 'if':
                 self.jasmin.load(ctx.result_address,'int')
-                self.jasmin.executeIf()
+                lb_else,lb_end = self.jasmin.executeIf()
+                if hasattr(ctx.parentCtx,'lb_else') and hasattr(ctx.parentCtx,'lb_end'):
+                    ctx.parentCtx.else_().lb_else = lb_else
+                    ctx.parentCtx.else_().lb_end = lb_end
         else:
             raise Exception("Tipos das variaveis '" + ctx.op_relacional(0).getText() + "' e '" + ctx.op_relacional(1).getText() + "' incompativeis.")
 
@@ -486,7 +504,7 @@ class MyListener(jauanListener):
             return 0
         if ctx.TIPO().getText() == 'float':
             return 0.0
-        if ctx.TIPO().getText() == 'string':
-            return ''
+        if ctx.TIPO().getText() == 'str':
+            return ""
         if ctx.TIPO().getText() == 'bool':
             return False

@@ -36,6 +36,9 @@ class Jasmin():
             self.storeFloat(adress)
         elif _type == 'bool':
             self.storeInt(adress)
+        elif _type == 'str':
+            self.Astore(adress)
+        self.max_locals_used += 1
 
     def gerar_labels(self):
         contador = 1
@@ -150,7 +153,7 @@ class Jasmin():
         return self.max_locals_used
 
     def newAStore(self):
-        self.jasmin_file.write('astore_'+str(self.max_locals_used+1)+'\n')
+        self.jasmin_file.write('astore '+str(self.max_locals_used+1)+'\n')
         self.max_locals_used += 1
         return self.max_locals_used
 
@@ -165,16 +168,17 @@ class Jasmin():
         self.jasmin_file.write('goto '+label+'\n')
 
     def loadConst(self,value,_type=''):
-        if _type == '':
-            self.jasmin_file.write('ldc '+str(value)+'\n')
-        elif _type == 'str':
+        if _type == 'str':
             self.jasmin_file.write('ldc "'+str(value)+'"\n')
+        else:
+            self.jasmin_file.write('ldc '+str(value)+'\n')
 
     def Aload(self,adress):
         self.jasmin_file.write('aload '+str(adress)+'\n')
 
     def Astore(self,adress):
         self.jasmin_file.write('astore '+str(adress)+'\n')
+        self.max_locals_used += 1
 
     def copy(self,adress):
         self.jasmin_file.write('iload '+str(adress)+'\n')

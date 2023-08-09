@@ -1,9 +1,0 @@
-main:
-    var:
-    b: int;
-    a: str;
-    a = "hello";  
-    if (b<=4):
-        print(a);
-    end
-end
