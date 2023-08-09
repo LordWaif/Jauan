@@ -47,6 +47,7 @@ class MyListener(jauanListener):
     def exitMain(self, ctx: jauanParser.MainContext):
         self.escopoMain = False
         self.jasmin.endMain()
+        self.jasmin.exit()
         pass
 
     # Enter a parse tree produced by jauanParser#declar_funcao.
@@ -155,6 +156,7 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#comando_atribuicao.
     def enterComando_atribuicao(self, ctx: jauanParser.Comando_atribuicaoContext):
+        ctx.id_(0).side = 'left'
         pass
 
     # Exit a parse tree produced by jauanParser#comando_atribuicao.
@@ -165,7 +167,10 @@ class MyListener(jauanListener):
             if ctx.id_(0).type == type(child.val).__name__:
                 ctx.val = child.val
                 ctx.val = child.val
-                self.jasmin.store(var,ctx.id_(0).type)
+                if ctx.id_(0).type == 'str':
+                    self.jasmin.Astore(var)
+                else:
+                    self.jasmin.store(var,ctx.id_(0).type)
                 self.tabelaDeSimbolos[var][VALOR] = child.val
             else:
                 raise Exception("A variável " + str(ctx.id_(0).name) + " não é do mesmo tipo do valor atribuído")
@@ -238,16 +243,16 @@ class MyListener(jauanListener):
     def enterIfElse(self, ctx: jauanParser.IfElseContext):
         ctx.exprRelacionalBinaria().inh = 'if'
         self.jasmin.createIfElse()
-        # era pra ser aqui né
-        self.jasmin.constructIf('==','zero')
-        lb_else,lb_end = self.jasmin.executeIf()
+        self.jasmin.constructIf('!=','zero')
 
     # Exit a parse tree produced by jauanParser#ifElse.
     def exitIfElse(self, ctx: jauanParser.IfElseContext):
-        self.jasmin.load(ctx.exprRelacionalBinaria().result_address,type(ctx.exprRelacionalBinaria().val).__name__)
         _if = self.jasmin.in_execution.pop()
+        self.jasmin.jump(_if['label_end'])
         self.jasmin.createLabel(_if['label_else'])
+        # Bloco do else
         self.jasmin.createLabel(_if['label_end'])
+        pass
 
     # Enter a parse tree produced by jauanParser#while.
     def enterWhile(self, ctx: jauanParser.WhileContext):
@@ -267,13 +272,15 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#print.
     def enterPrint(self, ctx: jauanParser.PrintContext):
-        pass
+        ctx.args_real().inh = 'print'
+        self.jasmin.createStringBuilder()
 
     # Exit a parse tree produced by jauanParser#print.
     def exitPrint(self, ctx: jauanParser.PrintContext):
-        out = " ".join([str(_) for _ in ctx.args_real().val])
-        print("p:",out)
-        self.jasmin.printConst(out)
+        adress = self.jasmin.makeStringBuilder()
+        self.jasmin.init_print()
+        self.jasmin.Aload(adress)
+        self.jasmin.printConst("")
 
     # Enter a parse tree produced by jauanParser#break.
     def enterBreak(self, ctx: jauanParser.BreakContext):
@@ -294,7 +301,8 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#args_real.
     def enterArgs_real(self, ctx: jauanParser.Args_realContext):
-        pass
+        for i in range(len(ctx.children)):
+            ctx.children[i].inh = ctx.inh
 
     # Exit a parse tree produced by jauanParser#args_real.
     def exitArgs_real(self, ctx: jauanParser.Args_realContext):
@@ -302,19 +310,16 @@ class MyListener(jauanListener):
         for i in range(len(ctx.children)):
             child = ctx.getChild(i)
             if isinstance(child, jauanParser.IdContext):
-                id_text = child.getText()
-                if self.searchSymbolTable(id_text) is None:
-                    raise Exception("Erro: Variavel '" + id_text + "' nao declarada.")
-                key = self.searchSymbolTable(id_text)
-                ctx.val.append(self.tabelaDeSimbolos[key][VALOR])
+                child.inh = ctx.inh
+                ctx.val.append(child)
             elif isinstance(child, jauanParser.ValueContext):
-                ctx.val.append(child.val)
+                ctx.val.append(child)
             elif isinstance(child, jauanParser.ExprAlgebricaContext):
-                ctx.val.append(child.val)
+                ctx.val.append(child)
             elif isinstance(child, jauanParser.ExprRelacionalBinariaContext):
-                ctx.val.append(child.val)
+                ctx.val.append(child)
             elif isinstance(child, jauanParser.ExprRelacionalUnariaContext):
-                ctx.val.append(child.val) 
+                ctx.val.append(child) 
 
     # Enter a parse tree produced by jauanParser#exprRelacional.
     def enterExprRelacionalBinaria(self, ctx: jauanParser.ExprRelacionalBinariaContext):
@@ -340,6 +345,7 @@ class MyListener(jauanListener):
             # --- escopo do if
             self.jasmin.loadConst(1)
             temp = self.jasmin.createNewTemp(type(ctx.op_relacional(0).val).__name__)
+            self.jasmin.jump(lb_end)
             # --- fim escopo do if
             # --- escopo do else
             self.jasmin.createLabel(lb_else)
@@ -348,7 +354,9 @@ class MyListener(jauanListener):
             # -- fim escopo do else
             self.jasmin.createLabel(lb_end)
             ctx.result_address = temp
-            print("result_address:",ctx.result_address)
+            if ctx.inh == 'if':
+                self.jasmin.load(ctx.result_address,'int')
+                self.jasmin.executeIf()
         else:
             raise Exception("Tipos das variaveis '" + ctx.op_relacional(0).getText() + "' e '" + ctx.op_relacional(1).getText() + "' incompativeis.")
 
@@ -360,11 +368,9 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#op_relacional.
     def exitOp_relacional(self, ctx:jauanParser.Op_relacionalContext):
         if ctx.id_():
-            ctx.val = ctx.id_().val
-            self.jasmin.load(ctx.id_().id,ctx.id_().type)    
+            ctx.val = ctx.id_().val   
         if ctx.value():
             ctx.val = ctx.value().val
-            self.jasmin.loadConst(ctx.val)
         if ctx.exprRelacionalUnaria():
             ctx.val = ctx.exprRelacionalUnaria().val
 
@@ -391,6 +397,8 @@ class MyListener(jauanListener):
     def exitExprAlgebrica(self, ctx: jauanParser.ExprAlgebricaContext):
         if ctx.op_algebrico():
             ctx.val = ctx.op_algebrico().val
+        if hasattr(ctx,'inh') and ctx.inh == 'print':
+            self.jasmin.StringBuilderAppend(type(ctx.val).__name__)
 
     # Enter a parse tree produced by jauanParser#value.
     def enterValue(self, ctx: jauanParser.ValueContext):
@@ -401,9 +409,13 @@ class MyListener(jauanListener):
         if ctx.num():
             ctx.val = ctx.num().val
             self.jasmin.loadConst(ctx.val)
+            if hasattr(ctx,'inh') and ctx.inh == "print":
+                self.jasmin.StringBuilderAppend(ctx.num().type)
         elif ctx.STRING():
             ctx.val = ctx.STRING().getText()
             self.jasmin.loadConst(ctx.val)
+            if hasattr(ctx,'inh') and ctx.inh == "print":
+                self.jasmin.StringBuilderAppend("str")
         elif ctx.TRUE():
             ctx.val = ctx.TRUE().getText()
             self.jasmin.loadConst(1)
@@ -419,8 +431,10 @@ class MyListener(jauanListener):
     def exitNum(self, ctx: jauanParser.NumContext):
         if ctx.INT():
             ctx.val = int(ctx.INT().getText())
+            ctx.type = 'int'
         elif ctx.FLOAT():
             ctx.val = float(ctx.FLOAT().getText())
+            ctx.type = 'float'
 
     def inLoop(self, ctx):
         parent = ctx.parentCtx
@@ -451,6 +465,13 @@ class MyListener(jauanListener):
         ctx.val = self.tabelaDeSimbolos[var][VALOR]
         ctx.type = self.tabelaDeSimbolos[var][TIPO]
         ctx.id = var
+        if not (hasattr(ctx,'side') and ctx.side == 'left'):
+            if ctx.type == 'str':
+                self.jasmin.Aload(ctx.id)
+            else:
+                self.jasmin.load(ctx.id,ctx.type)
+        if hasattr(ctx,'inh') and ctx.inh == 'print':
+            self.jasmin.StringBuilderAppend(ctx.type)
 
     # Buscar no dicionario a chave pelo valor
     def searchSymbolTable(self, value):
