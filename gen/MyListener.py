@@ -211,6 +211,7 @@ class MyListener(jauanListener):
         ctx.id_(0).side = 'left'
         child = ctx.getChild(2)
         child.inh = 'attribute'
+        #print(ctx.num())
         pass
 
     # Exit a parse tree produced by jauanParser#comando_atribuicao.
@@ -228,6 +229,16 @@ class MyListener(jauanListener):
                 self.tabelaDeSimbolos[var][VALOR] = child.val
             elif (ctx.id_(0).type == 'int' and type(child.val).__name__ == 'float'):
                 val = int(child.val)
+                child.inh = val
+                print(ctx.id_(0).type)
+                ctx.val = val
+                if ctx.id_(0).type == 'str':
+                    self.jasmin.Astore(var)
+                else:
+                    self.jasmin.store(var,ctx.id_(0).type)
+                self.tabelaDeSimbolos[var][VALOR] = val
+            elif (ctx.id_(0).type == 'float' and type(child.val).__name__ == 'int'):
+                val = float(child.val)
                 child.inh = val
                 print(ctx.id_(0).type)
                 ctx.val = val
@@ -515,7 +526,15 @@ class MyListener(jauanListener):
     def exitValue(self, ctx: jauanParser.ValueContext):
         if ctx.num():
             ctx.val = ctx.num().val
-            self.jasmin.loadConst(ctx.val)
+            if(hasattr(ctx,"type")):
+                if ctx.type == "int":
+                    self.jasmin.loadConst(int(ctx.val))
+                elif ctx.type == "float":
+                    self.jasmin.loadConst(float(ctx.val))
+                elif ctx.type == "str":
+                    self.jasmin.loadConst(ctx.val, "str")
+            else:
+                self.jasmin.loadConst(ctx.val)
             if hasattr(ctx,'inh') and ctx.inh == "print":
                 self.jasmin.StringBuilderAppend(ctx.num().type)
         elif ctx.STRING():
@@ -571,6 +590,12 @@ class MyListener(jauanListener):
         ctx.name = self.tabelaDeSimbolos[var][ID]
         ctx.val = self.tabelaDeSimbolos[var][VALOR]
         ctx.type = self.tabelaDeSimbolos[var][TIPO]
+        try:
+            print(ctx.parentCtx.operando())
+            if not(isinstance(ctx.parentCtx.value(), list)):
+                ctx.parentCtx.value().type = ctx.type
+        except:
+            pass
         ctx.id = var
         if hasattr(ctx,'inh') and ctx.inh == 'scanf':
             return

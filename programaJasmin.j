@@ -12,7 +12,10 @@ ldc 0
 istore 1
 ldc 0.0
 fstore 2
-ldc 1.0
-istore 1
-return
-.end method
+ldc 1
+fstore 2
+new java/lang/StringBuilder
+dup
+invokespecial java/lang/StringBuilder/<init>()V
+iload 1
+fload 2
