@@ -8,15 +8,21 @@ media (int a, int b, int c):float
 
 main:
     var:
-        a:int;
-    a = 10;
-    while (a>0):
-        if (a == 5):
-            print("a = 5");
-            break;
-        else:
-            print("a != 2");
+        a,b:int;
+        flag : bool;
+    a = 0;
+    print("Digite um numero:");
+    scanf(b);
+    flag = a > b;
+    print(flag);
+    while (b>0):
+        a = 0;
+        print("Tabuada do:",b);
+        while (a <= 10):
+            print(b,"+",a,"=",a+b);
+            a = a + 1;
         end
-        a = a - 1;
+        print("-------");
+        b = b - 1;
     end
 end

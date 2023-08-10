@@ -254,6 +254,7 @@ class MyListener(jauanListener):
         if type(ctx.op_algebrico(0).val) == type(ctx.op_algebrico(1).val):
             if ctx.op.text == '*':
                 ctx.val = ctx.op_algebrico(0).val * ctx.op_algebrico(1).val
+                self.jasmin.mul(type(ctx.op_algebrico(0).val).__name__)
             elif ctx.op.text == '/':
                 ctx.val = ctx.op_algebrico(0).val / ctx.op_algebrico(1).val
         else:

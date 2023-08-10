@@ -223,6 +223,12 @@ class Jasmin():
     def mulFloat(self):
         self.jasmin_file.write('fmul\n')
 
+    def mul(self,_type):
+        if _type == 'int':
+            self.mulInt()
+        elif _type == 'float':
+            self.mulFloat()
+
     def add(self,_type):
         if _type == 'int':
             self.addInt()
