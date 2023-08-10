@@ -1,7 +1,18 @@
 main:
     var:
-        a: int;
+        a,c: int;
         b: float;
-        b = 1;
+        b = 5;
+        a = 1.0;
+        a = a + b;
         print(a+b);
+
+        while(a>c):
+            if(a == 4):
+                print("Quatro");
+            else:
+                print(a);
+            end
+            a = a - 1;
+        end
 end

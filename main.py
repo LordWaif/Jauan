@@ -27,4 +27,4 @@ if __name__ == '__main__':
     walker.walk(l, tree)
 
     compile('programaJasmin')
-    #execute('programaJasmin')
+    execute('programaJasmin')

@@ -114,6 +114,12 @@ class Jasmin():
         self.loadConst(' ',_type='str')
         self.jasmin_file.write('invokevirtual java/lang/StringBuilder/append(Ljava/lang/String;)Ljava/lang/StringBuilder;\n')
 
+    def i2f(self):
+        self.jasmin_file.write('i2f\n')
+
+    def f2i(self):
+        self.jasmin_file.write('f2i\n')
+
 
     @verifyLimitLocals
     def readInt(self,adress):

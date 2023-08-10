@@ -230,8 +230,8 @@ class MyListener(jauanListener):
             elif (ctx.id_(0).type == 'int' and type(child.val).__name__ == 'float'):
                 val = int(child.val)
                 child.inh = val
-                print(ctx.id_(0).type)
                 ctx.val = val
+                self.jasmin.f2i()
                 if ctx.id_(0).type == 'str':
                     self.jasmin.Astore(var)
                 else:
@@ -240,8 +240,8 @@ class MyListener(jauanListener):
             elif (ctx.id_(0).type == 'float' and type(child.val).__name__ == 'int'):
                 val = float(child.val)
                 child.inh = val
-                print(ctx.id_(0).type)
                 ctx.val = val
+                self.jasmin.i2f()
                 if ctx.id_(0).type == 'str':
                     self.jasmin.Astore(var)
                 else:
@@ -287,41 +287,69 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#addSub.
     def enterAddSub(self, ctx: jauanParser.AddSubContext):
-        pass
+        ctx.op_algebrico(0).inh = 'l'
+        ctx.op_algebrico(1).inh = 'r'
 
     # Exit a parse tree produced by jauanParser#addSub.
     def exitAddSub(self, ctx: jauanParser.AddSubContext):
-        if type(ctx.op_algebrico(0).val) == type(ctx.op_algebrico(1).val):
+        _type = 'float' if 'float' in [ctx.typeL,ctx.typeR] else 'int'
+        ctx.type = _type
+        if ctx.typeL in ['int','float'] and ctx.typeR in ['int','float']:
+            if ctx.op_algebrico(0).id_() != None:
+                self.jasmin.load(ctx.op_algebrico(0).id_().id,ctx.typeL)
+            else:
+                self.jasmin.loadConst(ctx.op_algebrico(0).val)
+            if ctx.typeL == 'int' and ctx.typeR == 'float':
+                self.jasmin.i2f()
+            if ctx.op_algebrico(1).id_() != None:
+                self.jasmin.load(ctx.op_algebrico(1).id_().id,ctx.typeR)
+            else:
+                self.jasmin.loadConst(ctx.op_algebrico(1).val)
+            if ctx.typeR == 'int' and ctx.typeL == 'float':
+                self.jasmin.i2f()
+
             if ctx.op.text == '+':
                 ctx.val = ctx.op_algebrico(0).val + ctx.op_algebrico(1).val
-                self.jasmin.add(type(ctx.op_algebrico(0).val).__name__)
+                
+                self.jasmin.add(_type)
             elif ctx.op.text == '-':
                 ctx.val = ctx.op_algebrico(0).val - ctx.op_algebrico(1).val
-                self.jasmin.sub(type(ctx.op_algebrico(0).val).__name__)
+                self.jasmin.sub(_type)
         else:
             raise Exception("Erro: Tipos incompativeis.")
 
     # Enter a parse tree produced by jauanParser#operando.
     def enterOperando(self, ctx: jauanParser.OperandoContext):
         if hasattr(ctx, 'inh'):
-            ctx.num().inh = ctx.inh 
+            if ctx.num():
+                ctx.num().inh = ctx.inh 
+            elif ctx.id_():
+                ctx.id_().inh = ctx.inh
 
     # Exit a parse tree produced by jauanParser#operando.
     def exitOperando(self, ctx: jauanParser.OperandoContext):
         if ctx.id_():
+            if ctx.id_().inh == 'l':
+                ctx.parentCtx.typeL = ctx.id_().type
+            elif ctx.id_().inh == 'r':
+                ctx.parentCtx.typeR = ctx.id_().type
             if (ctx.id_().type == 'int' or ctx.id_().type == 'float'):
                 ctx.val = ctx.id_().val
-                if hasattr(ctx.id_(), 'side') and ctx.id_().side != 'left':
-                    self.jasmin.load(ctx.id_().id,ctx.id_().type)
+                # if hasattr(ctx.id_(), 'side') and ctx.id_().side != 'left':
+                #     self.jasmin.load(ctx.id_().id,ctx.id_().type)
             else:
                 raise Exception("Erro: Variavel '" + ctx.id_().name + "' é do tipo '" + ctx.id_().type + "' e nao do tipo int ou float.")
         elif ctx.num():
             ctx.val = ctx.num().val
-            if hasattr(ctx,'inh') and ctx.inh == 'unario':
-                self.jasmin.loadConst(-ctx.val)
-            else:
-                self.jasmin.loadConst(ctx.val)
-
+            if ctx.num().inh == 'l':
+                ctx.parentCtx.typeL = type(ctx.val).__name__
+            elif ctx.num().inh == 'r':
+                ctx.parentCtx.typeR = type(ctx.val).__name__
+            # if hasattr(ctx,'inh') and ctx.inh == 'unario':
+            #     self.jasmin.loadConst(-ctx.val)
+            # else:
+            #     self.jasmin.loadConst(ctx.val)
+            
     # Enter a parse tree produced by jauanParser#ifElse.
     def enterIfElse(self, ctx: jauanParser.IfElseContext):
         ctx.exprRelacionalBinaria().inh = 'if'
@@ -527,12 +555,10 @@ class MyListener(jauanListener):
         if ctx.num():
             ctx.val = ctx.num().val
             if(hasattr(ctx,"type")):
-                if ctx.type == "int":
-                    self.jasmin.loadConst(int(ctx.val))
-                elif ctx.type == "float":
-                    self.jasmin.loadConst(float(ctx.val))
-                elif ctx.type == "str":
+                if ctx.type == "str":
                     self.jasmin.loadConst(ctx.val, "str")
+                else:
+                    self.jasmin.loadConst(ctx.val)
             else:
                 self.jasmin.loadConst(ctx.val)
             if hasattr(ctx,'inh') and ctx.inh == "print":
@@ -591,9 +617,11 @@ class MyListener(jauanListener):
         ctx.val = self.tabelaDeSimbolos[var][VALOR]
         ctx.type = self.tabelaDeSimbolos[var][TIPO]
         try:
-            print(ctx.parentCtx.operando())
-            if not(isinstance(ctx.parentCtx.value(), list)):
-                ctx.parentCtx.value().type = ctx.type
+            ctx.parentCtx.value().type = ctx.type
+        except:
+            pass
+        try:
+            ctx.parentCtx.parentCtx.op_algebrico(1).type = ctx.type
         except:
             pass
         ctx.id = var
@@ -602,6 +630,8 @@ class MyListener(jauanListener):
         if not (hasattr(ctx,'side') and ctx.side == 'left'):
             if ctx.type == 'str':
                 self.jasmin.Aload(ctx.id)
+            elif isinstance(ctx.parentCtx,jauanParser.OperandoContext):
+                pass
             else:
                 self.jasmin.load(ctx.id,ctx.type)
         if hasattr(ctx,'inh') and ctx.inh == 'print':
