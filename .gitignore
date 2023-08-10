@@ -50,6 +50,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+venv/
+venv1/
+myvenv/
 
 # Translations
 *.mo
