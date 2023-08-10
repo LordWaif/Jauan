@@ -43,7 +43,8 @@ declaracao:
 	CONST ID_L '=' value (',' ID_L '=' value)* ';'	# declaraConstante
 	| ID_L (',' ID_L)* ':' TIPO ';'					# declaraVariavel;
 
-comando_atribuicao: id '=' (id | value | exprRelacionalBinaria |op_algebrico);
+comando_atribuicao:
+	id '=' (id | value | exprRelacionalBinaria | op_algebrico);
 
 op_algebrico:
 	SUB op_algebrico								# unario
@@ -85,7 +86,12 @@ args_real: (
 	)?;
 
 exprRelacionalBinaria: (op_relacional OPERADOR op_relacional);
-op_relacional: (id | value | exprRelacionalUnaria | exprAlgebrica);
+op_relacional: (
+		id
+		| value
+		| exprRelacionalUnaria
+		| exprAlgebrica
+	);
 exprRelacionalUnaria: ('!' (id | value));
 exprAlgebrica: op_algebrico;
 

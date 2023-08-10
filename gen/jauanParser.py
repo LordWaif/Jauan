@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,35,308,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,35,310,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
@@ -22,106 +22,107 @@ def serializedATN():
         12,6,123,9,6,1,7,1,7,1,7,1,8,1,8,1,8,4,8,131,8,8,11,8,12,8,132,1,
         9,1,9,1,9,1,9,1,9,1,9,1,9,1,9,5,9,143,8,9,10,9,12,9,146,9,9,1,9,
         1,9,1,9,1,9,1,9,5,9,153,8,9,10,9,12,9,156,9,9,1,9,1,9,1,9,3,9,161,
-        8,9,1,10,1,10,1,10,1,10,1,10,3,10,168,8,10,1,11,1,11,1,11,1,11,1,
-        11,1,11,1,11,1,11,1,11,3,11,179,8,11,3,11,181,8,11,1,11,1,11,1,11,
-        1,11,1,11,1,11,5,11,189,8,11,10,11,12,11,192,9,11,1,12,1,12,1,12,
-        1,12,3,12,198,8,12,1,12,1,12,1,12,4,12,203,8,12,11,12,12,12,204,
-        1,12,3,12,208,8,12,1,12,1,12,1,13,1,13,1,13,4,13,215,8,13,11,13,
-        12,13,216,1,14,1,14,1,14,1,14,3,14,223,8,14,1,14,1,14,1,14,4,14,
-        228,8,14,11,14,12,14,229,1,14,1,14,1,15,1,15,1,15,1,15,1,15,5,15,
-        239,8,15,10,15,12,15,242,9,15,1,15,1,15,1,16,1,16,1,16,1,16,1,16,
-        1,17,1,17,1,18,1,18,1,18,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,19,
-        3,19,264,8,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,3,19,273,8,19,5,
-        19,275,8,19,10,19,12,19,278,9,19,3,19,280,8,19,1,20,1,20,1,20,1,
-        20,1,21,1,21,1,21,3,21,289,8,21,1,22,1,22,1,22,3,22,294,8,22,1,23,
-        1,23,1,24,1,24,1,24,1,24,3,24,302,8,24,1,25,1,25,1,26,1,26,1,26,
-        0,1,22,27,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,
-        40,42,44,46,48,50,52,0,3,1,0,26,27,1,0,28,29,2,0,20,20,22,22,334,
-        0,57,1,0,0,0,2,62,1,0,0,0,4,67,1,0,0,0,6,84,1,0,0,0,8,87,1,0,0,0,
-        10,111,1,0,0,0,12,113,1,0,0,0,14,124,1,0,0,0,16,127,1,0,0,0,18,160,
-        1,0,0,0,20,162,1,0,0,0,22,180,1,0,0,0,24,193,1,0,0,0,26,211,1,0,
-        0,0,28,218,1,0,0,0,30,233,1,0,0,0,32,245,1,0,0,0,34,250,1,0,0,0,
-        36,252,1,0,0,0,38,279,1,0,0,0,40,281,1,0,0,0,42,288,1,0,0,0,44,290,
-        1,0,0,0,46,295,1,0,0,0,48,301,1,0,0,0,50,303,1,0,0,0,52,305,1,0,
-        0,0,54,56,3,4,2,0,55,54,1,0,0,0,56,59,1,0,0,0,57,55,1,0,0,0,57,58,
-        1,0,0,0,58,60,1,0,0,0,59,57,1,0,0,0,60,61,3,2,1,0,61,1,1,0,0,0,62,
-        63,5,1,0,0,63,64,5,2,0,0,64,65,3,8,4,0,65,66,5,3,0,0,66,3,1,0,0,
-        0,67,68,5,24,0,0,68,69,5,4,0,0,69,70,3,6,3,0,70,71,5,5,0,0,71,72,
-        5,2,0,0,72,73,5,23,0,0,73,74,3,8,4,0,74,75,5,3,0,0,75,5,1,0,0,0,
-        76,81,3,14,7,0,77,78,5,6,0,0,78,80,3,14,7,0,79,77,1,0,0,0,80,83,
-        1,0,0,0,81,79,1,0,0,0,81,82,1,0,0,0,82,85,1,0,0,0,83,81,1,0,0,0,
-        84,76,1,0,0,0,84,85,1,0,0,0,85,7,1,0,0,0,86,88,3,16,8,0,87,86,1,
-        0,0,0,87,88,1,0,0,0,88,92,1,0,0,0,89,91,3,10,5,0,90,89,1,0,0,0,91,
-        94,1,0,0,0,92,90,1,0,0,0,92,93,1,0,0,0,93,9,1,0,0,0,94,92,1,0,0,
-        0,95,97,3,24,12,0,96,95,1,0,0,0,97,98,1,0,0,0,98,96,1,0,0,0,98,99,
-        1,0,0,0,99,112,1,0,0,0,100,112,3,28,14,0,101,108,3,32,16,0,102,108,
-        3,30,15,0,103,108,3,20,10,0,104,108,3,36,18,0,105,108,3,34,17,0,
-        106,108,3,12,6,0,107,101,1,0,0,0,107,102,1,0,0,0,107,103,1,0,0,0,
-        107,104,1,0,0,0,107,105,1,0,0,0,107,106,1,0,0,0,108,109,1,0,0,0,
-        109,110,5,7,0,0,110,112,1,0,0,0,111,96,1,0,0,0,111,100,1,0,0,0,111,
-        107,1,0,0,0,112,11,1,0,0,0,113,121,5,8,0,0,114,120,3,48,24,0,115,
-        120,3,52,26,0,116,120,3,46,23,0,117,120,3,40,20,0,118,120,3,44,22,
-        0,119,114,1,0,0,0,119,115,1,0,0,0,119,116,1,0,0,0,119,117,1,0,0,
-        0,119,118,1,0,0,0,120,123,1,0,0,0,121,119,1,0,0,0,121,122,1,0,0,
-        0,122,13,1,0,0,0,123,121,1,0,0,0,124,125,5,23,0,0,125,126,5,24,0,
-        0,126,15,1,0,0,0,127,128,5,9,0,0,128,130,5,2,0,0,129,131,3,18,9,
-        0,130,129,1,0,0,0,131,132,1,0,0,0,132,130,1,0,0,0,132,133,1,0,0,
-        0,133,17,1,0,0,0,134,135,5,21,0,0,135,136,5,24,0,0,136,137,5,10,
-        0,0,137,144,3,48,24,0,138,139,5,6,0,0,139,140,5,24,0,0,140,141,5,
-        10,0,0,141,143,3,48,24,0,142,138,1,0,0,0,143,146,1,0,0,0,144,142,
-        1,0,0,0,144,145,1,0,0,0,145,147,1,0,0,0,146,144,1,0,0,0,147,148,
-        5,7,0,0,148,161,1,0,0,0,149,154,5,24,0,0,150,151,5,6,0,0,151,153,
-        5,24,0,0,152,150,1,0,0,0,153,156,1,0,0,0,154,152,1,0,0,0,154,155,
-        1,0,0,0,155,157,1,0,0,0,156,154,1,0,0,0,157,158,5,2,0,0,158,159,
-        5,23,0,0,159,161,5,7,0,0,160,134,1,0,0,0,160,149,1,0,0,0,161,19,
-        1,0,0,0,162,163,3,52,26,0,163,167,5,10,0,0,164,168,3,52,26,0,165,
-        168,3,48,24,0,166,168,3,22,11,0,167,164,1,0,0,0,167,165,1,0,0,0,
-        167,166,1,0,0,0,168,21,1,0,0,0,169,170,6,11,-1,0,170,171,5,29,0,
-        0,171,181,3,22,11,5,172,173,5,4,0,0,173,174,3,22,11,0,174,175,5,
-        5,0,0,175,181,1,0,0,0,176,179,3,52,26,0,177,179,3,50,25,0,178,176,
-        1,0,0,0,178,177,1,0,0,0,179,181,1,0,0,0,180,169,1,0,0,0,180,172,
-        1,0,0,0,180,178,1,0,0,0,181,190,1,0,0,0,182,183,10,3,0,0,183,184,
-        7,0,0,0,184,189,3,22,11,4,185,186,10,2,0,0,186,187,7,1,0,0,187,189,
-        3,22,11,3,188,182,1,0,0,0,188,185,1,0,0,0,189,192,1,0,0,0,190,188,
-        1,0,0,0,190,191,1,0,0,0,191,23,1,0,0,0,192,190,1,0,0,0,193,194,5,
-        11,0,0,194,197,5,4,0,0,195,198,3,40,20,0,196,198,3,44,22,0,197,195,
-        1,0,0,0,197,196,1,0,0,0,198,199,1,0,0,0,199,200,5,5,0,0,200,202,
-        5,2,0,0,201,203,3,10,5,0,202,201,1,0,0,0,203,204,1,0,0,0,204,202,
-        1,0,0,0,204,205,1,0,0,0,205,207,1,0,0,0,206,208,3,26,13,0,207,206,
-        1,0,0,0,207,208,1,0,0,0,208,209,1,0,0,0,209,210,5,3,0,0,210,25,1,
-        0,0,0,211,212,5,12,0,0,212,214,5,2,0,0,213,215,3,10,5,0,214,213,
-        1,0,0,0,215,216,1,0,0,0,216,214,1,0,0,0,216,217,1,0,0,0,217,27,1,
-        0,0,0,218,219,5,13,0,0,219,222,5,4,0,0,220,223,3,40,20,0,221,223,
-        3,44,22,0,222,220,1,0,0,0,222,221,1,0,0,0,223,224,1,0,0,0,224,225,
-        5,5,0,0,225,227,5,2,0,0,226,228,3,10,5,0,227,226,1,0,0,0,228,229,
-        1,0,0,0,229,227,1,0,0,0,229,230,1,0,0,0,230,231,1,0,0,0,231,232,
-        5,3,0,0,232,29,1,0,0,0,233,234,5,14,0,0,234,235,5,4,0,0,235,240,
-        3,52,26,0,236,237,5,6,0,0,237,239,3,52,26,0,238,236,1,0,0,0,239,
-        242,1,0,0,0,240,238,1,0,0,0,240,241,1,0,0,0,241,243,1,0,0,0,242,
-        240,1,0,0,0,243,244,5,5,0,0,244,31,1,0,0,0,245,246,5,15,0,0,246,
-        247,5,4,0,0,247,248,3,38,19,0,248,249,5,5,0,0,249,33,1,0,0,0,250,
-        251,5,16,0,0,251,35,1,0,0,0,252,253,3,52,26,0,253,254,5,4,0,0,254,
-        255,3,38,19,0,255,256,5,5,0,0,256,37,1,0,0,0,257,264,3,52,26,0,258,
-        264,3,48,24,0,259,264,3,46,23,0,260,264,3,40,20,0,261,264,3,44,22,
-        0,262,264,3,36,18,0,263,257,1,0,0,0,263,258,1,0,0,0,263,259,1,0,
-        0,0,263,260,1,0,0,0,263,261,1,0,0,0,263,262,1,0,0,0,264,276,1,0,
-        0,0,265,272,5,6,0,0,266,273,3,52,26,0,267,273,3,48,24,0,268,273,
-        3,46,23,0,269,273,3,40,20,0,270,273,3,44,22,0,271,273,3,36,18,0,
-        272,266,1,0,0,0,272,267,1,0,0,0,272,268,1,0,0,0,272,269,1,0,0,0,
-        272,270,1,0,0,0,272,271,1,0,0,0,273,275,1,0,0,0,274,265,1,0,0,0,
-        275,278,1,0,0,0,276,274,1,0,0,0,276,277,1,0,0,0,277,280,1,0,0,0,
-        278,276,1,0,0,0,279,263,1,0,0,0,279,280,1,0,0,0,280,39,1,0,0,0,281,
-        282,3,42,21,0,282,283,5,30,0,0,283,284,3,42,21,0,284,41,1,0,0,0,
-        285,289,3,52,26,0,286,289,3,48,24,0,287,289,3,44,22,0,288,285,1,
-        0,0,0,288,286,1,0,0,0,288,287,1,0,0,0,289,43,1,0,0,0,290,293,5,17,
-        0,0,291,294,3,52,26,0,292,294,3,48,24,0,293,291,1,0,0,0,293,292,
-        1,0,0,0,294,45,1,0,0,0,295,296,3,22,11,0,296,47,1,0,0,0,297,302,
-        3,50,25,0,298,302,5,18,0,0,299,302,5,19,0,0,300,302,5,31,0,0,301,
-        297,1,0,0,0,301,298,1,0,0,0,301,299,1,0,0,0,301,300,1,0,0,0,302,
-        49,1,0,0,0,303,304,7,2,0,0,304,51,1,0,0,0,305,306,5,24,0,0,306,53,
-        1,0,0,0,33,57,81,84,87,92,98,107,111,119,121,132,144,154,160,167,
-        178,180,188,190,197,204,207,216,222,229,240,263,272,276,279,288,
-        293,301
+        8,9,1,10,1,10,1,10,1,10,1,10,1,10,3,10,169,8,10,1,11,1,11,1,11,1,
+        11,1,11,1,11,1,11,1,11,1,11,3,11,180,8,11,3,11,182,8,11,1,11,1,11,
+        1,11,1,11,1,11,1,11,5,11,190,8,11,10,11,12,11,193,9,11,1,12,1,12,
+        1,12,1,12,3,12,199,8,12,1,12,1,12,1,12,4,12,204,8,12,11,12,12,12,
+        205,1,12,3,12,209,8,12,1,12,1,12,1,13,1,13,1,13,4,13,216,8,13,11,
+        13,12,13,217,1,14,1,14,1,14,1,14,3,14,224,8,14,1,14,1,14,1,14,4,
+        14,229,8,14,11,14,12,14,230,1,14,1,14,1,15,1,15,1,15,1,15,1,15,5,
+        15,240,8,15,10,15,12,15,243,9,15,1,15,1,15,1,16,1,16,1,16,1,16,1,
+        16,1,17,1,17,1,18,1,18,1,18,1,18,1,18,1,19,1,19,1,19,1,19,1,19,1,
+        19,3,19,265,8,19,1,19,1,19,1,19,1,19,1,19,1,19,1,19,3,19,274,8,19,
+        5,19,276,8,19,10,19,12,19,279,9,19,3,19,281,8,19,1,20,1,20,1,20,
+        1,20,1,21,1,21,1,21,1,21,3,21,291,8,21,1,22,1,22,1,22,3,22,296,8,
+        22,1,23,1,23,1,24,1,24,1,24,1,24,3,24,304,8,24,1,25,1,25,1,26,1,
+        26,1,26,0,1,22,27,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,
+        34,36,38,40,42,44,46,48,50,52,0,3,1,0,26,27,1,0,28,29,2,0,20,20,
+        22,22,338,0,57,1,0,0,0,2,62,1,0,0,0,4,67,1,0,0,0,6,84,1,0,0,0,8,
+        87,1,0,0,0,10,111,1,0,0,0,12,113,1,0,0,0,14,124,1,0,0,0,16,127,1,
+        0,0,0,18,160,1,0,0,0,20,162,1,0,0,0,22,181,1,0,0,0,24,194,1,0,0,
+        0,26,212,1,0,0,0,28,219,1,0,0,0,30,234,1,0,0,0,32,246,1,0,0,0,34,
+        251,1,0,0,0,36,253,1,0,0,0,38,280,1,0,0,0,40,282,1,0,0,0,42,290,
+        1,0,0,0,44,292,1,0,0,0,46,297,1,0,0,0,48,303,1,0,0,0,50,305,1,0,
+        0,0,52,307,1,0,0,0,54,56,3,4,2,0,55,54,1,0,0,0,56,59,1,0,0,0,57,
+        55,1,0,0,0,57,58,1,0,0,0,58,60,1,0,0,0,59,57,1,0,0,0,60,61,3,2,1,
+        0,61,1,1,0,0,0,62,63,5,1,0,0,63,64,5,2,0,0,64,65,3,8,4,0,65,66,5,
+        3,0,0,66,3,1,0,0,0,67,68,5,24,0,0,68,69,5,4,0,0,69,70,3,6,3,0,70,
+        71,5,5,0,0,71,72,5,2,0,0,72,73,5,23,0,0,73,74,3,8,4,0,74,75,5,3,
+        0,0,75,5,1,0,0,0,76,81,3,14,7,0,77,78,5,6,0,0,78,80,3,14,7,0,79,
+        77,1,0,0,0,80,83,1,0,0,0,81,79,1,0,0,0,81,82,1,0,0,0,82,85,1,0,0,
+        0,83,81,1,0,0,0,84,76,1,0,0,0,84,85,1,0,0,0,85,7,1,0,0,0,86,88,3,
+        16,8,0,87,86,1,0,0,0,87,88,1,0,0,0,88,92,1,0,0,0,89,91,3,10,5,0,
+        90,89,1,0,0,0,91,94,1,0,0,0,92,90,1,0,0,0,92,93,1,0,0,0,93,9,1,0,
+        0,0,94,92,1,0,0,0,95,97,3,24,12,0,96,95,1,0,0,0,97,98,1,0,0,0,98,
+        96,1,0,0,0,98,99,1,0,0,0,99,112,1,0,0,0,100,112,3,28,14,0,101,108,
+        3,32,16,0,102,108,3,30,15,0,103,108,3,20,10,0,104,108,3,36,18,0,
+        105,108,3,34,17,0,106,108,3,12,6,0,107,101,1,0,0,0,107,102,1,0,0,
+        0,107,103,1,0,0,0,107,104,1,0,0,0,107,105,1,0,0,0,107,106,1,0,0,
+        0,108,109,1,0,0,0,109,110,5,7,0,0,110,112,1,0,0,0,111,96,1,0,0,0,
+        111,100,1,0,0,0,111,107,1,0,0,0,112,11,1,0,0,0,113,121,5,8,0,0,114,
+        120,3,48,24,0,115,120,3,52,26,0,116,120,3,46,23,0,117,120,3,40,20,
+        0,118,120,3,44,22,0,119,114,1,0,0,0,119,115,1,0,0,0,119,116,1,0,
+        0,0,119,117,1,0,0,0,119,118,1,0,0,0,120,123,1,0,0,0,121,119,1,0,
+        0,0,121,122,1,0,0,0,122,13,1,0,0,0,123,121,1,0,0,0,124,125,5,23,
+        0,0,125,126,5,24,0,0,126,15,1,0,0,0,127,128,5,9,0,0,128,130,5,2,
+        0,0,129,131,3,18,9,0,130,129,1,0,0,0,131,132,1,0,0,0,132,130,1,0,
+        0,0,132,133,1,0,0,0,133,17,1,0,0,0,134,135,5,21,0,0,135,136,5,24,
+        0,0,136,137,5,10,0,0,137,144,3,48,24,0,138,139,5,6,0,0,139,140,5,
+        24,0,0,140,141,5,10,0,0,141,143,3,48,24,0,142,138,1,0,0,0,143,146,
+        1,0,0,0,144,142,1,0,0,0,144,145,1,0,0,0,145,147,1,0,0,0,146,144,
+        1,0,0,0,147,148,5,7,0,0,148,161,1,0,0,0,149,154,5,24,0,0,150,151,
+        5,6,0,0,151,153,5,24,0,0,152,150,1,0,0,0,153,156,1,0,0,0,154,152,
+        1,0,0,0,154,155,1,0,0,0,155,157,1,0,0,0,156,154,1,0,0,0,157,158,
+        5,2,0,0,158,159,5,23,0,0,159,161,5,7,0,0,160,134,1,0,0,0,160,149,
+        1,0,0,0,161,19,1,0,0,0,162,163,3,52,26,0,163,168,5,10,0,0,164,169,
+        3,52,26,0,165,169,3,48,24,0,166,169,3,40,20,0,167,169,3,22,11,0,
+        168,164,1,0,0,0,168,165,1,0,0,0,168,166,1,0,0,0,168,167,1,0,0,0,
+        169,21,1,0,0,0,170,171,6,11,-1,0,171,172,5,29,0,0,172,182,3,22,11,
+        5,173,174,5,4,0,0,174,175,3,22,11,0,175,176,5,5,0,0,176,182,1,0,
+        0,0,177,180,3,52,26,0,178,180,3,50,25,0,179,177,1,0,0,0,179,178,
+        1,0,0,0,180,182,1,0,0,0,181,170,1,0,0,0,181,173,1,0,0,0,181,179,
+        1,0,0,0,182,191,1,0,0,0,183,184,10,3,0,0,184,185,7,0,0,0,185,190,
+        3,22,11,4,186,187,10,2,0,0,187,188,7,1,0,0,188,190,3,22,11,3,189,
+        183,1,0,0,0,189,186,1,0,0,0,190,193,1,0,0,0,191,189,1,0,0,0,191,
+        192,1,0,0,0,192,23,1,0,0,0,193,191,1,0,0,0,194,195,5,11,0,0,195,
+        198,5,4,0,0,196,199,3,40,20,0,197,199,3,44,22,0,198,196,1,0,0,0,
+        198,197,1,0,0,0,199,200,1,0,0,0,200,201,5,5,0,0,201,203,5,2,0,0,
+        202,204,3,10,5,0,203,202,1,0,0,0,204,205,1,0,0,0,205,203,1,0,0,0,
+        205,206,1,0,0,0,206,208,1,0,0,0,207,209,3,26,13,0,208,207,1,0,0,
+        0,208,209,1,0,0,0,209,210,1,0,0,0,210,211,5,3,0,0,211,25,1,0,0,0,
+        212,213,5,12,0,0,213,215,5,2,0,0,214,216,3,10,5,0,215,214,1,0,0,
+        0,216,217,1,0,0,0,217,215,1,0,0,0,217,218,1,0,0,0,218,27,1,0,0,0,
+        219,220,5,13,0,0,220,223,5,4,0,0,221,224,3,40,20,0,222,224,3,44,
+        22,0,223,221,1,0,0,0,223,222,1,0,0,0,224,225,1,0,0,0,225,226,5,5,
+        0,0,226,228,5,2,0,0,227,229,3,10,5,0,228,227,1,0,0,0,229,230,1,0,
+        0,0,230,228,1,0,0,0,230,231,1,0,0,0,231,232,1,0,0,0,232,233,5,3,
+        0,0,233,29,1,0,0,0,234,235,5,14,0,0,235,236,5,4,0,0,236,241,3,52,
+        26,0,237,238,5,6,0,0,238,240,3,52,26,0,239,237,1,0,0,0,240,243,1,
+        0,0,0,241,239,1,0,0,0,241,242,1,0,0,0,242,244,1,0,0,0,243,241,1,
+        0,0,0,244,245,5,5,0,0,245,31,1,0,0,0,246,247,5,15,0,0,247,248,5,
+        4,0,0,248,249,3,38,19,0,249,250,5,5,0,0,250,33,1,0,0,0,251,252,5,
+        16,0,0,252,35,1,0,0,0,253,254,3,52,26,0,254,255,5,4,0,0,255,256,
+        3,38,19,0,256,257,5,5,0,0,257,37,1,0,0,0,258,265,3,52,26,0,259,265,
+        3,48,24,0,260,265,3,46,23,0,261,265,3,40,20,0,262,265,3,44,22,0,
+        263,265,3,36,18,0,264,258,1,0,0,0,264,259,1,0,0,0,264,260,1,0,0,
+        0,264,261,1,0,0,0,264,262,1,0,0,0,264,263,1,0,0,0,265,277,1,0,0,
+        0,266,273,5,6,0,0,267,274,3,52,26,0,268,274,3,48,24,0,269,274,3,
+        46,23,0,270,274,3,40,20,0,271,274,3,44,22,0,272,274,3,36,18,0,273,
+        267,1,0,0,0,273,268,1,0,0,0,273,269,1,0,0,0,273,270,1,0,0,0,273,
+        271,1,0,0,0,273,272,1,0,0,0,274,276,1,0,0,0,275,266,1,0,0,0,276,
+        279,1,0,0,0,277,275,1,0,0,0,277,278,1,0,0,0,278,281,1,0,0,0,279,
+        277,1,0,0,0,280,264,1,0,0,0,280,281,1,0,0,0,281,39,1,0,0,0,282,283,
+        3,42,21,0,283,284,5,30,0,0,284,285,3,42,21,0,285,41,1,0,0,0,286,
+        291,3,52,26,0,287,291,3,48,24,0,288,291,3,44,22,0,289,291,3,46,23,
+        0,290,286,1,0,0,0,290,287,1,0,0,0,290,288,1,0,0,0,290,289,1,0,0,
+        0,291,43,1,0,0,0,292,295,5,17,0,0,293,296,3,52,26,0,294,296,3,48,
+        24,0,295,293,1,0,0,0,295,294,1,0,0,0,296,45,1,0,0,0,297,298,3,22,
+        11,0,298,47,1,0,0,0,299,304,3,50,25,0,300,304,5,18,0,0,301,304,5,
+        19,0,0,302,304,5,31,0,0,303,299,1,0,0,0,303,300,1,0,0,0,303,301,
+        1,0,0,0,303,302,1,0,0,0,304,49,1,0,0,0,305,306,7,2,0,0,306,51,1,
+        0,0,0,307,308,5,24,0,0,308,53,1,0,0,0,33,57,81,84,87,92,98,107,111,
+        119,121,132,144,154,160,168,179,181,189,191,198,205,208,217,223,
+        230,241,264,273,277,280,290,295,303
     ]
 
 class jauanParser ( Parser ):
@@ -1053,6 +1054,10 @@ class jauanParser ( Parser ):
             return self.getTypedRuleContext(jauanParser.ValueContext,0)
 
 
+        def exprRelacionalBinaria(self):
+            return self.getTypedRuleContext(jauanParser.ExprRelacionalBinariaContext,0)
+
+
         def op_algebrico(self):
             return self.getTypedRuleContext(jauanParser.Op_algebricoContext,0)
 
@@ -1081,7 +1086,7 @@ class jauanParser ( Parser ):
             self.id_()
             self.state = 163
             self.match(jauanParser.T__9)
-            self.state = 167
+            self.state = 168
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
             if la_ == 1:
@@ -1096,6 +1101,11 @@ class jauanParser ( Parser ):
 
             elif la_ == 3:
                 self.state = 166
+                self.exprRelacionalBinaria()
+                pass
+
+            elif la_ == 4:
+                self.state = 167
                 self.op_algebrico(0)
                 pass
 
@@ -1252,7 +1262,7 @@ class jauanParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 180
+            self.state = 181
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [29]:
@@ -1260,35 +1270,35 @@ class jauanParser ( Parser ):
                 self._ctx = localctx
                 _prevctx = localctx
 
-                self.state = 170
-                self.match(jauanParser.SUB)
                 self.state = 171
+                self.match(jauanParser.SUB)
+                self.state = 172
                 self.op_algebrico(5)
                 pass
             elif token in [4]:
                 localctx = jauanParser.ParentesesContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 172
-                self.match(jauanParser.T__3)
                 self.state = 173
-                self.op_algebrico(0)
+                self.match(jauanParser.T__3)
                 self.state = 174
+                self.op_algebrico(0)
+                self.state = 175
                 self.match(jauanParser.T__4)
                 pass
             elif token in [20, 22, 24]:
                 localctx = jauanParser.OperandoContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
-                self.state = 178
+                self.state = 179
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [24]:
-                    self.state = 176
+                    self.state = 177
                     self.id_()
                     pass
                 elif token in [20, 22]:
-                    self.state = 177
+                    self.state = 178
                     self.num()
                     pass
                 else:
@@ -1299,7 +1309,7 @@ class jauanParser ( Parser ):
                 raise NoViableAltException(self)
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 190
+            self.state = 191
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -1307,17 +1317,17 @@ class jauanParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 188
+                    self.state = 189
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
                     if la_ == 1:
                         localctx = jauanParser.MultDivContext(self, jauanParser.Op_algebricoContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_op_algebrico)
-                        self.state = 182
+                        self.state = 183
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
-                        self.state = 183
+                        self.state = 184
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==26 or _la==27):
@@ -1325,18 +1335,18 @@ class jauanParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 184
+                        self.state = 185
                         self.op_algebrico(4)
                         pass
 
                     elif la_ == 2:
                         localctx = jauanParser.AddSubContext(self, jauanParser.Op_algebricoContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_op_algebrico)
-                        self.state = 185
+                        self.state = 186
                         if not self.precpred(self._ctx, 2):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
-                        self.state = 186
+                        self.state = 187
                         localctx.op = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==28 or _la==29):
@@ -1344,12 +1354,12 @@ class jauanParser ( Parser ):
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        self.state = 187
+                        self.state = 188
                         self.op_algebrico(3)
                         pass
 
              
-                self.state = 192
+                self.state = 193
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
 
@@ -1409,50 +1419,50 @@ class jauanParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 193
-            self.match(jauanParser.T__10)
             self.state = 194
+            self.match(jauanParser.T__10)
+            self.state = 195
             self.match(jauanParser.T__3)
-            self.state = 197
+            self.state = 198
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
             if la_ == 1:
-                self.state = 195
+                self.state = 196
                 self.exprRelacionalBinaria()
                 pass
 
             elif la_ == 2:
-                self.state = 196
+                self.state = 197
                 self.exprRelacionalUnaria()
                 pass
 
 
-            self.state = 199
-            self.match(jauanParser.T__4)
             self.state = 200
+            self.match(jauanParser.T__4)
+            self.state = 201
             self.match(jauanParser.T__1)
 
-            self.state = 202 
+            self.state = 203 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 201
+                self.state = 202
                 self.comando()
-                self.state = 204 
+                self.state = 205 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (((_la) & ~0x3f) == 0 and ((1 << _la) & 16902400) != 0):
                     break
 
-            self.state = 207
+            self.state = 208
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==12:
-                self.state = 206
+                self.state = 207
                 self.else_()
 
 
-            self.state = 209
+            self.state = 210
             self.match(jauanParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -1498,17 +1508,17 @@ class jauanParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 211
-            self.match(jauanParser.T__11)
             self.state = 212
+            self.match(jauanParser.T__11)
+            self.state = 213
             self.match(jauanParser.T__1)
-            self.state = 214 
+            self.state = 215 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 213
+                self.state = 214
                 self.comando()
-                self.state = 216 
+                self.state = 217 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (((_la) & ~0x3f) == 0 and ((1 << _la) & 16902400) != 0):
@@ -1566,41 +1576,41 @@ class jauanParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 218
-            self.match(jauanParser.T__12)
             self.state = 219
+            self.match(jauanParser.T__12)
+            self.state = 220
             self.match(jauanParser.T__3)
-            self.state = 222
+            self.state = 223
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,23,self._ctx)
             if la_ == 1:
-                self.state = 220
+                self.state = 221
                 self.exprRelacionalBinaria()
                 pass
 
             elif la_ == 2:
-                self.state = 221
+                self.state = 222
                 self.exprRelacionalUnaria()
                 pass
 
 
-            self.state = 224
-            self.match(jauanParser.T__4)
             self.state = 225
+            self.match(jauanParser.T__4)
+            self.state = 226
             self.match(jauanParser.T__1)
-            self.state = 227 
+            self.state = 228 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 226
+                self.state = 227
                 self.comando()
-                self.state = 229 
+                self.state = 230 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (((_la) & ~0x3f) == 0 and ((1 << _la) & 16902400) != 0):
                     break
 
-            self.state = 231
+            self.state = 232
             self.match(jauanParser.T__2)
         except RecognitionException as re:
             localctx.exception = re
@@ -1646,26 +1656,26 @@ class jauanParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 233
-            self.match(jauanParser.T__13)
             self.state = 234
+            self.match(jauanParser.T__13)
+            self.state = 235
             self.match(jauanParser.T__3)
 
-            self.state = 235
+            self.state = 236
             self.id_()
-            self.state = 240
+            self.state = 241
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==6:
-                self.state = 236
-                self.match(jauanParser.T__5)
                 self.state = 237
+                self.match(jauanParser.T__5)
+                self.state = 238
                 self.id_()
-                self.state = 242
+                self.state = 243
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 243
+            self.state = 244
             self.match(jauanParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -1707,13 +1717,13 @@ class jauanParser ( Parser ):
         self.enterRule(localctx, 32, self.RULE_print)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 245
-            self.match(jauanParser.T__14)
             self.state = 246
-            self.match(jauanParser.T__3)
+            self.match(jauanParser.T__14)
             self.state = 247
-            self.args_real()
+            self.match(jauanParser.T__3)
             self.state = 248
+            self.args_real()
+            self.state = 249
             self.match(jauanParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -1752,7 +1762,7 @@ class jauanParser ( Parser ):
         self.enterRule(localctx, 34, self.RULE_break)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 250
+            self.state = 251
             self.match(jauanParser.T__15)
         except RecognitionException as re:
             localctx.exception = re
@@ -1798,13 +1808,13 @@ class jauanParser ( Parser ):
         self.enterRule(localctx, 36, self.RULE_inst_funcao)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 252
-            self.id_()
             self.state = 253
-            self.match(jauanParser.T__3)
+            self.id_()
             self.state = 254
-            self.args_real()
+            self.match(jauanParser.T__3)
             self.state = 255
+            self.args_real()
+            self.state = 256
             self.match(jauanParser.T__4)
         except RecognitionException as re:
             localctx.exception = re
@@ -1885,85 +1895,85 @@ class jauanParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 279
+            self.state = 280
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if ((_la) & ~0x3f) == 0 and ((1 << _la) & 2707292176) != 0:
-                self.state = 263
+                self.state = 264
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,26,self._ctx)
                 if la_ == 1:
-                    self.state = 257
+                    self.state = 258
                     self.id_()
                     pass
 
                 elif la_ == 2:
-                    self.state = 258
+                    self.state = 259
                     self.value()
                     pass
 
                 elif la_ == 3:
-                    self.state = 259
+                    self.state = 260
                     self.exprAlgebrica()
                     pass
 
                 elif la_ == 4:
-                    self.state = 260
+                    self.state = 261
                     self.exprRelacionalBinaria()
                     pass
 
                 elif la_ == 5:
-                    self.state = 261
+                    self.state = 262
                     self.exprRelacionalUnaria()
                     pass
 
                 elif la_ == 6:
-                    self.state = 262
+                    self.state = 263
                     self.inst_funcao()
                     pass
 
 
-                self.state = 276
+                self.state = 277
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==6:
-                    self.state = 265
+                    self.state = 266
                     self.match(jauanParser.T__5)
-                    self.state = 272
+                    self.state = 273
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,27,self._ctx)
                     if la_ == 1:
-                        self.state = 266
+                        self.state = 267
                         self.id_()
                         pass
 
                     elif la_ == 2:
-                        self.state = 267
+                        self.state = 268
                         self.value()
                         pass
 
                     elif la_ == 3:
-                        self.state = 268
+                        self.state = 269
                         self.exprAlgebrica()
                         pass
 
                     elif la_ == 4:
-                        self.state = 269
+                        self.state = 270
                         self.exprRelacionalBinaria()
                         pass
 
                     elif la_ == 5:
-                        self.state = 270
+                        self.state = 271
                         self.exprRelacionalUnaria()
                         pass
 
                     elif la_ == 6:
-                        self.state = 271
+                        self.state = 272
                         self.inst_funcao()
                         pass
 
 
-                    self.state = 278
+                    self.state = 279
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -2015,11 +2025,11 @@ class jauanParser ( Parser ):
         self.enterRule(localctx, 40, self.RULE_exprRelacionalBinaria)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 281
-            self.op_relacional()
             self.state = 282
-            self.match(jauanParser.OPERADOR)
+            self.op_relacional()
             self.state = 283
+            self.match(jauanParser.OPERADOR)
+            self.state = 284
             self.op_relacional()
         except RecognitionException as re:
             localctx.exception = re
@@ -2049,6 +2059,10 @@ class jauanParser ( Parser ):
             return self.getTypedRuleContext(jauanParser.ExprRelacionalUnariaContext,0)
 
 
+        def exprAlgebrica(self):
+            return self.getTypedRuleContext(jauanParser.ExprAlgebricaContext,0)
+
+
         def getRuleIndex(self):
             return jauanParser.RULE_op_relacional
 
@@ -2069,23 +2083,29 @@ class jauanParser ( Parser ):
         self.enterRule(localctx, 42, self.RULE_op_relacional)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 288
+            self.state = 290
             self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [24]:
-                self.state = 285
+            la_ = self._interp.adaptivePredict(self._input,30,self._ctx)
+            if la_ == 1:
+                self.state = 286
                 self.id_()
                 pass
-            elif token in [18, 19, 20, 22, 31]:
-                self.state = 286
+
+            elif la_ == 2:
+                self.state = 287
                 self.value()
                 pass
-            elif token in [17]:
-                self.state = 287
+
+            elif la_ == 3:
+                self.state = 288
                 self.exprRelacionalUnaria()
                 pass
-            else:
-                raise NoViableAltException(self)
+
+            elif la_ == 4:
+                self.state = 289
+                self.exprAlgebrica()
+                pass
+
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2131,17 +2151,17 @@ class jauanParser ( Parser ):
         self.enterRule(localctx, 44, self.RULE_exprRelacionalUnaria)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 290
+            self.state = 292
             self.match(jauanParser.T__16)
-            self.state = 293
+            self.state = 295
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [24]:
-                self.state = 291
+                self.state = 293
                 self.id_()
                 pass
             elif token in [18, 19, 20, 22, 31]:
-                self.state = 292
+                self.state = 294
                 self.value()
                 pass
             else:
@@ -2187,7 +2207,7 @@ class jauanParser ( Parser ):
         self.enterRule(localctx, 46, self.RULE_exprAlgebrica)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 295
+            self.state = 297
             self.op_algebrico(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -2237,27 +2257,27 @@ class jauanParser ( Parser ):
         localctx = jauanParser.ValueContext(self, self._ctx, self.state)
         self.enterRule(localctx, 48, self.RULE_value)
         try:
-            self.state = 301
+            self.state = 303
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [20, 22]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 297
+                self.state = 299
                 self.num()
                 pass
             elif token in [18]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 298
+                self.state = 300
                 self.match(jauanParser.TRUE)
                 pass
             elif token in [19]:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 299
+                self.state = 301
                 self.match(jauanParser.FALSE)
                 pass
             elif token in [31]:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 300
+                self.state = 302
                 self.match(jauanParser.STRING)
                 pass
             else:
@@ -2306,7 +2326,7 @@ class jauanParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 303
+            self.state = 305
             _la = self._input.LA(1)
             if not(_la==20 or _la==22):
                 self._errHandler.recoverInline(self)
@@ -2352,7 +2372,7 @@ class jauanParser ( Parser ):
         self.enterRule(localctx, 52, self.RULE_id)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 305
+            self.state = 307
             self.match(jauanParser.ID_L)
         except RecognitionException as re:
             localctx.exception = re

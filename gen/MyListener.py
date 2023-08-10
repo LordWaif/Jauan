@@ -209,6 +209,8 @@ class MyListener(jauanListener):
     # Enter a parse tree produced by jauanParser#comando_atribuicao.
     def enterComando_atribuicao(self, ctx: jauanParser.Comando_atribuicaoContext):
         ctx.id_(0).side = 'left'
+        child = ctx.getChild(2)
+        child.inh = 'attribute'
         pass
 
     # Exit a parse tree produced by jauanParser#comando_atribuicao.
@@ -231,6 +233,7 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#unario.
     def enterUnario(self, ctx: jauanParser.UnarioContext):
+        ctx.op_algebrico().inh = 'unario'
         pass
 
     # Exit a parse tree produced by jauanParser#unario.
@@ -278,7 +281,8 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#operando.
     def enterOperando(self, ctx: jauanParser.OperandoContext):
-        pass
+        if hasattr(ctx, 'inh'):
+            ctx.num().inh = ctx.inh 
 
     # Exit a parse tree produced by jauanParser#operando.
     def exitOperando(self, ctx: jauanParser.OperandoContext):
@@ -291,7 +295,10 @@ class MyListener(jauanListener):
                 raise Exception("Erro: Variavel '" + ctx.id_().name + "' é do tipo '" + ctx.id_().type + "' e nao do tipo int ou float.")
         elif ctx.num():
             ctx.val = ctx.num().val
-            self.jasmin.loadConst(ctx.val)
+            if hasattr(ctx,'inh') and ctx.inh == 'unario':
+                self.jasmin.loadConst(-ctx.val)
+            else:
+                self.jasmin.loadConst(ctx.val)
 
     # Enter a parse tree produced by jauanParser#ifElse.
     def enterIfElse(self, ctx: jauanParser.IfElseContext):
@@ -432,15 +439,20 @@ class MyListener(jauanListener):
             self.jasmin.createLabel(lb_end)
             ctx.result_address = temp
             self.jasmin.in_execution.pop()
-            if ctx.inh == 'if':
+            if hasattr(ctx,'inh') and ctx.inh == 'if':
                 self.jasmin.load(ctx.result_address,'int')
                 lb_else,lb_end = self.jasmin.executeIf()
                 if isinstance(ctx.parentCtx.else_(), jauanParser.ElseContext):
                     ctx.parentCtx.else_().lb_else = lb_else
                     ctx.parentCtx.else_().lb_end = lb_end
-            elif ctx.inh == 'while':
+            elif hasattr(ctx,'inh') and ctx.inh == 'while':
                 self.jasmin.load(ctx.result_address,'int')
                 lb_end,lb_loop = self.jasmin.executeWhile()
+            elif hasattr(ctx,'inh') and ctx.inh == 'attribute':
+                self.jasmin.load(ctx.result_address,'int')
+            elif hasattr(ctx,'inh') and ctx.inh == 'print':
+                self.jasmin.loadConst('true' if ctx.val else 'false' ,_type='str')
+                self.jasmin.StringBuilderAppend('str')
         else:
             raise Exception("Tipos das variaveis '" + ctx.op_relacional(0).getText() + "' e '" + ctx.op_relacional(1).getText() + "' incompativeis.")
 
@@ -575,4 +587,4 @@ class MyListener(jauanListener):
         if ctx.TIPO().getText() == 'str':
             return ""
         if ctx.TIPO().getText() == 'bool':
-            return False
+            return 0
