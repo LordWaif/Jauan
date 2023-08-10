@@ -224,6 +224,17 @@ class MyListener(jauanListener):
                 else:
                     self.jasmin.store(var,ctx.id_(0).type)
                 self.tabelaDeSimbolos[var][VALOR] = child.val
+            elif (ctx.id_(0).type == 'int' and type(child.val).__name__ == 'float'):
+                val = int(child.val)
+                child.inh = val
+                print(ctx.id_(0).type)
+                ctx.val = val
+                if ctx.id_(0).type == 'str':
+                    self.jasmin.Astore(var)
+                else:
+                    self.jasmin.store(var,ctx.id_(0).type)
+                self.tabelaDeSimbolos[var][VALOR] = val
+                
             else:
                 raise Exception("A variável " + str(ctx.id_(0).name) + " não é do mesmo tipo do valor atribuído")
         else:
