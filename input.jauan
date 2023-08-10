@@ -1,6 +1,15 @@
+
+
 main:
     var:
+<<<<<<< HEAD
         a: int;
         b: float;
         a = 1.0;
+=======
+        b : float;
+        a : bool;
+    b = -2.0;
+    print(b);
+>>>>>>> 773348f3e75ee0cc5cf129cc5cd47c328b1dff05
 end
