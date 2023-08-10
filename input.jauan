@@ -8,15 +8,15 @@ media (int a, int b, int c):float
 
 main:
     var:
-        a,b : int;
-    
-    print("Digite o primeiro numero: ");
-    scanf(a);
-    print("Digite o segundo numero: ");
-    scanf(b);
-    if (a> b):
-        print("O primeiro numero",a," e maior que o segundo",b);
-    else:
-        print("O segundo numero",b," e maior que o primeiro",a);
+        a:int;
+    a = 10;
+    while (a>0):
+        if (a == 5):
+            print("a = 5");
+            break;
+        else:
+            print("a != 2");
+        end
+        a = a - 1;
     end
 end

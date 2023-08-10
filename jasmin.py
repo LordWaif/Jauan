@@ -9,6 +9,7 @@ class Jasmin():
         self.labels = self.gerar_labels()
         self.ops = {'>=':'ge','<=':'le','>':'gt','<':'lt','==':'eq','!=':'ne'}
         self.if_module = {'comparador':'','label_if':'','tipo':'','label_end':'','label_else':'',}
+        self.while_module = {'comparador':'','label_start':'','label_end':'','label_loop':'','tipo':''}
         self.types_args = {"int":"I","float":"F","bool":"I","str":"Ljava/lang/String;"}
         self.stack = list()
         self.in_execution = list()
@@ -247,6 +248,14 @@ class Jasmin():
         if_atual['label_end'] = next(self.labels)
         self.stack.append(if_atual)
 
+    def createWhile(self):
+        while_atual = self.while_module.copy()
+        while_atual['label_start'] = next(self.labels)
+        while_atual['label_end'] = next(self.labels)
+        while_atual['label_loop'] = next(self.labels)
+        self.createLabel(while_atual['label_loop'])
+        self.stack.append(while_atual)
+
     def constructIf(self,op,_type):
         if_atual = self.stack.pop()
         if _type == 'zero':
@@ -263,6 +272,15 @@ class Jasmin():
         self.createLabel(if_atual['label_if'])
         self.in_execution.append(if_atual)
         return if_atual['label_else'],if_atual['label_end']
+    
+    def executeWhile(self):
+        while_atual = self.stack.pop()
+        self.jasmin_file.write(while_atual['comparador']+' '+while_atual['label_start']+'\n')
+        self.jasmin_file.write('goto '+while_atual['label_end']+'\n')
+        self.createLabel(while_atual['label_start'])
+        self.in_execution.append(while_atual)
+        return while_atual['label_end'],while_atual['label_loop']
+
 
     def toString(self,_type):
         if _type == 'int':

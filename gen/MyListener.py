@@ -282,9 +282,10 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#operando.
     def exitOperando(self, ctx: jauanParser.OperandoContext):
         if ctx.id_():
-            if ctx.id_().type == 'int' or ctx.id_().type == 'float':
+            if (ctx.id_().type == 'int' or ctx.id_().type == 'float'):
                 ctx.val = ctx.id_().val
-                self.jasmin.load(ctx.id_().id,ctx.id_().type)
+                if hasattr(ctx.id_(), 'side') and ctx.id_().side != 'left':
+                    self.jasmin.load(ctx.id_().id,ctx.id_().type)
             else:
                 raise Exception("Erro: Variavel '" + ctx.id_().name + "' é do tipo '" + ctx.id_().type + "' e nao do tipo int ou float.")
         elif ctx.num():
@@ -319,11 +320,15 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#while.
     def enterWhile(self, ctx: jauanParser.WhileContext):
-        pass
+        ctx.exprRelacionalBinaria().inh = 'while'
+        self.jasmin.createWhile()
+        self.jasmin.constructIf('!=','zero')
 
     # Exit a parse tree produced by jauanParser#while.
     def exitWhile(self, ctx: jauanParser.WhileContext):
-        pass
+        _wh = self.jasmin.in_execution.pop()
+        self.jasmin.jump(_wh['label_loop'])
+        self.jasmin.createLabel(_wh['label_end'])
 
     # Enter a parse tree produced by jauanParser#scanf.
     def enterScanf(self, ctx: jauanParser.ScanfContext):
@@ -353,6 +358,10 @@ class MyListener(jauanListener):
     def enterBreak(self, ctx: jauanParser.BreakContext):
         if not self.inLoop(ctx):
             raise Exception("'break' fora de loop.")
+        for _id in range(len(self.jasmin.in_execution)-1,-1,-1):
+            if 'label_loop' in self.jasmin.in_execution[_id].keys():
+                self.jasmin.jump(self.jasmin.in_execution[_id]['label_end'])
+                break
 
     # Exit a parse tree produced by jauanParser#break.
     def exitBreak(self, ctx: jauanParser.BreakContext):
@@ -421,12 +430,16 @@ class MyListener(jauanListener):
             # -- fim escopo do else
             self.jasmin.createLabel(lb_end)
             ctx.result_address = temp
+            self.jasmin.in_execution.pop()
             if ctx.inh == 'if':
                 self.jasmin.load(ctx.result_address,'int')
                 lb_else,lb_end = self.jasmin.executeIf()
                 if isinstance(ctx.parentCtx.else_(), jauanParser.ElseContext):
                     ctx.parentCtx.else_().lb_else = lb_else
                     ctx.parentCtx.else_().lb_end = lb_end
+            elif ctx.inh == 'while':
+                self.jasmin.load(ctx.result_address,'int')
+                lb_end,lb_loop = self.jasmin.executeWhile()
         else:
             raise Exception("Tipos das variaveis '" + ctx.op_relacional(0).getText() + "' e '" + ctx.op_relacional(1).getText() + "' incompativeis.")
 
