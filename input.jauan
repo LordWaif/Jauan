@@ -1,3 +1,9 @@
+
+
 main:
-    print("Ok");
+    var:
+        b : float;
+        a : bool;
+    b = -2.0;
+    print(b);
 end
