@@ -158,11 +158,16 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#declaraConstante.
     def enterDeclaraConstante(self, ctx: jauanParser.DeclaraConstanteContext):
+        for _v in ctx.value():
+            _v.inh = 'const'
         pass
 
     # Exit a parse tree produced by jauanParser#declaraConstante.
     def exitDeclaraConstante(self, ctx: jauanParser.DeclaraConstanteContext):
-        for indice, constante in enumerate(ctx.ID()):
+        for indice, constante in enumerate(ctx.ID_L()):
+            if not hasattr(ctx.value()[indice], 'val'):
+                # Verifica se o valor é uma string e converte para booleano (TRUE ou FALSE)
+                ...
             if isinstance(ctx.value()[indice].val, str):
                 if "TRUE" == ctx.value()[indice].val.upper():
                     ctx.value()[indice].val = True
@@ -172,12 +177,25 @@ class MyListener(jauanListener):
             if self.searchSymbolTable(constante.getText()) == None:
                 # Verifica se a tabela de simbolos está vazia
                 if len(self.tabelaDeSimbolos.keys()) == 0:
-                    self.tabelaDeSimbolos[indice] = [constante.getText(), ctx.value()[indice].val,
+                    _id = self.jasmin.max_locals_used
+                    self.jasmin.max_locals_used += 1
+                    self.tabelaDeSimbolos[_id] = [constante.getText(), ctx.value()[indice].val,
                                                      type(ctx.value()[indice].val).__name__, self.escopoMain, "const"]
                 else:
-                    self.tabelaDeSimbolos[list(self.tabelaDeSimbolos.keys())[-1] + 1] = [constante.getText(),
-                                                                                         ctx.value()[indice].val, type(
-                            ctx.value()[indice].val).__name__, self.escopoMain, "const"]
+                    _id = list(self.tabelaDeSimbolos.keys())[-1] + 1
+                    self.tabelaDeSimbolos[_id] = [constante.getText(),
+                        ctx.value()[indice].val, type(
+                        ctx.value()[indice].val).__name__, self.escopoMain, "const"]
+                if isinstance(ctx.value()[indice].val, bool):
+                    if ctx.value()[indice].val:
+                        self.jasmin.loadConst(1)
+                    else:
+                        self.jasmin.loadConst(0)
+                elif isinstance(ctx.value()[indice].val, str):
+                    self.jasmin.loadConst(ctx.value()[indice].val,'str')
+                else:
+                    self.jasmin.loadConst(ctx.value()[indice].val)
+                self.jasmin.store(_id,type(ctx.value()[indice].val).__name__)
             else:
                 raise Exception("A constante " + constante.getText() + " já foi declarada")
 
@@ -251,7 +269,7 @@ class MyListener(jauanListener):
             else:
                 raise Exception("A variável " + str(ctx.id_(0).name) + " não é do mesmo tipo do valor atribuído")
         else:
-            raise Exception(str(child.name) + " é uma constante. Era esperado uma variável")
+            raise Exception(str(ctx.getChild(0).name) + " é uma constante. Era esperado uma variável")
 
     # Enter a parse tree produced by jauanParser#unario.
     def enterUnario(self, ctx: jauanParser.UnarioContext):
@@ -272,16 +290,34 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#multDiv.
     def enterMultDiv(self, ctx: jauanParser.MultDivContext):
-        pass
+        ctx.op_algebrico(0).inh = 'l'
+        ctx.op_algebrico(1).inh = 'r'
 
     # Exit a parse tree produced by jauanParser#multDiv.
     def exitMultDiv(self, ctx: jauanParser.MultDivContext):
-        if type(ctx.op_algebrico(0).val) == type(ctx.op_algebrico(1).val):
+        _type = 'float' if 'float' in [ctx.typeL,ctx.typeR] else 'int'
+        ctx.type = _type
+        if ctx.typeL in ['int','float'] and ctx.typeR in ['int','float']:
+            if ctx.op_algebrico(0).id_() != None:
+                self.jasmin.load(ctx.op_algebrico(0).id_().id,ctx.typeL)
+            else:
+                self.jasmin.loadConst(ctx.op_algebrico(0).val)
+            if ctx.typeL == 'int' and ctx.typeR == 'float':
+                self.jasmin.i2f()
+            if ctx.op_algebrico(1).id_() != None:
+                self.jasmin.load(ctx.op_algebrico(1).id_().id,ctx.typeR)
+            else:
+                self.jasmin.loadConst(ctx.op_algebrico(1).val)
+            if ctx.typeR == 'int' and ctx.typeL == 'float':
+                self.jasmin.i2f()
+
             if ctx.op.text == '*':
                 ctx.val = ctx.op_algebrico(0).val * ctx.op_algebrico(1).val
-                self.jasmin.mul(type(ctx.op_algebrico(0).val).__name__)
+
+                self.jasmin.mul(_type)
             elif ctx.op.text == '/':
                 ctx.val = ctx.op_algebrico(0).val / ctx.op_algebrico(1).val
+                self.jasmin.div(_type)
         else:
             raise Exception("Erro: Tipos incompativeis.")
 
@@ -556,24 +592,32 @@ class MyListener(jauanListener):
             ctx.val = ctx.num().val
             if(hasattr(ctx,"type")):
                 if ctx.type == "str":
-                    self.jasmin.loadConst(ctx.val, "str")
+                    if hasattr(ctx,'inh') and ctx.inh != "const":
+                        self.jasmin.loadConst(ctx.val, "str")
+                else:
+                    if hasattr(ctx,'inh') and ctx.inh != "const":
+                        self.jasmin.loadConst(ctx.val)
+            else:
+                if hasattr(ctx,'inh') and ctx.inh != "const":
+                    self.jasmin.loadConst(ctx.val)
                 else:
                     self.jasmin.loadConst(ctx.val)
-            else:
-                self.jasmin.loadConst(ctx.val)
             if hasattr(ctx,'inh') and ctx.inh == "print":
                 self.jasmin.StringBuilderAppend(ctx.num().type)
         elif ctx.STRING():
             ctx.val = ctx.STRING().getText()
-            self.jasmin.loadConst(ctx.val)
+            if hasattr(ctx,'inh') and ctx.inh != "const":
+                self.jasmin.loadConst(ctx.val)
             if hasattr(ctx,'inh') and ctx.inh == "print":
                 self.jasmin.StringBuilderAppend("str")
         elif ctx.TRUE():
             ctx.val = ctx.TRUE().getText()
-            self.jasmin.loadConst(1)
+            if hasattr(ctx,'inh') and ctx.inh != "const":
+                self.jasmin.loadConst(1)
         elif ctx.FALSE():
             ctx.val = ctx.FALSE().getText()
-            self.jasmin.loadConst(0)
+            if hasattr(ctx,'inh') and ctx.inh != "const":
+                self.jasmin.loadConst(0)
 
     # Enter a parse tree produced by jauanParser#num.
     def enterNum(self, ctx: jauanParser.NumContext):
@@ -633,9 +677,15 @@ class MyListener(jauanListener):
             elif isinstance(ctx.parentCtx,jauanParser.OperandoContext):
                 pass
             else:
-                self.jasmin.load(ctx.id,ctx.type)
+                if ctx.type == 'bool' and ctx.inh == 'print':
+                    self.jasmin.loadConst('true' if ctx.val else 'false','str')
+                else:
+                    self.jasmin.load(ctx.id,ctx.type)
         if hasattr(ctx,'inh') and ctx.inh == 'print':
-            self.jasmin.StringBuilderAppend(ctx.type)
+            if ctx.type == 'bool':
+                self.jasmin.StringBuilderAppend('str')
+            else:
+                self.jasmin.StringBuilderAppend(ctx.type)
 
     # Buscar no dicionario a chave pelo valor
     def searchSymbolTable(self, value):

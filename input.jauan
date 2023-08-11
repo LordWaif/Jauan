@@ -1,18 +1,9 @@
 main:
     var:
-        a,c: int;
-        b: float;
-        b = 5;
-        a = 1.0;
-        a = a + b;
-        print(a+b);
+        c : bool;
+        d : int;
+    d = 10;
 
-        while(a>c):
-            if(a == 4):
-                print("Quatro");
-            else:
-                print(a);
-            end
-            a = a - 1;
-        end
+    c = d == 10;
+    print(c);
 end
