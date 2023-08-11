@@ -82,14 +82,19 @@
             monaco.languages.setMonarchTokensProvider('jauan', {
                 tokenizer: {
                     root: [
-                            [/\/\/.*/, 'comment'],
-                            [/"[^"]*"/, 'string'],
-                            [/\b(if|else|while|break|end|main|return|var|int|str|float|bool|void)\b/, 'keyword'],
-                            [/\b\w+(?=\s*\()/, 'function-call'],
+                            [/\/\*/, 'comment', '@comment'],
+                            [/\b(bool|str|float|const|int|void|var)\b/, 'type'],
+                            [/\b(if|else|while|break|end|main|return)\b/, 'keyword'],
+                            [/\b\w+(?=\s*\()\b/, 'function-call'],
                             [/[+\-*/<>=!]/, 'operator'],
                             [/[();,]/, 'delimiter'],
-                            [/\d+/, 'number']
-                        ]
+                            [/\d+/, 'number'],
+                            [/"[^"]*"/, 'string'],
+            
+                        ],
+                    comment: [
+                                [/\*\//, 'comment', '@pop'], [/./, 'comment.content'],
+                            ],
                 }
             });
 
