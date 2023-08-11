@@ -67,28 +67,43 @@
                     { token: 'comment', foreground: '888888' },
                     { token: 'keyword', foreground: 'f92672' },
                     { token: 'string', foreground: 'e6db74' },
-                    { token: 'number', foreground: 'ae81ff' }
+                    { token: 'number', foreground: 'ae81ff' },
+                    { token: 'function-call', foreground: '#A6E22E'},
+                    { token: 'delimiter', foreground: '#9EF4F4'},
+                    { token: 'operator', foreground: '#F4A69E'},
                 ],
                 colors: {}
             });
-    
+
             monaco.editor.setTheme('monokai');
-    
+
+            // Defina o esquema de cores personalizado para a linguagem "jauan"
+            monaco.languages.register({ id: 'jauan' });
+            monaco.languages.setMonarchTokensProvider('jauan', {
+                tokenizer: {
+                    root: [
+                            [/\/\/.*/, 'comment'],
+                            [/"[^"]*"/, 'string'],
+                            [/\b(if|else|while|break|end|main|return|var|int|str|float|bool|void)\b/, 'keyword'],
+                            [/\b\w+(?=\s*\()/, 'function-call'],
+                            [/[+\-*/<>=!]/, 'operator'],
+                            [/[();,]/, 'delimiter'],
+                            [/\d+/, 'number']
+                        ]
+                }
+            });
+
             var editor = monaco.editor.create(document.getElementById('editor'), {
-                value: "{{conteudo}}",
-                language: "sql",
+                language: "jauan",
                 automaticLayout: true
             });
-    
+
             var saveButton = document.getElementById('save-button');
             saveButton.addEventListener('click', function() {
-                // Obtenha o conteúdo do editor
                 var conteudo = editor.getValue();
-            
-                // Enviar o conteúdo via Ajax
                 enviarParaServidor(conteudo);
             });
-    
+
             function enviarParaServidor(conteudo) {
                 // Crie uma instância do objeto XMLHttpRequest
                 var xhttp = new XMLHttpRequest();

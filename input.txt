@@ -1,1 +1,7 @@
-dsa
+main:
+    var:
+        x: int;
+    while(x>5):
+        print(3);
+    end
+end

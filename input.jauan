@@ -1,9 +1,6 @@
 main:
-    var:
-        c : bool;
-        d : int;
-    d = 10;
-
-    c = d == 10;
-    print(c);
+    x: int;
+    while(x>5):
+        print(3);
+    end
 end
