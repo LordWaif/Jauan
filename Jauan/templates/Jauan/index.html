@@ -71,6 +71,7 @@
                     { token: 'function-call', foreground: '#A6E22E'},
                     { token: 'delimiter', foreground: '#9EF4F4'},
                     { token: 'operator', foreground: '#F4A69E'},
+                    { token: 'type', foreground: '#E700FE'}
                 ],
                 colors: {}
             });
@@ -80,14 +81,26 @@
             // Defina o esquema de cores personalizado para a linguagem "jauan"
             monaco.languages.register({ id: 'jauan' });
             monaco.languages.setMonarchTokensProvider('jauan', {
+
+                keywords: [
+                    'main', 'for', 'if', 'break', 'else', 'return',
+                    'const', 'while', 'true', 'false', 'var'
+                ],
+
+                typeKeywords: [
+                    'bool', 'int', 'void', 'float'
+                ],
+
                 tokenizer: {
                     root: [
+                            // identifiers and keywords
+                            [/[a-z_$][\w$]*/, { cases: { '@typeKeywords': 'type',
+                                                        '@keywords': 'keyword',
+                                                        '@default': 'identifier' } }],
                             [/\/\*/, 'comment', '@comment'],
-                            [/\b(bool|str|float|const|int|void|var)\b/, 'type'],
-                            [/\b(if|else|while|break|end|main|return)\b/, 'keyword'],
                             [/\b\w+(?=\s*\()\b/, 'function-call'],
                             [/[+\-*/<>=!]/, 'operator'],
-                            [/[();,]/, 'delimiter'],
+                            [/[()\{\}\[\];,:]/, 'delimiter'],
                             [/\d+/, 'number'],
                             [/"[^"]*"/, 'string'],
             
