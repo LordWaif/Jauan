@@ -558,6 +558,25 @@ class MyListener(jauanListener):
                 ctx.val = ctx.op_relacional(0).val == ctx.op_relacional(1).val
             elif ctx.OPERADOR().getText() == '!=':
                 ctx.val = ctx.op_relacional(0).val != ctx.op_relacional(1).val
+           
+            if ctx.op_relacional(0).id_() != None:
+                self.jasmin.load(ctx.op_relacional(0).id_().id, ctx.op_relacional(0).type)
+            else:
+                self.jasmin.loadConst(ctx.op_relacional(0).val)
+            if _type == 'float' and ctx.op_relacional(0).type == 'int':
+                self.jasmin.i2f()
+            elif _type == 'int' and ctx.op_relacional(0).type == 'float':
+                self.jasmin.f2i()
+
+            if ctx.op_relacional(1).id_() != None:
+                self.jasmin.load(ctx.op_relacional(1).id_().id, ctx.op_relacional(1).type)
+            else:
+                self.jasmin.loadConst(ctx.op_relacional(1).val)
+            if _type == 'float' and ctx.op_relacional(1).type == 'int':
+                self.jasmin.i2f()
+            elif _type == 'int' and ctx.op_relacional(1).type == 'float':
+                self.jasmin.f2i()
+
             self.jasmin.createIfElse()
             self.jasmin.constructIf(ctx.OPERADOR().getText(),_type)
             lb_else,lb_end = self.jasmin.executeIf()
@@ -666,8 +685,12 @@ class MyListener(jauanListener):
                     if hasattr(ctx,'inh') and ctx.inh != "const":
                         self.jasmin.loadConst(ctx.val)
             else:
-                if hasattr(ctx,'inh') and ctx.inh != "const":
+                if hasattr(ctx,'relacional') and ctx.relacional == 'true':
+                    pass
+                elif hasattr(ctx,'inh') and ctx.inh != "const":
                     self.jasmin.loadConst(ctx.val)
+                else:
+                   self.jasmin.loadConst(ctx.val)
                 ctx.type = type(ctx.val).__name__
             if hasattr(ctx,'inh') and ctx.inh == "print":
                 self.jasmin.StringBuilderAppend(ctx.num().type)
@@ -747,10 +770,12 @@ class MyListener(jauanListener):
             else:
                 if ctx.type == 'bool' and ctx.inh == 'print':
                     self.jasmin.loadConst('true' if ctx.val else 'false','str')
-                if hasattr(ctx,'relacional') and ctx.relacional == 'true':
-                    pass
                 else:
-                    self.jasmin.load(ctx.id,ctx.type)
+                    if hasattr(ctx,'relacional') and ctx.relacional == 'true':
+                        pass
+                    else:
+                        self.jasmin.load(ctx.id,ctx.type)
+
         if hasattr(ctx,'inh') and ctx.inh == 'print':
             if ctx.type == 'bool':
                 self.jasmin.StringBuilderAppend('str')

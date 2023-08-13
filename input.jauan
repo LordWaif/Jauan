@@ -1,10 +1,8 @@
 main:
     var:
-        x: float;
-        y: int;
         z: bool;
-    x = 4.5;
-    y = 3.5;
-    z = -x<y;
+        x: int;
+        x = 5;
+    z = -x >= 2.0;
     print(z);
 end
