@@ -235,7 +235,6 @@ class MyListener(jauanListener):
     def exitComando_atribuicao(self, ctx: jauanParser.Comando_atribuicaoContext):
         var = ctx.id_(0).id
         child = ctx.getChild(2)
-        print(ctx.id_(0).type, child.val)
         if self.tabelaDeSimbolos[var][VAR_OR_CONST] == 'var':
             if ctx.id_(0).type == child.type:
                 ctx.val = child.val
@@ -538,11 +537,14 @@ class MyListener(jauanListener):
     def enterExprRelacionalBinaria(self, ctx: jauanParser.ExprRelacionalBinariaContext):
         ctx.op_relacional(0).inh = 'l'
         ctx.op_relacional(1).inh = 'r'
+        ctx.op_relacional(0).relacional = 'true'
+        ctx.op_relacional(1).relacional = 'true'
 
 
     # Exit a parse tree produced by jauanParser#exprRelacional.
     def exitExprRelacionalBinaria(self, ctx: jauanParser.ExprRelacionalBinariaContext):
         ctx.type = 'bool'
+        _type = 'int' if ctx.op_relacional(0).type == 'int' and ctx.op_relacional(1).type == 'int' else 'float'
         if ctx.op_relacional(0).type in ['int','float', 'bool'] and ctx.op_relacional(1).type in ['int','float', 'bool']:
             if ctx.OPERADOR().getText() == '>':
                 ctx.val = ctx.op_relacional(0).val > ctx.op_relacional(1).val
@@ -557,7 +559,7 @@ class MyListener(jauanListener):
             elif ctx.OPERADOR().getText() == '!=':
                 ctx.val = ctx.op_relacional(0).val != ctx.op_relacional(1).val
             self.jasmin.createIfElse()
-            self.jasmin.constructIf(ctx.OPERADOR().getText(),type(ctx.op_relacional(0).val).__name__)
+            self.jasmin.constructIf(ctx.OPERADOR().getText(),_type)
             lb_else,lb_end = self.jasmin.executeIf()
             # --- escopo do if
             self.jasmin.loadConst(1)
@@ -592,7 +594,9 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#op_relacional.
     def enterOp_relacional(self, ctx:jauanParser.Op_relacionalContext):
-        ctx.exprAlgebrica().inh = ctx.inh
+        ctx.children[0].relacional = ctx.relacional
+        if ctx.exprAlgebrica():
+            ctx.exprAlgebrica().inh = ctx.inh
         pass
 
     # Exit a parse tree produced by jauanParser#op_relacional.
@@ -664,6 +668,7 @@ class MyListener(jauanListener):
             else:
                 if hasattr(ctx,'inh') and ctx.inh != "const":
                     self.jasmin.loadConst(ctx.val)
+                ctx.type = type(ctx.val).__name__
             if hasattr(ctx,'inh') and ctx.inh == "print":
                 self.jasmin.StringBuilderAppend(ctx.num().type)
         elif ctx.STRING():
@@ -722,14 +727,15 @@ class MyListener(jauanListener):
         ctx.name = self.tabelaDeSimbolos[var][ID]
         ctx.val = self.tabelaDeSimbolos[var][VALOR]
         ctx.type = self.tabelaDeSimbolos[var][TIPO]
-        try:
-            ctx.parentCtx.value().type = ctx.type
-        except:
-            pass
-        try:
-            ctx.parentCtx.parentCtx.op_algebrico(1).type = ctx.type
-        except:
-            pass
+        if ctx.type == 'str':
+            try:
+                ctx.parentCtx.value().type = ctx.type
+            except:
+                pass
+            try:
+                ctx.parentCtx.parentCtx.op_algebrico(1).type = ctx.type
+            except:
+                pass
         ctx.id = var
         if hasattr(ctx,'inh') and ctx.inh == 'scanf':
             return
@@ -741,6 +747,8 @@ class MyListener(jauanListener):
             else:
                 if ctx.type == 'bool' and ctx.inh == 'print':
                     self.jasmin.loadConst('true' if ctx.val else 'false','str')
+                if hasattr(ctx,'relacional') and ctx.relacional == 'true':
+                    pass
                 else:
                     self.jasmin.load(ctx.id,ctx.type)
         if hasattr(ctx,'inh') and ctx.inh == 'print':

@@ -284,7 +284,9 @@ class Jasmin():
         if_atual = self.stack.pop()
         if _type == 'zero':
             if_atual['comparador'] = 'if'+self.ops[op]
-        else:
+        if _type == 'float':
+            if_atual['comparador'] = 'fcmpl\nif'+self.ops[op]
+        if _type == 'int':
             if_atual['comparador'] = 'if_icmp'+self.ops[op]
         if_atual['tipo'] = _type
         self.stack.append(if_atual)
