@@ -550,8 +550,8 @@ class MyListener(jauanListener):
             ctx.type = type(ctx.val).__name__
         elif ctx.STRING():
             ctx.val = ctx.STRING().getText()
-            ctx.type = 'bool'
-            self.jasmin.loadConst(ctx.val,'str')
+            ctx.type = 'str'
+            self.jasmin.loadConst(ctx.val,'')
         elif ctx.TRUE():
             ctx.val = True
             ctx.type = 'bool'
@@ -560,11 +560,12 @@ class MyListener(jauanListener):
             ctx.val = False
             ctx.type = 'bool'
             self.jasmin.loadConst(0)
-        if hasattr(ctx,'inh') and ctx.inh == "print":
-            self.jasmin.pop()
+        if hasattr(ctx,'inh') and ctx.inh == 'print':
             if ctx.type == 'bool':
-                self.jasmin.loadConst('true' if ctx.val == 'TRUE' else 'false','str')
-            self.jasmin.StringBuilderAppend("str")
+                self.jasmin.ifBoolprint()
+                self.jasmin.StringBuilderAppend('str')
+            else:
+                self.jasmin.StringBuilderAppend(ctx.type)
 
     # Enter a parse tree produced by jauanParser#num.
     def enterNum(self, ctx: jauanParser.NumContext):

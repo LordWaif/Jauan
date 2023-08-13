@@ -62,6 +62,8 @@ class Jasmin():
             self.jasmin_file.write('freturn\n')
     
     def endFunction(self):
+        if self.function_return_type == 'void':
+            self.jasmin_file.write('return\n')
         self.jasmin_file.write('.end method\n')
 
     def setFunctionLimits(self,limit_locals,limit_stack):
