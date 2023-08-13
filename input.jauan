@@ -1,8 +1,6 @@
 main:
     var:
-        z: bool;
-        x: int;
-        x = 5;
-    z = -x >= 2.0;
-    print(z);
+        const y = 20;
+    y = 10;
+    print(y);
 end

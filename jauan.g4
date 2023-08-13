@@ -40,9 +40,10 @@ parametro: TIPO ID_L;
 var: 'var' ':' declaracao+;
 
 declaracao:
-	CONST ID_L '=' value (',' ID_L '=' value)* ';'	# declaraConstante
-	| ID_L (',' ID_L)* ':' TIPO ';'					# declaraVariavel;
+	CONST declConst ';'				# declaraConstante
+	| ID_L (',' ID_L)* ':' TIPO ';'	# declaraVariavel;
 
+declConst: ID_L '=' value (',' declConst)*;
 comando_atribuicao:
 	id '=' (id | value | exprRelacionalBinaria | op_algebrico);
 
