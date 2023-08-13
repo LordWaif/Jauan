@@ -15,15 +15,18 @@ TIPO = 2
 ESCOPO = 3
 VAR_OR_CONST = 4
 
+ID_FUNCTION = 0
+RETURN_TYPE = 1
+
 #Tratar o escopo de variáveis, como armazenar parâmetros das funções e usar somente naquela função?
 
 
 # This class defines a complete listener for a parse tree produced by jauanParser.
 class MyListener(jauanListener):
     tabelaDeSimbolos = {}
-    argumentosDeFuncoes = {}
     blocoDePilha = []
-    escopoMain = False
+    escopo = ''
+    tabelaNameFunctions = {}
 
     def __init__(self):
         self.stack = []
@@ -35,73 +38,41 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#prog.
     def exitProg(self, ctx: jauanParser.ProgContext):
+        self.jasmin.exit()
+        self.jasmin.remakeLimits(max(self.tabelaDeSimbolos.keys())+1,max(self.tabelaDeSimbolos.keys())+1)
         pass
 
     # Enter a parse tree produced by jauanParser#main.
     def enterMain(self, ctx: jauanParser.MainContext):
         self.jasmin.createMain(20, 20)
         self.jasmin.createScanner()
-        self.escopoMain = True
+        self.escopo = 'main'
         pass
 
     # Exit a parse tree produced by jauanParser#main.
     def exitMain(self, ctx: jauanParser.MainContext):
-        self.escopoMain = False
         self.jasmin.endMain()
-        self.jasmin.exit()
         pass
 
     def enterDeclar_funcao(self, ctx: jauanParser.Declar_funcaoContext):
-        self.escopoMain = False
-
-        function_name = ctx.ID_L().getText()
-        return_type = ctx.TIPO().getText()
-
-        if self.searchSymbolTable(function_name) == None:
-            if len(self.tabelaDeSimbolos.keys()) == 0:
-                self.tabelaDeSimbolos[0] = [function_name,
-                                           None, return_type,
-                                           0, "function"]
+        self.escopo = ctx.ID_L().getText()
+        ctx.args_formal().return_type = return_type = ctx.TIPO().getText()
+        ctx.return_type = return_type
+        self.jasmin.function_return_type = return_type
+        self.jasmin.createFunction(ctx.ID_L().getText())
+        if self.searchNameFunction(ctx.ID_L().getText()) == None:
+            if len(self.tabelaNameFunctions.keys()) == 0:
+                _id = 0
+                self.tabelaNameFunctions[_id] = [ctx.ID_L().getText(), ctx.TIPO().getText()]
             else:
-                self.tabelaDeSimbolos[list(self.tabelaDeSimbolos.keys())[-1] + 1] = [function_name,
-                                                                                    None, return_type,
-                                                                                    0, "function"]
+                _id = list(self.tabelaNameFunctions.keys())[-1] + 1
+                self.tabelaNameFunctions[_id] = [ctx.ID_L().getText(), ctx.TIPO().getText()]
         else:
-            raise Exception("Erro: Função '" + function_name + "' já foi declarada.")
+            raise Exception("A função '" + ctx.ID_L().getText() + "' já foi declarada.")
 
     # Exit a parse tree produced by jauanParser#declar_funcao.
     def exitDeclar_funcao(self, ctx: jauanParser.Declar_funcaoContext):
-        function_name = ctx.ID_L().getText()
-
-        arg_form = ctx.args_formal().val
-        print(arg_form)
-        if arg_form:
-            args = arg_form
-            argument_list = []
-            for i,v in enumerate(args):
-                arg_type = args[i][0]
-                arg_name = args[i][1]
-                argument_info = [
-                    arg_name,
-                    None, arg_type,
-                    0, "parameter"
-                ]
-
-                if self.searchSymbolTable(arg_name) == None:
-                    if len(self.tabelaDeSimbolos.keys()) == 0:
-                        self.tabelaDeSimbolos[0] = argument_info
-                    else:
-                        self.tabelaDeSimbolos[list(self.tabelaDeSimbolos.keys())[-1] + 1] = argument_info
-                else:
-                    raise Exception("Erro: Argumento '" + arg_name + "' já foi utilizado.")
-
-                argument_list.append(arg_name)
-
-            self.argumentosDeFuncoes[function_name] = argument_list
-        print("TABELA")
-        print(self.tabelaDeSimbolos)
-        
-        self.escopoMain = True
+        self.jasmin.endFunction()
 
     # Enter a parse tree produced by jauanParser#args_formal.
     def enterArgs_formal(self, ctx: jauanParser.Args_formalContext):
@@ -109,7 +80,22 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#args_formal.
     def exitArgs_formal(self, ctx: jauanParser.Args_formalContext):
-        ctx.val = [[param.TIPO().getText(), param.ID_L().getText()] for param in ctx.parametro()]
+        for param in ctx.parametro():
+            if self.searchSymbolTable(param.ID_L().getText()) == None:
+                valorInicial = self.atribuirValorInicialParam(param.TIPO().getText())
+                self.jasmin.passingParameters(param.TIPO().getText())
+                if len(self.tabelaDeSimbolos.keys()) == 0:
+                    # _id = self.jasmin.max_locals_used
+                    # self.jasmin.max_locals_used += 1
+                    _id = 0
+                    self.tabelaDeSimbolos[_id] = [param.ID_L().getText(), valorInicial, param.TIPO().getText(), self.escopo, "param"]
+                else:
+                    _id = max(self.tabelaDeSimbolos.keys()) + 1
+                    self.tabelaDeSimbolos[_id] = [param.ID_L().getText(), valorInicial, param.TIPO().getText(), self.escopo, "param"]
+            else:
+                raise Exception("Parâmetro já declarado.")
+        self.jasmin.defineReturnType(ctx.return_type)
+        self.jasmin.setFunctionLimits(10,10)
 
     # Enter a parse tree produced by jauanParser#bloco.
     def enterBloco(self, ctx: jauanParser.BlocoContext):
@@ -134,7 +120,9 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#retorno.
     def exitRetorno(self, ctx: jauanParser.RetornoContext):
-        pass
+        if ctx.getChild(1).type != self.jasmin.function_return_type:
+            raise Exception("O tipo do retorno da função '" + self.escopo + "' é '" + self.jasmin.function_return_type + "' mas foi recebido '" + ctx.getChild(1).type + "'")
+        self.jasmin.returnType()
 
     # Enter a parse tree produced by jauanParser#parametro.
     def enterParametro(self, ctx: jauanParser.ParametroContext):
@@ -169,18 +157,18 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#declConst.
     def exitDeclConst(self, ctx:jauanParser.DeclConstContext):
-        if self.searchSymbolTable(ctx.ID_L().getText()) == None:
+        if self.searchSymbolTable(ctx.ID_L().getText()) == None and self.searchNameFunction(ctx.ID_L().getText()) == None:
             if len(self.tabelaDeSimbolos.keys()) == 0:
                 _id = self.jasmin.max_locals_used
                 self.jasmin.max_locals_used += 1
                 self.tabelaDeSimbolos[_id] = [ctx.ID_L().getText(), ctx.value().val, ctx.value().type,
-                                                 self.escopoMain, "const"]
+                                                 self.escopo, "const"]
             else:
-                _id = list(self.tabelaDeSimbolos.keys())[-1] + 1
+                _id = max(self.tabelaDeSimbolos.keys()) + 1
                 self.tabelaDeSimbolos[_id] = [ctx.ID_L().getText(),
                                             ctx.value().val,
                                             ctx.value().type,
-                                            self.escopoMain, "const"]
+                                            self.escopo, "const"]
             self.jasmin.store(_id,ctx.value().type)
         else:
             raise Exception("A constante '" + ctx.ID_L().getText() + "' já foi declarada")
@@ -192,19 +180,19 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#declaraVariavel.
     def exitDeclaraVariavel(self, ctx: jauanParser.DeclaraVariavelContext):
         for indice, variavel in enumerate(ctx.ID_L()):
-            if self.searchSymbolTable(variavel.getText()) == None:
+            if self.searchSymbolTable(variavel.getText()) == None and self.searchNameFunction(variavel.getText()) == None:
                 valorInicial = self.atribuirValorInicial(ctx)
                 if len(self.tabelaDeSimbolos.keys()) == 0:
                     _id = self.jasmin.max_locals_used
                     self.jasmin.max_locals_used += 1
                     self.tabelaDeSimbolos[_id] = [variavel.getText(), valorInicial, ctx.TIPO().getText(),
-                                                     self.escopoMain, "var"]
+                                                     self.escopo, "var"]
                 else:
-                    _id = list(self.tabelaDeSimbolos.keys())[-1] + 1
+                    _id = max(self.tabelaDeSimbolos.keys()) + 1
                     self.tabelaDeSimbolos[_id] = [variavel.getText(),
                                                 valorInicial,
                                                 ctx.TIPO().getText(),
-                                                self.escopoMain, "var"]
+                                                self.escopo, "var"]
                 self.jasmin.loadConst(valorInicial,ctx.TIPO().getText())
                 self.jasmin.store(_id,ctx.TIPO().getText())
             else:
@@ -227,24 +215,27 @@ class MyListener(jauanListener):
         child = ctx.getChild(2)
         if self.tabelaDeSimbolos[var][VAR_OR_CONST] == 'var':
             if ctx.id_(0).type == child.type:
-                ctx.val = child.val
+                if not isinstance(child, jauanParser.Inst_funcaoContext):
+                    ctx.val = child.val
+                    self.tabelaDeSimbolos[var][VALOR] = child.val
                 attr(var,ctx.id_(0).type)
-                self.tabelaDeSimbolos[var][VALOR] = child.val
             elif (ctx.id_(0).type == 'int' and child.type == 'float'):
-                val = int(child.val)
-                child.inh = val
-                ctx.val = val
+                if not isinstance(child, jauanParser.Inst_funcaoContext):
+                    print('dsfsdfsd')
+                    val = int(child.val)
+                    child.inh = val
+                    ctx.val = val
+                    self.tabelaDeSimbolos[var][VALOR] = val
                 self.jasmin.f2i()
                 attr(var,ctx.id_(0).type)
-                self.tabelaDeSimbolos[var][VALOR] = val
             elif (ctx.id_(0).type == 'float' and child.type == 'int'):
-                val = float(child.val)
-                child.inh = val
-                ctx.val = val
+                if not isinstance(child, jauanParser.Inst_funcaoContext):
+                    val = float(child.val)
+                    child.inh = val
+                    ctx.val = val
+                    self.tabelaDeSimbolos[var][VALOR] = val
                 self.jasmin.i2f()
                 attr(var,ctx.id_(0).type)
-                self.tabelaDeSimbolos[var][VALOR] = val
-                
             else:
                 raise Exception("A variável " + str(ctx.id_(0).name) + " não é do mesmo tipo do valor atribuído")
         else:
@@ -419,29 +410,37 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#inst_funcao.
     def exitInst_funcao(self, ctx: jauanParser.Inst_funcaoContext):
-        pass
+        ctx.type = self.tabelaNameFunctions[ctx.id_().id][RETURN_TYPE]
+        self.jasmin.invokeFunction(ctx.id_().name,ctx.args_real().type,ctx.type)
 
     # Enter a parse tree produced by jauanParser#args_real.
     def enterArgs_real(self, ctx: jauanParser.Args_realContext):
         for i in range(len(ctx.children)):
-            ctx.children[i].inh = ctx.inh
+            if hasattr(ctx,'inh'):
+                ctx.children[i].inh = ctx.inh
 
     # Exit a parse tree produced by jauanParser#args_real.
     def exitArgs_real(self, ctx: jauanParser.Args_realContext):
         ctx.val = []
+        ctx.type = []
         for i in range(len(ctx.children)):
             child = ctx.getChild(i)
             if isinstance(child, jauanParser.IdContext):
                 child.inh = ctx.inh
                 ctx.val.append(child)
+                ctx.type.append(child.type)
             elif isinstance(child, jauanParser.ValueContext):
                 ctx.val.append(child)
+                ctx.type.append(child.type)
             elif isinstance(child, jauanParser.ExprAlgebricaContext):
                 ctx.val.append(child)
+                ctx.type.append(child.type)
             elif isinstance(child, jauanParser.ExprRelacionalBinariaContext):
                 ctx.val.append(child)
+                ctx.type.append(child.type)
             elif isinstance(child, jauanParser.ExprRelacionalUnariaContext):
                 ctx.val.append(child) 
+                ctx.type.append(child.type)
 
     # Enter a parse tree produced by jauanParser#exprRelacional.
     def enterExprRelacionalBinaria(self, ctx: jauanParser.ExprRelacionalBinariaContext):
@@ -604,18 +603,24 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#id.
     def exitId(self, ctx:jauanParser.IdContext):
         var = self.searchSymbolTable(ctx.ID_L().getText())
-        if var == None:
+        func = self.searchNameFunction(ctx.ID_L().getText())
+        if var == None and func == None:
             raise Exception(f"Erro: Variavel '{ctx.ID_L().getText()}' nao declarada.")
-        ctx.name = self.tabelaDeSimbolos[var][ID]
-        ctx.val = self.tabelaDeSimbolos[var][VALOR]
-        ctx.type = self.tabelaDeSimbolos[var][TIPO]
-        ctx.id = var
-        if ctx.type == 'str':
-            self.jasmin.Aload(ctx.id)
-        else:
-            self.jasmin.load(ctx.id,ctx.type)
-            if ctx.type == 'bool' and hasattr(ctx,'inh') and ctx.inh == 'print':
-                self.jasmin.ifBoolprint()
+        if var != None:
+            ctx.name = self.tabelaDeSimbolos[var][ID]
+            ctx.val = self.tabelaDeSimbolos[var][VALOR]
+            ctx.type = self.tabelaDeSimbolos[var][TIPO]
+            ctx.id = var
+            if ctx.type == 'str':
+                self.jasmin.Aload(ctx.id)
+            else:
+                self.jasmin.load(ctx.id,ctx.type)
+                if ctx.type == 'bool' and hasattr(ctx,'inh') and ctx.inh == 'print':
+                    self.jasmin.ifBoolprint()
+        elif func != None:
+            ctx.name = self.tabelaNameFunctions[func][ID]
+            ctx.type = self.tabelaNameFunctions[func][RETURN_TYPE]
+            ctx.id = func
         if hasattr(ctx,'inh') and ctx.inh == 'print':
             if ctx.type == 'bool':
                 self.jasmin.StringBuilderAppend('str')
@@ -625,7 +630,7 @@ class MyListener(jauanListener):
     # Buscar no dicionario a chave pelo valor
     def searchSymbolTable(self, value):
         for chave, valor in self.tabelaDeSimbolos.items():
-            if valor[ID] == value and valor[ESCOPO] == self.escopoMain:
+            if valor[ID] == value and valor[ESCOPO] == self.escopo:
                 return chave
         return None
 
@@ -638,3 +643,25 @@ class MyListener(jauanListener):
             return ""
         if ctx.TIPO().getText() == 'bool':
             return 0
+    
+    def atribuirValorInicialParam(self, tipo):
+        if tipo == 'int':
+            return 0
+        elif tipo == 'float':
+            return 0.0
+        elif tipo == 'str':
+            return ""
+        elif tipo == 'bool':
+            return 0
+
+    def searchNameFunction(self, value):
+            for chave, valor in self.tabelaNameFunctions.items():
+                if valor[ID] == value:
+                    return chave
+            return None
+
+    def searchFunctionMainOrItself(self, value, nameEscopo):
+        for chave, valor in self.tabelaDeSimbolos.items():
+            if valor[ID] == value and (valor[ESCOPO] == 'main' or valor[ESCOPO] == nameEscopo):
+                return chave
+        return None

@@ -10,10 +10,11 @@ class Jasmin():
         self.ops = {'>=':'ge','<=':'le','>':'gt','<':'lt','==':'eq','!=':'ne'}
         self.if_module = {'comparador':'','label_if':'','tipo':'','label_end':'','label_else':'',}
         self.while_module = {'comparador':'','label_start':'','label_end':'','label_loop':'','tipo':''}
-        self.types_args = {"int":"I","float":"F","bool":"I","str":"Ljava/lang/String;"}
+        self.types_args = {"int":"I","float":"F","bool":"I","str":"Ljava/lang/String;",'void':'V'}
         self.stack = list()
         self.in_execution = list()
         self.labels_history = list()
+        self.function_return_type = ''
 
     def createNewTemp(self,_type):
         if _type == 'int':
@@ -21,6 +22,14 @@ class Jasmin():
         elif _type == 'float':
             return self.newStoreFloat()
         return self.max_locals_used
+
+    def invokeFunction(self,name,parameters,return_type):
+        invoke = 'invokestatic '+self.jasmin_path+'/'+name+'('
+        for parameter in parameters:
+            invoke += self.types_args[parameter]
+        invoke += ')'
+        invoke += self.types_args[return_type]+'\n'
+        self.jasmin_file.write(invoke)
 
     def ifBoolprint(self):
         label_if = next(self.labels)
@@ -35,8 +44,29 @@ class Jasmin():
         self.loadConst('false',_type='str')
         self.createLabel(label_end)
 
+    def createFunction(self,name):
+        self.jasmin_file.write('.method public static '+name+'(')   
+    
+    def passingParameters(self,parameters):
+        self.jasmin_file.write(self.types_args[parameters])
 
+    def defineReturnType(self,_type):
+        self.jasmin_file.write(')'+self.types_args[_type]+'\n')
 
+    def returnType(self):
+        if self.function_return_type == 'str':
+            self.jasmin_file.write('areturn\n')
+        elif self.function_return_type == 'int':
+            self.jasmin_file.write('ireturn\n')
+        elif self.function_return_type == 'float':
+            self.jasmin_file.write('freturn\n')
+    
+    def endFunction(self):
+        self.jasmin_file.write('.end method\n')
+
+    def setFunctionLimits(self,limit_locals,limit_stack):
+        self.jasmin_file.write('.limit stack '+str(limit_stack)+'\n')
+        self.jasmin_file.write('.limit locals '+str(limit_locals)+'\n')
 
     def load(self,adress,_type):
         if _type == 'int':
@@ -94,18 +124,6 @@ class Jasmin():
             self.jasmin_file.write('fload '+str(adress)+'\n')
             self.jasmin_file.write('invokevirtual java/io/PrintStream/println(F)V\n')
 
-    def verifyLimitLocals(func):
-        @wraps(func)
-        def wrapper(self,*args, **kwargs): 
-            if args[0]  > self.limit_locals:
-                raise ValueError("O limite de variáveis locais foi excedido.")
-            if args[0] > self.max_locals_used:
-                self.max_locals_used = args[0]
-            if hasattr(self,'scanner_adress') and args[0] == self.scanner_adress:
-                raise ValueError('Scanner adress already in use')
-            func(self,*args, **kwargs)
-        return wrapper
-
     def createScanner(self):
         self.scanner_adress = self.max_locals_used
         self.jasmin_file.write('new java/util/Scanner\n')
@@ -135,8 +153,6 @@ class Jasmin():
     def f2i(self):
         self.jasmin_file.write('f2i\n')
 
-
-    @verifyLimitLocals
     def readInt(self,adress):
         if adress == self.scanner_adress:
             raise ValueError('Scanner adress already in use')
@@ -144,7 +160,6 @@ class Jasmin():
         self.jasmin_file.write('invokevirtual java/util/Scanner/nextInt()I\n')
         self.jasmin_file.write('istore '+str(adress)+'\n')
 
-    @verifyLimitLocals
     def readFloat(self,adress):
         if adress == self.scanner_adress:
             raise ValueError('Scanner adress already in use')
@@ -156,19 +171,15 @@ class Jasmin():
         self.labels_history.append(label)
         self.jasmin_file.write(label+':\n')
 
-    @verifyLimitLocals
     def loadInt(self,adress):
         self.jasmin_file.write('iload '+str(adress)+'\n')
 
-    @verifyLimitLocals
     def loadFloat(self,adress):
         self.jasmin_file.write('fload '+str(adress)+'\n')
 
-    @verifyLimitLocals
     def storeInt(self,adress):
         self.jasmin_file.write('istore '+str(adress)+'\n')
 
-    @verifyLimitLocals
     def storeFloat(self,adress):
         self.jasmin_file.write('fstore '+str(adress)+'\n')
 
@@ -344,6 +355,21 @@ class Jasmin():
 
     def exit(self):
         self.jasmin_file.close()
+
+    def remakeLimits(self,limit_stack,limit_locals):
+        with open(self.jasmin_path+'.j','r') as file:
+            data = file.readlines()
+
+        for _id,line in enumerate(data):
+            if line.find('.limit') != -1:
+                if line.find('stack') != -1:
+                    data[_id] = '.limit stack '+str(limit_stack)+'\n'
+                elif line.find('locals') != -1:
+                    data[_id] = '.limit locals '+str(limit_locals)+'\n'
+
+        with open(self.jasmin_path+'.j','w') as file:
+            file.writelines(data)
+
 
 from subprocess import Popen, PIPE
 def compile(jasmin_path):

@@ -33,7 +33,7 @@ retorno:
 		| exprAlgebrica
 		| exprRelacionalBinaria
 		| exprRelacionalUnaria
-	)*;
+	)?;
 
 parametro: TIPO ID_L;
 
@@ -45,7 +45,13 @@ declaracao:
 
 declConst: ID_L '=' value (',' declConst)*;
 comando_atribuicao:
-	id '=' (id | value | exprRelacionalBinaria | op_algebrico);
+	id '=' (
+		id
+		| value
+		| exprRelacionalBinaria
+		| op_algebrico
+		| inst_funcao
+	);
 
 op_algebrico:
 	SUB op_algebrico								# unario

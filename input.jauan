@@ -1,6 +1,13 @@
+media (float n1, float n2, int n3) : float
+    var:
+        m : float;
+    m = (n1+n2+n3)/3;
+    return m;
+end
 main:
-var:
-    a : int;
-    a = -5+(4*3.5);
-    print(a);
+    var:
+        med : int;
+    
+    med = media(10.0, 20.0, 30);
+    print(med);
 end
