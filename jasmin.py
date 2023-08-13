@@ -22,6 +22,22 @@ class Jasmin():
             return self.newStoreFloat()
         return self.max_locals_used
 
+    def ifBoolprint(self):
+        label_if = next(self.labels)
+        label_else = next(self.labels)
+        label_end = next(self.labels)
+        self.jasmin_file.write('ifne '+label_if+'\n')
+        self.jump(label_else)
+        self.createLabel(label_if)
+        self.loadConst('true',_type='str')
+        self.jump(label_end)
+        self.createLabel(label_else)
+        self.loadConst('false',_type='str')
+        self.createLabel(label_end)
+
+
+
+
     def load(self,adress,_type):
         if _type == 'int':
             self.loadInt(adress)
@@ -39,7 +55,6 @@ class Jasmin():
             self.storeInt(adress)
         elif _type == 'str':
             self.Astore(adress)
-        self.max_locals_used += 1
 
     def gerar_labels(self):
         contador = 1
@@ -316,6 +331,9 @@ class Jasmin():
 
     def swap(self):
         self.jasmin_file.write('swap\n')
+    
+    def pop(self):
+        self.jasmin_file.write('pop\n')
 
     def concat(self,num_args):
         self.jasmin_file.write(f'invokevirtual java/lang/StringBuilder/append(Ljava/lang/String;)Ljava/lang/StringBuilder;\n')  
