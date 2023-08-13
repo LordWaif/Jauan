@@ -8,6 +8,5 @@ main:
     var:
         med : int;
     
-    med = media(10.0, 20.0, 30);
-    print(med);
+    print(media(10.0, 20.0, 30));
 end

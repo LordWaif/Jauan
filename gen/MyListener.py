@@ -412,6 +412,8 @@ class MyListener(jauanListener):
     def exitInst_funcao(self, ctx: jauanParser.Inst_funcaoContext):
         ctx.type = self.tabelaNameFunctions[ctx.id_().id][RETURN_TYPE]
         self.jasmin.invokeFunction(ctx.id_().name,ctx.args_real().type,ctx.type)
+        if hasattr(ctx,'inh') and ctx.inh == 'print':
+            self.jasmin.StringBuilderAppend(ctx.type)
 
     # Enter a parse tree produced by jauanParser#args_real.
     def enterArgs_real(self, ctx: jauanParser.Args_realContext):

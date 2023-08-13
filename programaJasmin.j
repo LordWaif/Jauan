@@ -31,20 +31,14 @@ invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V
 astore 0
 ldc 0
 istore 4
-iload 4
+new java/lang/StringBuilder
+dup
+invokespecial java/lang/StringBuilder/<init>()V
 ldc 10.0
 ldc 20.0
 ldc 30
 invokestatic programaJasmin/media(FFI)F
-f2i
-swap
-pop
-istore 4
-new java/lang/StringBuilder
-dup
-invokespecial java/lang/StringBuilder/<init>()V
-iload 4
-invokevirtual java/lang/StringBuilder/append(I)Ljava/lang/StringBuilder;
+invokevirtual java/lang/StringBuilder/append(F)Ljava/lang/StringBuilder;
 ldc " "
 invokevirtual java/lang/StringBuilder/append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 invokevirtual java/lang/StringBuilder/toString()Ljava/lang/String;
