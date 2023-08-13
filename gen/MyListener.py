@@ -252,18 +252,14 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#unario.
     def enterUnario(self, ctx: jauanParser.UnarioContext):
-        ctx.op_algebrico().inh = ctx.inh
         pass
 
     # Exit a parse tree produced by jauanParser#unario.
     def exitUnario(self, ctx: jauanParser.UnarioContext):
-        if hasattr(ctx, 'typeL'):
-            ctx.parentCtx.typeL = ctx.typeL
-            ctx.type = ctx.typeL
-        if hasattr(ctx, 'typeR'):
-            ctx.parentCtx.typeR = ctx.typeR
-            ctx.type = ctx.typeR
+        ctx.type = ctx.op_algebrico().type
         ctx.val = -ctx.op_algebrico().val
+        self.jasmin.loadConst(-1 if ctx.type == 'int' else -1.0)
+        self.jasmin.mul(ctx.type)
     # Enter a parse tree produced by jauanParser#parenteses.
     def enterParenteses(self, ctx: jauanParser.ParentesesContext):
         pass

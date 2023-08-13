@@ -10,40 +10,35 @@ invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V
 astore 0
 ldc 0
 istore 1
-ldc 0
-istore 2
+iload 1
 ldc 5
-istore 2
-iload 2
 ldc -1
 imul
-ldc -5
+ldc 4
+ldc 3.5
+swap
 i2f
-ldc 2.0
-fcmpl
-ifge L1
-goto L2
-L1:
-ldc 1
-istore 6
-goto L3
-L2:
-ldc 0
-istore 6
-L3:
-iload 6
+swap
+fmul
+swap
+i2f
+swap
+fadd
+f2i
+swap
+pop
 istore 1
 new java/lang/StringBuilder
 dup
 invokespecial java/lang/StringBuilder/<init>()V
-ldc "false"
-invokevirtual java/lang/StringBuilder/append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+iload 1
+invokevirtual java/lang/StringBuilder/append(I)Ljava/lang/StringBuilder;
 ldc " "
 invokevirtual java/lang/StringBuilder/append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 invokevirtual java/lang/StringBuilder/toString()Ljava/lang/String;
-astore 9
+astore 3
 getstatic java/lang/System/out Ljava/io/PrintStream;
-aload 9
+aload 3
 invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
 return
 .end method

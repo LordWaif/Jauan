@@ -1,6 +1,6 @@
 main:
-    var:
-        const y = 20;
-    y = 10;
-    print(y);
+var:
+    a : int;
+    a = -5+(4*3.5);
+    print(a);
 end
