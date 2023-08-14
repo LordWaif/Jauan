@@ -1,13 +1,26 @@
-media(float v1, float v2): float
+lerInteiro(int x): int
  var:
-    x : float;
-    x = (v1+v2)/2;
-    print(x);
-    return x;
+    w : int;
+
+    print("Digite o valor ", x, ":");
+    scanf(w);
+
+    return w;
 end
+
 
 main:
     var:
-        med : int;
-    print(media(10.0, 20.0));
+        a, b, c, aux: int;
+
+    aux = 1;
+    
+    a = lerInteiro(aux);
+    aux = aux + 1;
+    b = lerInteiro(aux);
+    aux = aux + 1;
+    c = lerInteiro(aux);
+
+    print(a, b, c);
+
 end

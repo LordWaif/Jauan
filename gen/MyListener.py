@@ -17,6 +17,8 @@ VAR_OR_CONST = 4
 
 ID_FUNCTION = 0
 RETURN_TYPE = 1
+SCANNER_ADRESS = 2
+EXPECTED_TYPES = 3
 
 #Tratar o escopo de variáveis, como armazenar parâmetros das funções e usar somente naquela função?
 
@@ -39,7 +41,8 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#prog.
     def exitProg(self, ctx: jauanParser.ProgContext):
         self.jasmin.exit()
-        self.jasmin.remakeLimits(max(self.tabelaDeSimbolos.keys())+1,max(self.tabelaDeSimbolos.keys())+1)
+        self.jasmin.remakeLimits(self.jasmin.max_locals_used+1,self.jasmin.max_locals_used+1)
+        #self.jasmin.remakeLimits(max(self.tabelaDeSimbolos.keys())+1,max(self.tabelaDeSimbolos.keys())+1)
         pass
 
     # Enter a parse tree produced by jauanParser#main.
@@ -64,15 +67,18 @@ class MyListener(jauanListener):
             if len(self.tabelaNameFunctions.keys()) == 0:
                 _id = 0
                 self.tabelaNameFunctions[_id] = [ctx.ID_L().getText(), ctx.TIPO().getText()]
+                self.tabelaNameFunctions[_id].append([])
             else:
                 _id = list(self.tabelaNameFunctions.keys())[-1] + 1
                 self.tabelaNameFunctions[_id] = [ctx.ID_L().getText(), ctx.TIPO().getText()]
+                self.tabelaNameFunctions[_id].append([])
         else:
             raise Exception("A função '" + ctx.ID_L().getText() + "' já foi declarada.")
 
     # Exit a parse tree produced by jauanParser#declar_funcao.
     def exitDeclar_funcao(self, ctx: jauanParser.Declar_funcaoContext):
         self.jasmin.endFunction()
+        self.jasmin.scanner_adress.pop()
 
     # Enter a parse tree produced by jauanParser#args_formal.
     def enterArgs_formal(self, ctx: jauanParser.Args_formalContext):
@@ -80,23 +86,26 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#args_formal.
     def exitArgs_formal(self, ctx: jauanParser.Args_formalContext):
+        function = self.searchNameFunction(ctx.parentCtx.ID_L().getText())
+        self.tabelaNameFunctions[function].append([])
         for param in ctx.parametro():
             if self.searchSymbolTable(param.ID_L().getText()) == None:
                 valorInicial = self.atribuirValorInicialParam(param.TIPO().getText())
                 self.jasmin.passingParameters(param.TIPO().getText())
-                if len(self.tabelaDeSimbolos.keys()) == 0:
-                    # _id = self.jasmin.max_locals_used
-                    # self.jasmin.max_locals_used += 1
-                    _id = 0
-                    self.tabelaDeSimbolos[_id] = [param.ID_L().getText(), valorInicial, param.TIPO().getText(), self.escopo, "param"]
-                else:
-                    _id = max(self.tabelaDeSimbolos.keys()) + 1
-                    self.tabelaDeSimbolos[_id] = [param.ID_L().getText(), valorInicial, param.TIPO().getText(), self.escopo, "param"]
             else:
                 raise Exception("Parâmetro já declarado.")
         self.jasmin.defineReturnType(ctx.return_type)
         self.jasmin.setFunctionLimits(10,10)
-
+        self.jasmin.createScanner2(len(ctx.parametro()))
+        for param in ctx.parametro():
+            if len(self.tabelaDeSimbolos.keys()) == 0:
+                _id = self.jasmin.max_locals_used
+                self.tabelaDeSimbolos[_id] = [param.ID_L().getText(), valorInicial, param.TIPO().getText(), self.escopo, "param"]
+            else:
+                _id = max(self.tabelaDeSimbolos.keys()) + 1
+                self.tabelaDeSimbolos[_id] = [param.ID_L().getText(), valorInicial, param.TIPO().getText(), self.escopo, "param"]
+            if function != None:
+                self.tabelaNameFunctions[function][EXPECTED_TYPES].append(param.TIPO().getText())
     # Enter a parse tree produced by jauanParser#bloco.
     def enterBloco(self, ctx: jauanParser.BlocoContext):
         pass
@@ -375,7 +384,7 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#scanf.
     def exitScanf(self, ctx: jauanParser.ScanfContext):
         for _id in ctx.id_():
-            self.jasmin.Aload(self.jasmin.scanner_adress)
+            self.jasmin.Aload(self.jasmin.scanner_adress[-1])
             self.jasmin.invokeScanner(_id.type)
             self.jasmin.store(_id.id,_id.type)
 
@@ -423,12 +432,14 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#args_real.
     def exitArgs_real(self, ctx: jauanParser.Args_realContext):
+        from antlr4.tree.Tree import TerminalNodeImpl
         ctx.val = []
         ctx.type = []
         for i in range(len(ctx.children)):
             child = ctx.getChild(i)
             if isinstance(child, jauanParser.IdContext):
-                child.inh = ctx.inh
+                if not isinstance(ctx.parentCtx,jauanParser.Inst_funcaoContext):
+                    child.inh = ctx.inh
                 ctx.val.append(child)
                 ctx.type.append(child.type)
             elif isinstance(child, jauanParser.ValueContext):
@@ -443,6 +454,19 @@ class MyListener(jauanListener):
             elif isinstance(child, jauanParser.ExprRelacionalUnariaContext):
                 ctx.val.append(child) 
                 ctx.type.append(child.type)
+        if isinstance(ctx.parentCtx,jauanParser.Inst_funcaoContext):
+            name_function = ctx.parentCtx.id_().ID_L().getText()
+            function_id = self.searchNameFunction(name_function)
+            if function_id != None:
+                numero_parametros = len(self.tabelaNameFunctions[function_id][EXPECTED_TYPES])
+                if numero_parametros != len([i for i in ctx.children if not isinstance(i,TerminalNodeImpl)]):
+                    raise Exception("A função '" + name_function + "' espera " + str(len(self.tabelaNameFunctions[function_id][EXPECTED_TYPES])) + " parâmetros, mas foram recebidos " + str(len(ctx.children)))
+                else:
+                    for i in zip(ctx.children,self.tabelaNameFunctions[function_id][EXPECTED_TYPES]):
+                        if i[0].type != i[1]:
+                            raise Exception("A função '" + name_function + "' espera o tipo '" + i[1] + "' mas foi recebido '" + i[0].type + "'")
+            else:
+                raise Exception("A função '" + name_function + "' não foi declarada.")
 
     # Enter a parse tree produced by jauanParser#exprRelacional.
     def enterExprRelacionalBinaria(self, ctx: jauanParser.ExprRelacionalBinariaContext):

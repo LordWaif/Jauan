@@ -15,6 +15,7 @@ class Jasmin():
         self.in_execution = list()
         self.labels_history = list()
         self.function_return_type = ''
+        self.scanner_adress = []
 
     def createNewTemp(self,_type):
         if _type == 'int':
@@ -127,12 +128,20 @@ class Jasmin():
             self.jasmin_file.write('invokevirtual java/io/PrintStream/println(F)V\n')
 
     def createScanner(self):
-        self.scanner_adress = self.max_locals_used
+        self.scanner_adress.append(self.max_locals_used)
         self.jasmin_file.write('new java/util/Scanner\n')
         self.jasmin_file.write('dup\n')
         self.jasmin_file.write('getstatic java/lang/System/in Ljava/io/InputStream;\n')
         self.jasmin_file.write('invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V\n')
-        self.Astore(self.scanner_adress)
+        self.Astore(self.scanner_adress[-1])
+
+    def createScanner2(self,adress):
+        self.scanner_adress.append(adress)
+        self.jasmin_file.write('new java/util/Scanner\n')
+        self.jasmin_file.write('dup\n')
+        self.jasmin_file.write('getstatic java/lang/System/in Ljava/io/InputStream;\n')
+        self.jasmin_file.write('invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V\n')
+        self.jasmin_file.write('astore '+str(adress)+'\n')
 
     def invokeScanner(self,_type):
         methods = {'str':'nextLine()Ljava/lang/String;','float':'nextFloat()F','int':'nextInt()I'}
@@ -156,16 +165,16 @@ class Jasmin():
         self.jasmin_file.write('f2i\n')
 
     def readInt(self,adress):
-        if adress == self.scanner_adress:
+        if adress == self.scanner_adress[-1]:
             raise ValueError('Scanner adress already in use')
-        self.jasmin_file.write('aload '+str(self.scanner_adress)+'\n')
+        self.jasmin_file.write('aload '+str(self.scanner_adress[-1])+'\n')
         self.jasmin_file.write('invokevirtual java/util/Scanner/nextInt()I\n')
         self.jasmin_file.write('istore '+str(adress)+'\n')
 
     def readFloat(self,adress):
-        if adress == self.scanner_adress:
+        if adress == self.scanner_adress[-1]:
             raise ValueError('Scanner adress already in use')
-        self.jasmin_file.write('aload '+str(self.scanner_adress)+'\n')
+        self.jasmin_file.write('aload '+str(self.scanner_adress[-1])+'\n')
         self.jasmin_file.write('invokevirtual java/util/Scanner/nextFloat()F\n')
         self.jasmin_file.write('fstore '+str(adress)+'\n')
 
