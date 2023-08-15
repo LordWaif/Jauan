@@ -5,7 +5,6 @@ class Jasmin():
         self.jasmin_file = open(jasmin_path+'.j', 'w+') # jasmin file
         self.jasmin_file.write('.class public '+jasmin_path+'\n')
         self.jasmin_file.write('.super java/lang/Object\n')
-        self.max_locals_used = 0
         self.labels = self.gerar_labels()
         self.ops = {'>=':'ge','<=':'le','>':'gt','<':'lt','==':'eq','!=':'ne'}
         self.if_module = {'comparador':'','label_if':'','tipo':'','label_end':'','label_else':'',}
@@ -17,12 +16,8 @@ class Jasmin():
         self.function_return_type = ''
         self.scanner_adress = []
 
-    def createNewTemp(self,_type):
-        if _type == 'int':
-            return self.newStoreInt()
-        elif _type == 'float':
-            return self.newStoreFloat()
-        return self.max_locals_used
+    def createNewTemp(self,address,_type):
+        self.store(address,_type)
 
     def invokeFunction(self,name,parameters,return_type):
         invoke = 'invokestatic '+self.jasmin_path+'/'+name+'('
@@ -127,15 +122,7 @@ class Jasmin():
             self.jasmin_file.write('fload '+str(adress)+'\n')
             self.jasmin_file.write('invokevirtual java/io/PrintStream/println(F)V\n')
 
-    def createScanner(self):
-        self.scanner_adress.append(self.max_locals_used)
-        self.jasmin_file.write('new java/util/Scanner\n')
-        self.jasmin_file.write('dup\n')
-        self.jasmin_file.write('getstatic java/lang/System/in Ljava/io/InputStream;\n')
-        self.jasmin_file.write('invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V\n')
-        self.Astore(self.scanner_adress[-1])
-
-    def createScanner2(self,adress):
+    def createScanner(self,adress):
         self.scanner_adress.append(adress)
         self.jasmin_file.write('new java/util/Scanner\n')
         self.jasmin_file.write('dup\n')
@@ -194,21 +181,6 @@ class Jasmin():
     def storeFloat(self,adress):
         self.jasmin_file.write('fstore '+str(adress)+'\n')
 
-    def newStoreInt(self):
-        self.jasmin_file.write('istore '+str(self.max_locals_used+1)+'\n')
-        self.max_locals_used += 1
-        return self.max_locals_used
-
-    def newAStore(self):
-        self.jasmin_file.write('astore '+str(self.max_locals_used+1)+'\n')
-        self.max_locals_used += 1
-        return self.max_locals_used
-
-    def newStoreFloat(self):
-        self.jasmin_file.write('fstore '+str(self.max_locals_used+1)+'\n')
-        self.max_locals_used += 1
-        return self.max_locals_used
-
     def jump(self,label):
         if label not in self.labels_history:
             Warning('Label not found')
@@ -225,16 +197,15 @@ class Jasmin():
 
     def Astore(self,adress):
         self.jasmin_file.write('astore '+str(adress)+'\n')
-        self.max_locals_used += 1
 
     def copy(self,adress):
         self.jasmin_file.write('iload '+str(adress)+'\n')
         self.jasmin_file.write('istore '+self.max_locals_used+'\n')
         return self.max_locals_used
 
-    def while_loop_init(self,label,init_value):
+    def while_loop_init(self,label,init_value,address):
         self.loadConst(init_value)
-        self.newStoreInt()
+        self.storeInt(address)
         self.jasmin_file.write(label+':\n')
         return self.max_locals_used
 
@@ -360,24 +331,33 @@ class Jasmin():
     def concat(self,num_args):
         self.jasmin_file.write(f'invokevirtual java/lang/StringBuilder/append(Ljava/lang/String;)Ljava/lang/StringBuilder;\n')  
 
-    def makeStringBuilder(self):
+    def makeStringBuilder(self,address):
         self.jasmin_file.write('invokevirtual java/lang/StringBuilder/toString()Ljava/lang/String;\n')
-        return self.newAStore()    
+        return self.Astore(address)  
 
     def exit(self):
         self.jasmin_file.close()
+    
+    def open(self):
+        self.jasmin_file = open(self.jasmin_path+'.j', 'w+')
 
     def remakeLimits(self,limit_stack,limit_locals):
         with open(self.jasmin_path+'.j','r') as file:
             data = file.readlines()
-
+        data.reverse()
+        s,l = False,False
         for _id,line in enumerate(data):
             if line.find('.limit') != -1:
                 if line.find('stack') != -1:
                     data[_id] = '.limit stack '+str(limit_stack)+'\n'
+                    s = True
                 elif line.find('locals') != -1:
                     data[_id] = '.limit locals '+str(limit_locals)+'\n'
-
+                    l = True
+            if s and l:
+                break
+        data.reverse()
+        
         with open(self.jasmin_path+'.j','w') as file:
             file.writelines(data)
 

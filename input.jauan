@@ -1,26 +1,31 @@
-lerInteiro(int x): int
- var:
+lerInteiro(int x,int y): int
+var:
     w : int;
 
-    print("Digite o valor ", x, ":");
-    scanf(w);
+    if(x > y):
+        w = x;
+    else:
+        w = y;
+    end
 
+    if(x > y):
+        w = x;
+    else:
+        w = y;
+    end
     return w;
 end
 
 
 main:
     var:
-        a, b, c, aux: int;
+        a, b, c: int;
 
-    aux = 1;
-    
-    a = lerInteiro(aux);
-    aux = aux + 1;
-    b = lerInteiro(aux);
-    aux = aux + 1;
-    c = lerInteiro(aux);
+    print("Digite o primeiro numero: ");
+    scanf(a);
+    print("Digite o segundo numero: ");
+    scanf(b);
 
-    print(a, b, c);
-
+    c = lerInteiro(a, b);
+    print(c);
 end
