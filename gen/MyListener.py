@@ -156,7 +156,8 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#retorno.
     def exitRetorno(self, ctx: jauanParser.RetornoContext):
         if ctx.getChild(1).type != self.jasmin.function_return_type:
-            raise Exception("O tipo do retorno da função '" + self.escopo + "' é '" + self.jasmin.function_return_type + "' mas foi recebido '" + ctx.getChild(1).type + "'")
+            ret = f"O tipo do retorno da função {self.escopo} é {self.jasmin.function_return_type} mas foi recebido {ctx.getChild(1).type}"
+            raise Exception(ret)
         self.jasmin.returnType()
 
     # Enter a parse tree produced by jauanParser#parametro.

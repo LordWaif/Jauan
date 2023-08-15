@@ -1,13 +1,10 @@
-fatorial(int ): float
- var:
-    x : float;
-    x = (v1+v2)/2;
-
-    return x*4;
+fatorial(int x): int
+    if (x == 0):
+        return 1;
+    end
+    return x * fatorial(x - 1);
 end
 
 main:
-    var:
-        med : int;
-    print(media(10.0, 20.0));
+    print(fatorial(5));
 end
