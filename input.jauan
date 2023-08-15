@@ -1,31 +1,13 @@
-lerInteiro(int x,int y): int
-var:
-    w : int;
+fatorial(int ): float
+ var:
+    x : float;
+    x = (v1+v2)/2;
 
-    if(x > y):
-        w = x;
-    else:
-        w = y;
-    end
-
-    if(x > y):
-        w = x;
-    else:
-        w = y;
-    end
-    return w;
+    return x*4;
 end
-
 
 main:
     var:
-        a, b, c: int;
-
-    print("Digite o primeiro numero: ");
-    scanf(a);
-    print("Digite o segundo numero: ");
-    scanf(b);
-
-    c = lerInteiro(a, b);
-    print(c);
+        med : int;
+    print(media(10.0, 20.0));
 end

@@ -393,7 +393,10 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#while.
     def enterWhile(self, ctx: jauanParser.WhileContext):
-        ctx.exprRelacionalBinaria().inh = 'while'
+        if ctx.exprRelacionalBinaria():
+            ctx.exprRelacionalBinaria().inh = 'while'
+        elif ctx.id_():
+            ctx.id_().inh = 'while'
         self.jasmin.createWhile()
         self.jasmin.constructIf('!=','zero')
 
@@ -586,7 +589,8 @@ class MyListener(jauanListener):
 
     # Enter a parse tree produced by jauanParser#exprAlgebrica.
     def enterExprAlgebrica(self, ctx: jauanParser.ExprAlgebricaContext):
-        ctx.op_algebrico().inh = ctx.inh
+        if hasattr(ctx,'inh'):
+            ctx.op_algebrico().inh = ctx.inh
         pass
 
     # Exit a parse tree produced by jauanParser#exprAlgebrica.
@@ -687,6 +691,10 @@ class MyListener(jauanListener):
                 self.jasmin.StringBuilderAppend('str')
             else:
                 self.jasmin.StringBuilderAppend(ctx.type)
+        elif hasattr(ctx,'inh') and ctx.inh == 'while':
+            if ctx.type != 'bool':
+                raise Exception("Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'")
+            lb_end,lb_loop = self.jasmin.executeWhile()
 
     # Buscar no dicionario a chave pelo valor
     def searchSymbolTable(self, value):
