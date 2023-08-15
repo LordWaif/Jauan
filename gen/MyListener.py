@@ -258,7 +258,6 @@ class MyListener(jauanListener):
                 attr(var,ctx.id_(0).type)
             elif (ctx.id_(0).type == 'int' and child.type == 'float'):
                 if not isinstance(child, jauanParser.Inst_funcaoContext):
-                    print('dsfsdfsd')
                     val = int(child.val)
                     child.inh = val
                     ctx.val = val

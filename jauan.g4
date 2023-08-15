@@ -33,6 +33,7 @@ retorno:
 		| exprAlgebrica
 		| exprRelacionalBinaria
 		| exprRelacionalUnaria
+		| inst_funcao
 	)?;
 
 parametro: TIPO ID_L;
@@ -58,7 +59,7 @@ op_algebrico:
 	| '(' op_algebrico ')'							# parenteses
 	| op_algebrico op = (MUL | DIV) op_algebrico	# multDiv
 	| op_algebrico op = (ADD | SUB) op_algebrico	# addSub
-	| (id | num)									# operando;
+	| (id | num | inst_funcao)						# operando;
 
 ifElse:
 	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' (
@@ -98,8 +99,9 @@ op_relacional: (
 		| value
 		| exprRelacionalUnaria
 		| exprAlgebrica
+		| inst_funcao
 	);
-exprRelacionalUnaria: ('!' (id | value));
+exprRelacionalUnaria: ('!' (id | value | inst_funcao));
 exprAlgebrica: op_algebrico;
 
 //expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1; expr1 : OPERADOR expr

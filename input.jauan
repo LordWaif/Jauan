@@ -1,10 +1,21 @@
-fatorial(int x): int
-    if (x == 0):
-        return 1;
-    end
-    return x * fatorial(x - 1);
+soma(int n1, int n2): int
+    return n1 + n2;
+end
+
+mostrarMedia (int v1, int v2): void
+    var:
+        x : float;
+        y : int;
+    x = soma(v1,v2);
+    print("Resultado: ", x);
 end
 
 main:
-    print(fatorial(5));
+    var:
+        numero : int;
+        n1, n2 : int;
+        media: float;
+    n1 = 7;
+    n2 = 9;
+    mostrarMedia(n1,n2);
 end
