@@ -49,8 +49,9 @@
   <div class="conteudo">
       <div class="sidebar">
           <div class="sidebar-icon">
-              <button id="save-button" style="background: none; padding: none; border: none; margin: none; cursor: pointer; padding: 0px 12px 0px 12px;"><i class="fa-regular fa-circle-play"></i></button>
-          </div>
+                    <button id="save-button" type="submit" style="background: none; padding: none; border: none; margin: none; cursor: pointer; padding: 0px 12px 0px 12px;"><i class="fa-regular fa-circle-play"></i></button>
+            
+            </div>
       </div>
       <div id="editor"></div>
   </div>
@@ -207,6 +208,19 @@
             var editor = monaco.editor.create(document.getElementById('editor'), {
                 language: "jauan",
                 automaticLayout: true
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#save-button").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/salvacodigo",
+                    success: function(response) {
+                        $("#result").html(response);
+                    }
+                });
             });
         });
     </script>
