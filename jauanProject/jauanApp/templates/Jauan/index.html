@@ -1,0 +1,213 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Jauan</title>
+    <style>
+      html {
+        font-family: arial;
+      }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/xterm@4.11.0/css/xterm.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Icone -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/icon.png') }}">
+
+    <!-- xterm -->
+    <script src="https://unpkg.com/xterm@4.11.0/lib/xterm.js"></script>
+    <script src="https://unpkg.com/xterm-addon-fit@0.5.0/lib/xterm-addon-fit.js"></script>
+    <script src="https://unpkg.com/xterm-addon-web-links@0.4.0/lib/xterm-addon-web-links.js"></script>
+    <script src="https://unpkg.com/xterm-addon-search@0.8.0/lib/xterm-addon-search.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+
+    <!-- Última versão CSS compilada e minificada do Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+                
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    
+    <!-- Icones fontaweasome-->
+    <script src="https://kit.fontawesome.com/4169326a4c.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+
+    <!-- Jquery Links -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://kenwheeler.github.io/slick/slick/slick.js"></script>
+
+    <!-- Monaco editor -->
+    <script src="https://unpkg.com/monaco-editor@0.30.1/min/vs/loader.js"></script>    
+  </head>
+
+  <body style="display: flex; flex-direction: column;">
+    <div class="top-bar">
+      <i class="fa-solid fa-mug-hot top-bar-icon"></i>
+      <span class="top-bar-title">Jauan</span>
+  </div>
+
+  <div class="conteudo">
+      <div class="sidebar">
+          <div class="sidebar-icon">
+              <button id="save-button" style="background: none; padding: none; border: none; margin: none; cursor: pointer; padding: 0px 12px 0px 12px;"><i class="fa-regular fa-circle-play"></i></button>
+          </div>
+      </div>
+      <div id="editor"></div>
+  </div>
+
+    <a href="https://github.com/cs01/pyxtermjs" target="_blank" style="font-size: 1.4em; text-decoration: none; color:black"></a>
+    <span id="spanStatus"><span class="badge rounded-pill bg-success" id="status"> conectando...</span></span>
+    <div id="terminal"></div>
+
+    <script>
+        const term = new Terminal({
+        cursorBlink: true,
+        macOptionIsMeta: true,
+        scrollback: true,
+        });
+        term.attachCustomKeyEventHandler(customKeyEventHandler);
+        // https://github.com/xtermjs/xterm.js/issues/2941
+        const fit = new FitAddon.FitAddon();
+        term.loadAddon(fit);
+        term.loadAddon(new WebLinksAddon.WebLinksAddon());
+        term.loadAddon(new SearchAddon.SearchAddon());
+
+        term.open(document.getElementById("terminal"));
+        fit.fit();
+        term.resize(15, 50);
+        console.log(`size: ${term.cols} columns, ${term.rows} rows`);
+        fit.fit();
+        term.writeln("Bem vindo ao Jauan!");
+        term.onData((data) => {
+        console.log("browser terminal received new data:", data);
+        socket.emit("pty-input", { input: data });
+        });
+
+        const socket = io.connect("/pty");
+        const status = document.getElementById("status");
+
+        socket.on("pty-output", function (data) {
+        console.log("new output received from server:", data.output);
+        term.write(data.output);
+        });
+
+        socket.on("connect", () => {
+        fitToscreen();
+        status.innerHTML =
+            '<span class="badge rounded-pill bg-success" id="status"> Conectado</span>'
+        });
+
+        socket.on("disconnect", () => {
+        status.innerHTML =
+            '<span class="badge rounded-pill bg-danger">Desconectado</span>';
+        });
+
+        function fitToscreen() {
+        fit.fit();
+        const dims = { cols: term.cols, rows: term.rows };
+        console.log("sending new dimensions to server's pty", dims);
+        socket.emit("resize", dims);
+        }
+
+        function debounce(func, wait_ms) {
+        let timeout;
+        return function (...args) {
+            const context = this;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), wait_ms);
+        };
+        }
+
+        /**
+         * Handle copy and paste events
+         */
+        function customKeyEventHandler(e) {
+        if (e.type !== "keydown") {
+            return true;
+        }
+        if (e.ctrlKey && e.shiftKey) {
+            const key = e.key.toLowerCase();
+            if (key === "v") {
+            // ctrl+shift+v: paste whatever is in the clipboard
+            navigator.clipboard.readText().then((toPaste) => {
+                term.writeText(toPaste);
+            });
+            return false;
+            } else if (key === "c" || key === "x") {
+
+            const toCopy = term.getSelection();
+            navigator.clipboard.writeText(toCopy);
+            term.focus();
+            return false;
+            }
+        }
+        return true;
+        }
+
+        const wait_ms = 50;
+        window.onresize = debounce(fitToscreen, wait_ms);
+    </script>
+
+</body>
+  <script src="https://unpkg.com/monaco-editor@0.30.1/min/vs/loader.js"></script>
+  <script>
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.28.0/min/vs' }});
+        require(["vs/editor/editor.main"], function () {
+            monaco.editor.defineTheme('monokai', {
+                base: 'vs-dark',
+                inherit: true,
+                rules: [
+                    { token: 'comment', foreground: '888888' },
+                    { token: 'keyword', foreground: 'f92672' },
+                    { token: 'string', foreground: 'e6db74' },
+                    { token: 'number', foreground: 'ae81ff' },
+                    { token: 'function-call', foreground: '#A6E22E'},
+                    { token: 'delimiter', foreground: '#9EF4F4'},
+                    { token: 'operator', foreground: '#F4A69E'},
+                    { token: 'type', foreground: '#E700FE'}
+                ],
+                colors: {}
+            });
+
+            monaco.editor.setTheme('monokai');
+
+            // Defina o esquema de cores personalizado para a linguagem "jauan"
+            monaco.languages.register({ id: 'jauan' });
+            monaco.languages.setMonarchTokensProvider('jauan', {
+
+                keywords: [
+                    'main', 'for', 'if', 'break', 'else', 'return',
+                    'const', 'while', 'true', 'false', 'var', 'end'
+                ],
+
+                typeKeywords: [
+                    'bool', 'int', 'void', 'float'
+                ],
+
+                tokenizer: {
+                    root: [
+                            // identifiers and keywords
+                            [/[a-z_$][\w$]*/, { cases: { '@typeKeywords': 'type',
+                                                        '@keywords': 'keyword',
+                                                        '@default': 'identifier' } }],
+                            [/\/\*/, 'comment', '@comment'],
+                            [/\b\w+(?=\s*\()\b/, 'function-call'],
+                            [/[+\-*/<>=!]/, 'operator'],
+                            [/[()\{\}\[\];,:]/, 'delimiter'],
+                            [/\d+/, 'number'],
+                            [/"[^"]*"/, 'string'],
+            
+                        ],
+                    comment: [
+                                [/\*\//, 'comment', '@pop'], [/./, 'comment.content'],
+                            ],
+                }
+            });
+
+            var editor = monaco.editor.create(document.getElementById('editor'), {
+                language: "jauan",
+                automaticLayout: true
+            });
+        });
+    </script>
+  </html>
