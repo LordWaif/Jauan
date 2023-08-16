@@ -345,6 +345,8 @@ class MyListener(jauanListener):
             self.jasmin.div(_type)
         else:
             raise Exception("Erro: Tipos incompativeis.")
+        if hasattr(ctx,'inh') and ctx.inh == 'print':
+            self.jasmin.StringBuilderAppend(_type)
         ctx.type = _type
 
 
