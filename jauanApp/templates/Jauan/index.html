@@ -77,14 +77,14 @@
         term.resize(15, 50);
         console.log(`size: ${term.cols} columns, ${term.rows} rows`);
         fit.fit();
-        term.writeln("Bem vindo ao Jauan!");
+        //term.writeln("Bem vindo ao Jauan!");
         term.onData((data) => {
         console.log("browser terminal received new data:", data);
         socket.emit("pty-input", { input: data });
         });
         const socket = io.connect("/pty");
         const status = document.getElementById("status");
-        
+        socket.emit("pty-input", { input: "clear;echo 'Bem vindo ao Jauan!'\n" });
         socket.on("pty-output", function (data) {
         console.log("new output received from server:", data.output);
         term.write(data.output);

@@ -350,22 +350,16 @@ class Jasmin():
         self.jasmin_file.close()
     
     def open(self):
-        self.jasmin_file = open(self.jasmin_path+'.j', 'w+')
+        self.jasmin_file = open(self.jasmin_path+'.j', 'a')
 
     def remakeLimits(self,limit_stack,limit_locals):
         with open(self.jasmin_path+'.j','r') as file:
             data = file.readlines()
         data.reverse()
-        s,l = False,False
         for _id,line in enumerate(data):
-            if line.find('.limit') != -1:
-                if line.find('stack') != -1:
-                    data[_id] = '.limit stack '+str(limit_stack)+'\n'
-                    s = True
-                elif line.find('locals') != -1:
-                    data[_id] = '.limit locals '+str(limit_locals)+'\n'
-                    l = True
-            if s and l:
+            if line.find('.limit locals') != -1:
+                data[_id] = '.limit locals '+str(limit_stack)+'\n'
+                data[_id+1] = '.limit stack '+str(limit_stack)+'\n'
                 break
         data.reverse()
         
@@ -374,17 +368,15 @@ class Jasmin():
 
 
 from subprocess import Popen, PIPE
+import os
 def compile(jasmin_path):
     process = Popen(['java', '-jar', 'jasmin.jar', jasmin_path+'.j'], stdout=PIPE, stderr=PIPE)
-    stdout, stderr = process.communicate()
-    print(stdout.decode('utf-8'))
-    print(stderr.decode('utf-8'))
+    #stdout, stderr = process.communicate()
+    #print(stdout.decode('utf-8'))
+    #print(stderr.decode('utf-8'))
 
 def execute(jasmin_path):
-    process = Popen(['java', jasmin_path], stdout=PIPE, stderr=PIPE,shell=True)
-    stdout, stderr = process.communicate()
-    print(stdout.decode('utf-8'))
-    print(stderr.decode('utf-8'))
+    os.system('java '+jasmin_path)
 
 if __name__ == '__main__':
     ...

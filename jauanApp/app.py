@@ -60,7 +60,7 @@ def salvaCode():
     data = request.get_json()
     expressao = data['codigo']
     salvarCodigo(expressao)
-    pty_input({'input': "python3 compiler.py\n"})
+    pty_input({'input': "clear;python3 compiler.py\n"})
     return jsonify({'codigo': expressao})
 
 @socketio.on("pty-input", namespace="/pty")

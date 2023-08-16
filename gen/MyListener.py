@@ -69,10 +69,10 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#main.
     def exitMain(self, ctx: jauanParser.MainContext):
         self.jasmin.endMain()
-        #self.jasmin.exit()
-        #limit = self.tabelaNameFunctions[self.searchNameFunction(self.escopo)][LAST_LOCAL_USED]
-        #self.jasmin.remakeLimits(limit,limit)
-        #self.jasmin.open()
+        self.jasmin.exit()
+        limit = self.tabelaNameFunctions[self.searchNameFunction(self.escopo)][LAST_LOCAL_USED]
+        self.jasmin.remakeLimits(limit+1,limit+1)
+        self.jasmin.open()
         self.tabelaDeSimbolos = {}
         pass
 
@@ -103,10 +103,10 @@ class MyListener(jauanListener):
             self.jasmin.loadConst(self.atribuirValorInicialParam(type_))
         self.jasmin.returnType()
         self.jasmin.endFunction()
-        #self.jasmin.exit()
-        #limit = self.tabelaNameFunctions[self.searchNameFunction(self.escopo)][LAST_LOCAL_USED]
-        #self.jasmin.remakeLimits(limit,limit)
-        #self.jasmin.open()
+        self.jasmin.exit()
+        limit = self.tabelaNameFunctions[self.searchNameFunction(self.escopo)][LAST_LOCAL_USED]
+        self.jasmin.remakeLimits(limit+1,limit+1)
+        self.jasmin.open()
         self.tabelaDeSimbolos = {}
         self.jasmin.jasmin_file.write('\n')
 
