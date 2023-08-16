@@ -76,8 +76,8 @@ break: 'break';
 inst_funcao: id '(' args_real ')';
 args_real: (
 		(
-			|id
-			|inst_funcao
+			| id
+			| inst_funcao
 			| value
 			| exprAlgebrica
 			| exprRelacionalBinaria
@@ -102,12 +102,23 @@ op_relacional: (
 		| exprAlgebrica
 		| inst_funcao
 	);
-exprRelacionalUnaria: ('!' (
-        term
-        )
-);
-term : '(' (id | value | inst_funcao | exprRelacionalBinaria | exprRelacionalUnaria |term ) ')'
-        | (id | value | inst_funcao | exprRelacionalBinaria | exprRelacionalUnaria);
+exprRelacionalUnaria: ('!' ( term));
+term:
+	'(' (
+		id
+		| value
+		| inst_funcao
+		| exprRelacionalBinaria
+		| exprRelacionalUnaria
+		| term
+	) ')'
+	| (
+		id
+		| value
+		| inst_funcao
+		| exprRelacionalBinaria
+		| exprRelacionalUnaria
+	);
 exprAlgebrica: op_algebrico;
 
 //expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1; expr1 : OPERADOR expr

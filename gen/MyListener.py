@@ -133,7 +133,7 @@ class MyListener(jauanListener):
                 self.tabelaNameFunctions[function][EXPECTED_TYPES].append(param.TIPO().getText())
                 self.tabelaNameFunctions[function][LAST_LOCAL_USED] += 1
             self.jasmin.defineReturnType(ctx.return_type)
-            self.jasmin.setFunctionLimits(10,10)
+            self.jasmin.setFunctionLimits(30,30)
             self.tabelaNameFunctions[function][LAST_LOCAL_USED] += 1
             self.jasmin.createScanner(self.tabelaNameFunctions[function][LAST_LOCAL_USED])  
             self.scanner_address = self.tabelaNameFunctions[function][LAST_LOCAL_USED]  
@@ -160,6 +160,7 @@ class MyListener(jauanListener):
     def enterRetorno(self, ctx: jauanParser.RetornoContext):
         if not self.inFunction(ctx):
             raise Exception("'return' fora de função.")
+        ctx.getChild(1).inh = 'return'
 
     # Exit a parse tree produced by jauanParser#retorno.
     def exitRetorno(self, ctx: jauanParser.RetornoContext):
@@ -207,14 +208,14 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#declConst.
     def exitDeclConst(self, ctx:jauanParser.DeclConstContext):
+        function_id = self.searchNameFunction(self.escopo)
+        _id = self.tabelaNameFunctions[function_id][LAST_LOCAL_USED] + 1
         if self.searchSymbolTable(ctx.ID_L().getText()) == None and self.searchNameFunction(ctx.ID_L().getText()) == None:
             if len(self.tabelaDeSimbolos.keys()) == 0:
-                _id = self.jasmin.max_locals_used
-                self.jasmin.max_locals_used += 1
                 self.tabelaDeSimbolos[_id] = [ctx.ID_L().getText(), ctx.value().val, ctx.value().type,
                                                  self.escopo, "const"]
             else:
-                _id = max(self.tabelaDeSimbolos.keys()) + 1
+                _id += 1
                 self.tabelaDeSimbolos[_id] = [ctx.ID_L().getText(),
                                             ctx.value().val,
                                             ctx.value().type,
@@ -222,6 +223,7 @@ class MyListener(jauanListener):
             self.jasmin.store(_id,ctx.value().type)
         else:
             raise Exception("A constante '" + ctx.ID_L().getText() + "' já foi declarada")
+        self.tabelaNameFunctions[function_id][LAST_LOCAL_USED] = _id
 
     # Enter a parse tree produced by jauanParser#declaraVariavel.
     def enterDeclaraVariavel(self, ctx: jauanParser.DeclaraVariavelContext):
@@ -230,11 +232,12 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#declaraVariavel.
     def exitDeclaraVariavel(self, ctx: jauanParser.DeclaraVariavelContext):
         function_id = self.searchNameFunction(self.escopo)
-        _id = self.tabelaNameFunctions[function_id][LAST_LOCAL_USED] + 1
+        _id = self.tabelaNameFunctions[function_id][LAST_LOCAL_USED]
         for variavel in ctx.ID_L():
             if self.searchSymbolTable(variavel.getText()) == None and self.searchNameFunction(variavel.getText()) == None:
                 valorInicial = self.atribuirValorInicial(ctx)
                 if len(self.tabelaDeSimbolos.keys()) == 0:
+                    _id += 1
                     self.tabelaDeSimbolos[_id] = [variavel.getText(), valorInicial, ctx.TIPO().getText(),
                                                      self.escopo, "var"]
                 else:
@@ -265,7 +268,8 @@ class MyListener(jauanListener):
         var = ctx.id_(0).id
         child = [i for i in ctx.children if not isinstance(i,TerminalNodeImpl)]
         child = child[1]
-        if self.tabelaDeSimbolos[var][VAR_OR_CONST] == 'var':
+        #print(self.tabelaDeSimbolos[var][VAR_OR_CONST])
+        if self.tabelaDeSimbolos[var][VAR_OR_CONST] in ['var','param']:
             if ctx.id_(0).type == child.type:
                 if not isinstance(child, jauanParser.Inst_funcaoContext):
                     #ctx.val = child.val
@@ -302,9 +306,11 @@ class MyListener(jauanListener):
     # Exit a parse tree produced by jauanParser#unario.
     def exitUnario(self, ctx: jauanParser.UnarioContext):
         ctx.type = ctx.op_algebrico().type
-        ctx.val = -ctx.op_algebrico().val
+        #ctx.val = -ctx.op_algebrico().val
         self.jasmin.loadConst(-1 if ctx.type == 'int' else -1.0)
         self.jasmin.mul(ctx.type)
+        if hasattr(ctx,'inh') and ctx.inh == 'print':
+            self.jasmin.StringBuilderAppend(ctx.type)
     # Enter a parse tree produced by jauanParser#parenteses.
     def enterParenteses(self, ctx: jauanParser.ParentesesContext):
         pass
@@ -391,6 +397,8 @@ class MyListener(jauanListener):
             ctx.id_().inh = 'if'
         elif ctx.exprRelacionalUnaria():
             ctx.exprRelacionalUnaria().inh = 'if'
+        elif ctx.inst_funcao():
+            ctx.inst_funcao().inh = 'if'
         self.jasmin.createIfElse()
         self.jasmin.constructIf('!=','zero')
 
@@ -420,6 +428,8 @@ class MyListener(jauanListener):
             ctx.exprRelacionalBinaria().inh = 'while'
         elif ctx.id_():
             ctx.id_().inh = 'while'
+        elif ctx.value():
+            ctx.value().inh = 'while'
         self.jasmin.createWhile()
         self.jasmin.constructIf('!=','zero')
 
@@ -479,11 +489,20 @@ class MyListener(jauanListener):
         self.jasmin.invokeFunction(ctx.id_().name,ctx.args_real().type,ctx.type)
         if hasattr(ctx,'inh') and ctx.inh == 'print':
             if ctx.type != 'void':
-                self.jasmin.StringBuilderAppend(ctx.type)
+                if ctx.type == 'bool':
+                    self.jasmin.ifBoolprint()
+                    self.jasmin.StringBuilderAppend('str')
+                else:
+                    self.jasmin.StringBuilderAppend(ctx.type)
             else:
                 self.jasmin.loadConst("", _type='str')
                 self.jasmin.StringBuilderAppend('str')
                 #raise Exception("Não é possível imprimir uma função void.")
+        elif hasattr(ctx,'inh') and ctx.inh == 'if':
+            if ctx.type != 'bool':
+                raise Exception("Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'") 
+            ctx.result_address = self.testeLogico()
+            self.structElse(ctx)
 
     # Enter a parse tree produced by jauanParser#args_real.
     def enterArgs_real(self, ctx: jauanParser.Args_realContext):
@@ -555,8 +574,8 @@ class MyListener(jauanListener):
         ctx.type = 'bool'
         _type = 'int' if ctx.op_relacional(0).type in ['int','bool'] and ctx.op_relacional(1).type in ['int','bool'] else 'float'
         if ctx.op_relacional(0).type in ['int','float', 'bool'] and ctx.op_relacional(1).type in ['int','float', 'bool']:
-            cmd = f"ctx.op_relacional(0).val {ctx.OPERADOR().getText()} ctx.op_relacional(1).val"
-            ctx.val = eval(cmd)
+            #cmd = f"ctx.op_relacional(0).val {ctx.OPERADOR().getText()} ctx.op_relacional(1).val"
+            #ctx.val = eval(cmd)
             if _type == 'float':
                 if ctx.op_relacional(0).type == 'int':
                     self.jasmin.swap()
@@ -576,6 +595,8 @@ class MyListener(jauanListener):
                 self.jasmin.load(ctx.result_address,'int')
                 self.jasmin.ifBoolprint()
                 self.jasmin.StringBuilderAppend('str')
+            elif hasattr(ctx,'inh') and ctx.inh == 'return':
+                self.jasmin.load(ctx.result_address,'int')
         else:
             raise Exception("Tipos das variaveis '" + ctx.op_relacional(0).getText() + "' e '" + ctx.op_relacional(1).getText() + "' incompativeis.")
 
@@ -612,7 +633,7 @@ class MyListener(jauanListener):
 
     # Exit a parse tree produced by jauanParser#op_relacional.
     def exitOp_relacional(self, ctx:jauanParser.Op_relacionalContext):
-        ctx.val = ctx.getChild(0).val
+        #ctx.val = ctx.getChild(0).val
         ctx.type = ctx.getChild(0).type
 
     # Enter a parse tree produced by jauanParser#term.
@@ -705,6 +726,10 @@ class MyListener(jauanListener):
                 self.jasmin.StringBuilderAppend('str')
             elif not(ctx.num()):
                 self.jasmin.StringBuilderAppend(ctx.type)
+        elif hasattr(ctx,'inh') and ctx.inh == 'while':
+            if ctx.type != 'bool':
+                raise Exception("Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'")
+            lb_end,lb_loop = self.jasmin.executeWhile()
 
     # Enter a parse tree produced by jauanParser#num.
     def enterNum(self, ctx: jauanParser.NumContext):
