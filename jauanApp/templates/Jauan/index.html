@@ -160,12 +160,19 @@
                     { token: 'keyword', foreground: '#f551b8' }, // rosa
                     { token: 'string', foreground: '#e6ed5c' }, // amarelo
                     { token: 'number', foreground: '#bb72f2' }, // roxo
-                    { token: 'function-call', foreground: '#A6E22E'},
+                    { token: 'function-call', foreground: '#edca1f'},
                     { token: 'delimiter', foreground: '#9EF4F4'},
-                    { token: 'operator', foreground: '#F4A69E'},
-                    { token: 'type', foreground: '#53d5ed'}
+                    { token: 'operator', foreground: '#f3bef1'},
+                    { token: 'type', foreground: '#53d5ed'},
+                    { token: 'functions', foreground: '#3ed936'},
+                    { token: 'values', foreground: '#bb72f2'},
+                    { token: 'boolean', foreground: '#bb72f2' }, // Cor para valores booleanos
+                    { token: 'variable', foreground: '#2ee993' }, // Cor para variáveis
                 ],
-                colors: {}
+                colors: {
+                    'editor.background': '#282a36', // Fundo do editor
+                    'editor.foreground': '#f8f8f2', // Texto principal
+                }
             });
 
             monaco.editor.setTheme('monokai');
@@ -176,7 +183,11 @@
 
                 keywords: [
                     'main', 'for', 'if', 'break', 'else', 'return',
-                    'const', 'while', 'true', 'false', 'var', 'end'
+                    'const', 'while', 'var', 'end'
+                ],
+
+                functions: [
+                    'print', 'scanf'
                 ],
 
                 typeKeywords: [
@@ -185,26 +196,37 @@
 
                 tokenizer: {
                     root: [
-                            // identifiers and keywords
-                            [/[a-z_$][\w$]*/, { cases: { '@typeKeywords': 'type',
-                                                        '@keywords': 'keyword',
-                                                        '@default': 'identifier' } }],
-                            [/\/\*/, 'comment', '@comment'],
-                            [/\b\w+(?=\s*\()\b/, 'function-call'],
-                            [/[+\-*/<>=!]/, 'operator'],
-                            [/[()\{\}\[\];,:]/, 'delimiter'],
-                            [/\d+/, 'number'],
-                            [/"[^"]*"/, 'string'],
-            
-                        ],
+                        [/true|false/, 'boolean'], // Reconhecimento de valores booleanos
+                        [/\b(?!if|while|return)\w+\s*(?=\()/, 'function-call'],
+                        [/[a-z_$][\w$]*/, { cases: { '@typeKeywords': 'type',
+                                                    '@keywords': 'keyword',
+                                                    '@functions': 'functions',
+                                                    '@default': 'variable'} }],
+                        [/\/\/.*$/, 'comment'], // Comentários de uma única linha
+                        [/\/\*/, 'comment', '@comment'],
+                        [/[+\-*/<>=!]/, 'operator'],
+                        [/[()\{\}\[\];,:]/, 'delimiter'],
+                        [/\d+/, 'number'],
+                        [/"[^"]*"/, 'string'],
+                    ],
                     comment: [
-                                [/\*\//, 'comment', '@pop'], [/./, 'comment.content'],
-                            ],
+                        [/\*\//, 'comment', '@pop'],
+                        [/./, 'comment.content'],
+                    ],
+                    function: [
+
+                    ]
                 }
             });
+
             var editor = monaco.editor.create(document.getElementById('editor'), {
             language: "jauan",
             value: "",
+        });
+        // Adicione um ouvinte para o evento de redimensionamento do navegador
+        window.addEventListener('resize', function () {
+            // Use a opção "layout" para ajustar o tamanho do editor
+            editor.layout();
         });
         var content = "";
         editor.onDidChangeModelContent(function(event) {
