@@ -12,7 +12,7 @@ from argparse import ArgumentParser
 
 
 import argparse
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO
 import pty
 import os
@@ -35,6 +35,8 @@ app.template_folder = 'templates/Jauan'
 app.config["SECRET_KEY"] = "secret!"
 app.config["fd"] = None
 app.config["child_pid"] = None
+
+fileName = "jauanApp/input2.txt"
 socketio = SocketIO(app)
 
 
@@ -65,27 +67,40 @@ def index():
 @app.route("/salvacodigo", methods=['POST'])
 def salvaCode():
     print("entrou na funcao")
+
+    data = request.get_json()
+    content = data['codigo']
+    print(content)
+    with open(fileName, 'w') as f:
+        f.write(content)
+
     args = ArgumentParser()
     args.add_argument('-f', '--file', help='File to compile',default='input.txt')
     args = args.parse_args()
-    data = FileStream("jauanApp/input2.txt", encoding='utf8')
+    data = FileStream(fileName, encoding='utf8')
     # data = InputStream(exp)
-
     # Lexer
     lexer = jauanLexer(data)
+    print("debug 1")
     tokens = CommonTokenStream(lexer)
-
+    print("debug 2")
     # Parser
     parser = jauanParser(tokens)
+    print("debug 3")
     tree = parser.prog()
-
+    print("debug 4")
     # Listener
     walker = ParseTreeWalker()
+    print("debug 4")
     l = MyListener()
+    print("debug 5")
     walker.walk(l, tree)
-
+    print("debug 6")
     compile('programaJasmin')
     print("salvando codigo")
+    response = {'message': 'Conteúdo recebido com sucesso!'}
+    os.remove("jauanApp/input2.txt")
+    return jsonify(response)
 
 @socketio.on("pty-input", namespace="/pty")
 def pty_input(data):

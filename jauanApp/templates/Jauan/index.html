@@ -208,19 +208,31 @@
                 language: "jauan",
                 automaticLayout: true
             });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
+
+            var content;
+            editor.onDidChangeModelContent(function(event) {
+                content = editor.getValue();
+                //console.log(content);
+            });
+
+
+            $(document).ready(function() {
             $("#save-button").click(function() {
+                console.log(content)
                 $.ajax({
                     type: "POST",
                     url: "/salvacodigo",
+                    data: JSON.stringify({"codigo": content }),
+                    contentType: 'application/json',
                     success: function(response) {
                         $("#result").html(response);
                     }
                 });
             });
         });
+        });
+    </script>
+    <script>
+        
     </script>
   </html>
