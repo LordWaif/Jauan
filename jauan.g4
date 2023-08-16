@@ -47,11 +47,12 @@ declaracao:
 declConst: ID_L '=' value (',' declConst)*;
 comando_atribuicao:
 	id '=' (
-		id
-		| value
+		value
+		| exprRelacionalUnaria
 		| exprRelacionalBinaria
 		| op_algebrico
 		| inst_funcao
+		| id
 	);
 
 op_algebrico:
@@ -62,7 +63,7 @@ op_algebrico:
 	| (id | num | inst_funcao)						# operando;
 
 ifElse:
-	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' (
+	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria | id) ')' ':' (
 		comando+ (else)? 'end'
 	);
 else: 'else' ':' comando+;
@@ -75,20 +76,20 @@ break: 'break';
 inst_funcao: id '(' args_real ')';
 args_real: (
 		(
-			id
+			|id
+			|inst_funcao
 			| value
 			| exprAlgebrica
 			| exprRelacionalBinaria
 			| exprRelacionalUnaria
-			| inst_funcao
 		) (
 			',' (
 				id
+				| inst_funcao
 				| value
 				| exprAlgebrica
 				| exprRelacionalBinaria
 				| exprRelacionalUnaria
-				| inst_funcao
 			)
 		)*
 	)?;
@@ -101,7 +102,12 @@ op_relacional: (
 		| exprAlgebrica
 		| inst_funcao
 	);
-exprRelacionalUnaria: ('!' (id | value | inst_funcao));
+exprRelacionalUnaria: ('!' (
+        term
+        )
+);
+term : '(' (id | value | inst_funcao | exprRelacionalBinaria | exprRelacionalUnaria |term ) ')'
+        | (id | value | inst_funcao | exprRelacionalBinaria | exprRelacionalUnaria);
 exprAlgebrica: op_algebrico;
 
 //expr: '('expr')' expr1 | '!'expr expr1 | value expr1 | op_algebrico expr1; expr1 : OPERADOR expr

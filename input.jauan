@@ -1,21 +1,19 @@
-soma(int n1, int n2): int
-    return n1 + n2;
+fibonacci(int n, int a, int b):void
+    if(n <= 0):
+        return;
+    end
+    if(n == 1):
+        print(a);
+        return;
+    end
+    print(a);
+    fibonacci(n - 1, b, a + b);
 end
 
-mostrarMedia (int v1, int v2): void
-    var:
-        x : float;
-        y : int;
-    x = soma(v1,v2);
-    print("Resultado: ", x);
+soma(int a, int b): int
+    return a + b;
 end
 
 main:
-    var:
-        numero : int;
-        n1, n2 : int;
-        media: float;
-    n1 = 7;
-    n2 = 9;
-    mostrarMedia(n1,n2);
+    print(soma(soma(soma(10,5),15),10));
 end

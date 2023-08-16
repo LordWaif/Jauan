@@ -27,17 +27,26 @@ class Jasmin():
         invoke += self.types_args[return_type]+'\n'
         self.jasmin_file.write(invoke)
 
-    def ifBoolprint(self):
+    def ifBoolprint(self,_not=False,_ctx='print'):
         label_if = next(self.labels)
         label_else = next(self.labels)
         label_end = next(self.labels)
-        self.jasmin_file.write('ifne '+label_if+'\n')
+        if _not:
+            self.jasmin_file.write('ifeq '+label_if+'\n')
+        else:
+            self.jasmin_file.write('ifne '+label_if+'\n')
         self.jump(label_else)
         self.createLabel(label_if)
-        self.loadConst('true',_type='str')
-        self.jump(label_end)
-        self.createLabel(label_else)
-        self.loadConst('false',_type='str')
+        if _ctx == 'print':
+            self.loadConst('true',_type='str')
+            self.jump(label_end)
+            self.createLabel(label_else)
+            self.loadConst('false',_type='str')
+        elif _ctx == 'attr':
+            self.loadConst(1,_type='int')
+            self.jump(label_end)
+            self.createLabel(label_else)
+            self.loadConst(0,_type='int')
         self.createLabel(label_end)
 
     def createFunction(self,name):
@@ -56,10 +65,12 @@ class Jasmin():
             self.jasmin_file.write('ireturn\n')
         elif self.function_return_type == 'float':
             self.jasmin_file.write('freturn\n')
+        elif self.function_return_type == 'void':
+            self.jasmin_file.write('return\n')
+        elif self.function_return_type == 'bool':
+            self.jasmin_file.write('ireturn\n')
     
     def endFunction(self):
-        if self.function_return_type == 'void':
-            self.jasmin_file.write('return\n')
         self.jasmin_file.write('.end method\n')
 
     def setFunctionLimits(self,limit_locals,limit_stack):
