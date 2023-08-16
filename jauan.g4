@@ -63,7 +63,7 @@ op_algebrico:
 	| (id | num | inst_funcao)						# operando;
 
 ifElse:
-	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria | id) ')' ':' (
+	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria | inst_funcao | id) ')' ':' (
 		comando+ (else)? 'end'
 	);
 else: 'else' ':' comando+;
