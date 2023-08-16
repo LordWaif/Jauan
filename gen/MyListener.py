@@ -71,7 +71,7 @@ class MyListener(jauanListener):
         self.jasmin.endMain()
         self.jasmin.exit()
         limit = self.tabelaNameFunctions[self.searchNameFunction(self.escopo)][LAST_LOCAL_USED]
-        self.jasmin.remakeLimits(limit+1,limit+1)
+        self.jasmin.remakeLimits(limit+2,limit+1)
         self.jasmin.open()
         self.tabelaDeSimbolos = {}
         pass
@@ -105,7 +105,7 @@ class MyListener(jauanListener):
         self.jasmin.endFunction()
         self.jasmin.exit()
         limit = self.tabelaNameFunctions[self.searchNameFunction(self.escopo)][LAST_LOCAL_USED]
-        self.jasmin.remakeLimits(limit+1,limit+1)
+        self.jasmin.remakeLimits(limit+2,limit+1)
         self.jasmin.open()
         self.tabelaDeSimbolos = {}
         self.jasmin.jasmin_file.write('\n')

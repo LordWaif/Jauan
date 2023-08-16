@@ -358,7 +358,7 @@ class Jasmin():
         data.reverse()
         for _id,line in enumerate(data):
             if line.find('.limit locals') != -1:
-                data[_id] = '.limit locals '+str(limit_stack)+'\n'
+                data[_id] = '.limit locals '+str(limit_locals)+'\n'
                 data[_id+1] = '.limit stack '+str(limit_stack)+'\n'
                 break
         data.reverse()
@@ -370,10 +370,7 @@ class Jasmin():
 from subprocess import Popen, PIPE
 import os
 def compile(jasmin_path):
-    process = Popen(['java', '-jar', 'jasmin.jar', jasmin_path+'.j'], stdout=PIPE, stderr=PIPE)
-    #stdout, stderr = process.communicate()
-    #print(stdout.decode('utf-8'))
-    #print(stderr.decode('utf-8'))
+    os.system('java -jar jasmin.jar '+jasmin_path+'.j')
 
 def execute(jasmin_path):
     os.system('java '+jasmin_path)
