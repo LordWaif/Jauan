@@ -92,7 +92,8 @@ class MyListener(jauanListener):
             self.tabelaNameFunctions[_id].append([])
             self.tabelaNameFunctions[_id].append(-1)
         else:
-            raise Exception("A função '" + ctx.ID_L().getText() + "' já foi declarada.")
+            cmd = "A função '" + ctx.ID_L().getText() + "' já foi declarada."
+            raise Exception(cmd)
 
     # Exit a parse tree produced by jauanParser#declar_funcao.
     def exitDeclar_funcao(self, ctx: jauanParser.Declar_funcaoContext):
@@ -138,7 +139,8 @@ class MyListener(jauanListener):
             self.jasmin.createScanner(self.tabelaNameFunctions[function][LAST_LOCAL_USED])  
             self.scanner_address = self.tabelaNameFunctions[function][LAST_LOCAL_USED]  
         else:
-            raise Exception("A função '" + ctx.parentCtx.ID_L().getText() + "' não foi declarada.")
+            cmd = "A função '" + ctx.parentCtx.ID_L().getText() + "' não foi declarada."
+            raise Exception(cmd)
                 
     # Enter a parse tree produced by jauanParser#bloco.
     def enterBloco(self, ctx: jauanParser.BlocoContext):
@@ -222,7 +224,8 @@ class MyListener(jauanListener):
                                             self.escopo, "const"]
             self.jasmin.store(_id,ctx.value().type)
         else:
-            raise Exception("A constante '" + ctx.ID_L().getText() + "' já foi declarada")
+            cmd = "A constante '" + ctx.ID_L().getText() + "' já foi declarada"
+            raise Exception(cmd)
         self.tabelaNameFunctions[function_id][LAST_LOCAL_USED] = _id
 
     # Enter a parse tree produced by jauanParser#declaraVariavel.
@@ -249,7 +252,8 @@ class MyListener(jauanListener):
                 self.jasmin.loadConst(valorInicial,ctx.TIPO().getText())
                 self.jasmin.store(_id,ctx.TIPO().getText())
             else:
-                raise Exception("A variavel '" + variavel.getText() + "' já foi declarada")
+                cmd = "A variavel '" + variavel.getText() + "' já foi declarada"
+                raise Exception(cmd)
         self.tabelaNameFunctions[function_id][LAST_LOCAL_USED] = _id
 
     # Enter a parse tree produced by jauanParser#comando_atribuicao.
@@ -295,9 +299,11 @@ class MyListener(jauanListener):
                 self.jasmin.i2f()
                 attr(var,ctx.id_(0).type)
             else:
-                raise Exception("A variável " + str(ctx.id_(0).name) + " não é do mesmo tipo do valor atribuído")
+                cmd = "A variável " + str(ctx.id_(0).name) + " não é do mesmo tipo do valor atribuído"
+                raise Exception(cmd)
         else:
-            raise Exception(str(ctx.getChild(0).name) + " é uma constante. Era esperado uma variável")
+            cmd = str(ctx.getChild(0).name) + " é uma constante. Era esperado uma variável"
+            raise Exception(cmd)
 
     # Enter a parse tree produced by jauanParser#unario.
     def enterUnario(self, ctx: jauanParser.UnarioContext):
@@ -502,7 +508,8 @@ class MyListener(jauanListener):
                 #raise Exception("Não é possível imprimir uma função void.")
         elif hasattr(ctx,'inh') and ctx.inh == 'if':
             if ctx.type != 'bool':
-                raise Exception("Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'") 
+                cmd = "Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'"
+                raise Exception(cmd) 
             ctx.result_address = self.testeLogico()
             self.structElse(ctx)
 
@@ -549,13 +556,16 @@ class MyListener(jauanListener):
                 else:
                     args_passer = []
                 if numero_parametros != len(args_passer):
-                    raise Exception("A função '" + name_function + "' espera " + str(len(self.tabelaNameFunctions[function_id][EXPECTED_TYPES])) + " parâmetros, mas foram recebidos " + str(len(ctx.children)))
+                    cmd = "A função '" + name_function + "' espera " + str(len(self.tabelaNameFunctions[function_id][EXPECTED_TYPES])) + " parâmetros, mas foram recebidos " + str(len(ctx.children))
+                    raise Exception(cmd)
                 else:
                     for i in zip(args_passer,self.tabelaNameFunctions[function_id][EXPECTED_TYPES]):
                         if i[0].type != i[1]:
-                            raise Exception("A função '" + name_function + "' espera o tipo '" + i[1] + "' mas foi recebido '" + i[0].type + "'")
+                            cmd = "A função '" + name_function + "' espera o tipo '" + i[1] + "' mas foi recebido '" + i[0].type + "'"
+                            raise Exception(cmd)
             else:
-                raise Exception("A função '" + name_function + "' não foi declarada.")
+                cmd = "A função '" + name_function + "' não foi declarada."
+                raise Exception(cmd)
 
     # Enter a parse tree produced by jauanParser#exprRelacional.
     def enterExprRelacionalBinaria(self, ctx: jauanParser.ExprRelacionalBinariaContext):
@@ -600,7 +610,8 @@ class MyListener(jauanListener):
             elif hasattr(ctx,'inh') and ctx.inh == 'return':
                 self.jasmin.load(ctx.result_address,'int')
         else:
-            raise Exception("Tipos das variaveis '" + ctx.op_relacional(0).getText() + "' e '" + ctx.op_relacional(1).getText() + "' incompativeis.")
+            cmd = "Tipos das variaveis '" + ctx.op_relacional(0).getText() + "' e '" + ctx.op_relacional(1).getText() + "' incompativeis."
+            raise Exception(cmd)
 
     def testeLogico(self,operador=None,_type=None):
         self.jasmin.createIfElse()
@@ -649,16 +660,18 @@ class MyListener(jauanListener):
     def exitTerm(self, ctx:jauanParser.TermContext):
         if ctx.id_():
             if ctx.id_().type == 'bool':
-                ctx.val = not ctx.id_().val
-                #ctx.type = ctx.id_().type
+                #ctx.val = not ctx.id_().val
+                ctx.type = ctx.id_().type
             else:
-                raise Exception("Erro: era esperado da variável '" + ctx.id_().name + "' o tipo 'bool', mas foi recebido '" + ctx.id_().type +"'")
+                cmd = "Erro: era esperado da variável '" + ctx.id_().name + "' o tipo 'bool', mas foi recebido '" + ctx.id_().type +"'"
+                raise Exception(cmd)
         elif ctx.value():
             if ctx.value().type == 'bool':
-                ctx.val = not ctx.value().val
-                #ctx.type = ctx.id_().type
+                #ctx.val = not ctx.value().val
+                ctx.type = ctx.value().type
             else:
-                raise Exception("Erro: era esperado o tipo 'bool', mas foi recebido '" + ctx.val +"'")
+                cmd = "Erro: era esperado o tipo 'bool', mas foi recebido '" + ctx.value().type +"'"
+                raise Exception(cmd)
             #ctx.type = ctx.value().type
         elif ctx.inst_funcao():
             ...
@@ -730,7 +743,8 @@ class MyListener(jauanListener):
                 self.jasmin.StringBuilderAppend(ctx.type)
         elif hasattr(ctx,'inh') and ctx.inh == 'while':
             if ctx.type != 'bool':
-                raise Exception("Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'")
+                cmd = "Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'"
+                raise Exception(cmd)
             lb_end,lb_loop = self.jasmin.executeWhile()
 
     # Enter a parse tree produced by jauanParser#num.
@@ -775,7 +789,8 @@ class MyListener(jauanListener):
         var = self.searchSymbolTable(ctx.ID_L().getText())
         func = self.searchNameFunction(ctx.ID_L().getText())
         if var == None and func == None:
-            raise Exception(f"Erro: Variavel '{ctx.ID_L().getText()}' nao declarada.")
+            cmd = f"Erro: Variavel '{ctx.ID_L().getText()}' nao declarada."
+            raise Exception(cmd)
         if var != None:
             ctx.name = self.tabelaDeSimbolos[var][ID]
             ctx.val = self.tabelaDeSimbolos[var][VALOR]
@@ -798,11 +813,13 @@ class MyListener(jauanListener):
                 self.jasmin.StringBuilderAppend(ctx.type)
         elif hasattr(ctx,'inh') and ctx.inh == 'while':
             if ctx.type != 'bool':
-                raise Exception("Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'")
+                cmd = "Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'"
+                raise Exception(cmd)
             lb_end,lb_loop = self.jasmin.executeWhile()
         elif hasattr(ctx,'inh') and ctx.inh == 'if':
             if ctx.type != 'bool':
-                raise Exception("Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'") 
+                cmd = "Erro: Era esperado uma variável do tipo 'bool' mas foi recebido '" + ctx.type + "'"
+                raise Exception(cmd) 
             ctx.result_address = self.testeLogico()
             self.structElse(ctx)
             
