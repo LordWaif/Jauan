@@ -27,14 +27,14 @@ LAST_LOCAL_USED = 3
 
 # This class defines a complete listener for a parse tree produced by jauanParser.
 class MyListener(jauanListener):
-    tabelaDeSimbolos = {}
-    blocoDePilha = []
-    escopo = ''
-    tabelaNameFunctions = {}
-    scanner_address = -1
 
     def __init__(self):
         self.stack = []
+        self.tabelaDeSimbolos = {}
+        self.blocoDePilha = []
+        self.escopo = ''
+        self.tabelaNameFunctions = {}
+        self.scanner_address = -1
         self.jasmin = Jasmin('programaJasmin')
 
     # Enter a parse tree produced by jauanParser#prog.

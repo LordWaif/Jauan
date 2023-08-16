@@ -387,7 +387,6 @@ def execute(jasmin_path):
     print(stderr.decode('utf-8'))
 
 if __name__ == '__main__':
-    # jasmin = Jasmin('Teste')
     ...
 
 

@@ -1,16 +1,5 @@
 #!/usr/bin/env python3
 from antlr4 import *
-
-from gen.jauanLexer import jauanLexer
-from gen.jauanParser import jauanParser
-from gen.MyListener import MyListener
-from jasmin import execute,compile
-
-
-from argparse import ArgumentParser
-
-
-
 import argparse
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO
@@ -35,8 +24,6 @@ app.template_folder = 'templates/Jauan'
 app.config["SECRET_KEY"] = "secret!"
 app.config["fd"] = None
 app.config["child_pid"] = None
-
-fileName = "jauanApp/input2.txt"
 socketio = SocketIO(app)
 
 
@@ -64,43 +51,17 @@ def read_and_forward_pty_output():
 def index():
     return render_template("index.html")
 
+def salvarCodigo(expressao):
+    with open('input.txt', 'w') as f:
+        f.write(expressao)
+
 @app.route("/salvacodigo", methods=['POST'])
 def salvaCode():
-    print("entrou na funcao")
-
     data = request.get_json()
-    content = data['codigo']
-    print(content)
-    with open(fileName, 'w') as f:
-        f.write(content)
-
-    args = ArgumentParser()
-    args.add_argument('-f', '--file', help='File to compile',default='input.txt')
-    args = args.parse_args()
-    data = FileStream(fileName, encoding='utf8')
-    # data = InputStream(exp)
-    # Lexer
-    lexer = jauanLexer(data)
-    print("debug 1")
-    tokens = CommonTokenStream(lexer)
-    print("debug 2")
-    # Parser
-    parser = jauanParser(tokens)
-    print("debug 3")
-    tree = parser.prog()
-    print("debug 4")
-    # Listener
-    walker = ParseTreeWalker()
-    print("debug 4")
-    l = MyListener()
-    print("debug 5")
-    walker.walk(l, tree)
-    print("debug 6")
-    compile('programaJasmin')
-    print("salvando codigo")
-    response = {'message': 'Conteúdo recebido com sucesso!'}
-    os.remove("jauanApp/input2.txt")
-    return jsonify(response)
+    expressao = data['codigo']
+    salvarCodigo(expressao)
+    pty_input({'input': "python3 compiler.py\n"})
+    return jsonify({'codigo': expressao})
 
 @socketio.on("pty-input", namespace="/pty")
 def pty_input(data):
@@ -110,7 +71,6 @@ def pty_input(data):
     if app.config["fd"]:
         logging.debug("received input from browser: %s" % data["input"])
         os.write(app.config["fd"], data["input"].encode())
-
 
 @socketio.on("resize", namespace="/pty")
 def resize(data):

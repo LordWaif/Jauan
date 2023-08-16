@@ -1,3 +1,0 @@
-main:
-    print("nao sou o nasus, eu sou o jasson");
-end

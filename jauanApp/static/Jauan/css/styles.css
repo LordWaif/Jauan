@@ -2,7 +2,7 @@
     --cor-fundo: #333;
     --cor-barra-terminal:#272727;
     --cor-icone: #fd4800;
-    --cor-bordas: rgba(255, 255, 255, 0.1);
+    --cor-bordas: #818181;
     --cor-log: #212529;
     --cor-botoes: rgba(255, 255, 255, 0.4);
 }
@@ -24,7 +24,7 @@ html, body {
 }
 
 #editor {
-    border-top: 1px solid var(--cor-bordas);
+    border-top: 1mm solid var(--cor-bordas);
     transition: margin-left 0.3s ease;
     overflow: hidden;
     z-index: 0;
@@ -39,12 +39,13 @@ html, body {
 .sidebar {
     width: 50px;
     background-color: var(--cor-fundo);
-    color: var(--cor-botoes);
+    color: var(--cor-fundo);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     transition: width 0.3s ease;
+    border-right: 1px solid var(--cor-bordas);
     z-index: 1;
 }
 
@@ -56,6 +57,8 @@ html, body {
 
 #spanStatus{
     background-color: var(--cor-barra-terminal);
+    border-top: 1px solid var(--cor-bordas);
+    border-bottom: 1px solid var(--cor-bordas);;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 50px;
@@ -98,7 +101,7 @@ html, body {
 }
 
 #save-button{
-    color: var(--cor-botoes);
+    color: var(--cor-icone);
     cursor: pointer;
     padding: 0px 12px 0px 12px;
 }

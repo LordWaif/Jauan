@@ -1,0 +1,8 @@
+main:
+
+    var:
+        x: int;
+    print("Digite um numero:");
+    scanf(x);
+    print(x);
+end
