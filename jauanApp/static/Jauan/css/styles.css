@@ -2,6 +2,7 @@
     --cor-fundo: #333;
     --cor-barra-terminal:#272727;
     --cor-icone: #fd4800;
+    --cor-icone-hover: #bb3500;
     --cor-bordas: #818181;
     --cor-log: #212529;
     --cor-botoes: rgba(255, 255, 255, 0.4);
@@ -107,11 +108,7 @@ html, body {
 }
 
 #save-button:hover {
-    color: var(--cor-icone);
-}
-
-.sidebar-icon:hover {
-    color: var(--cor-icone);
+    color: var(--cor-icone-hover);
 }
 
 .div-log {
