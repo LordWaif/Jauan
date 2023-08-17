@@ -63,12 +63,22 @@ op_algebrico:
 	| (id | num | inst_funcao)						# operando;
 
 ifElse:
-	'if' '(' (exprRelacionalBinaria | exprRelacionalUnaria | inst_funcao | id) ')' ':' (
-		comando+ (else)? 'end'
-	);
+	'if' '(' (
+		exprRelacionalBinaria
+		| exprRelacionalUnaria
+		| inst_funcao
+		| id
+		| value
+	) ')' ':' (comando+ (else)? 'end');
 else: 'else' ':' comando+;
 while:
-	'while' '(' (exprRelacionalBinaria | exprRelacionalUnaria) ')' ':' comando+ 'end';
+	'while' '(' (
+		exprRelacionalBinaria
+		| exprRelacionalUnaria
+		| inst_funcao
+		| id
+		| value
+	) ')' ':' comando+ 'end';
 scanf: 'scanf' '(' (id (',' id)*) ')';
 print: 'print' '(' args_real ')';
 break: 'break';
