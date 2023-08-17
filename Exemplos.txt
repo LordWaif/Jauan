@@ -1,0 +1,282 @@
+print_even(int n): void
+    var:
+        i: int;
+    i = 2;
+    while(i <= n):
+        print(i);
+        i = i + 2;
+    end
+end
+
+main:
+    print_even(10);
+end
+
+#####################################################
+
+mdc(int a, int b): int
+    var:
+        x, y : int;
+
+    x = a;
+    y = b;
+
+    while(x != y):
+        if(x > y):
+            x = x - y;
+        else:
+            y = y - x;
+        end
+    end
+
+    return x;
+end
+
+main:
+    print("MDC", "=" , mdc(48, 18));
+end
+
+####################################################
+
+reverse_number(int num): int
+    var:
+        reversed, digit, num2: int;
+
+    num2 = num;
+
+    reversed = 0;
+    while(num2 > 0):
+        digit = num2 - (num2 / 10) * 10;
+        reversed = reversed * 10 + digit;
+        num2 = num2 / 10;
+    end
+    return reversed;
+end
+
+main:
+    var:
+        const param = 12345;
+
+    print("Reverso de", param, "é", reverse_number(param));
+end
+
+####################################################
+
+is_palindrome(int num): bool
+    var:
+        original, reversed, digit, num2: int;
+
+    num2 = num;
+    original = num;
+    reversed = 0;
+
+    while(num2 > 0):
+        digit = num2 - (num2 / 10) * 10;
+        reversed = reversed * 10 + digit;
+        num2 = num2 / 10;
+    end
+
+    return original == reversed;
+end
+
+main:
+    print(is_palindrome(12321));
+end
+
+##################################################
+
+sum_of_divisors(int num): int
+    var:
+        sum, i, metade: int;
+
+    i = 1;
+    sum = 0;
+    metade = num/2;
+
+
+    while(i <= metade):
+        if((num/i)*i == num):
+            sum = sum + i;
+        end
+        i = i + 1;
+    end
+
+    return sum;
+end
+
+are_friendly(int num1, int num2): bool
+    var:
+        sum_div1, sum_div2: int;
+
+    sum_div1 = sum_of_divisors(num1);
+
+    return sum_div1 == num2;
+end
+
+main:
+    var:
+        const num1 = 220;
+        const num2 = 284;
+
+    if(are_friendly(num1, num2)):
+        print("Numbers", num1, "and", num2, "are friendly.");
+    else:
+        print("Numbers", num1, "and", num2, "are not friendly.");
+    end
+end
+
+######################################################################
+
+factorial(int n): int
+    var:
+        result: int;
+
+    if(n == 0):
+        return 1;
+    end
+
+    result = n * factorial(n - 1);
+    return result;
+end
+
+main:
+    var:
+        num: int;
+    
+    print("Enter a non-negative integer: ");
+    scanf(num);
+    
+    print("Factorial of", num, "is", factorial(num));
+end
+
+#########################################################################
+
+is_perfect_square(int num): bool
+    var:
+        i: int;
+
+    i = 1;
+
+    while(i * i <= num):
+        if(i * i == num):
+            return true;
+        end
+        i = i + 1;
+    end
+
+    return false;
+end
+
+main:
+    var:
+        num: int;
+
+    print("Enter a positive integer: ");
+    scanf(num);
+
+    if(is_perfect_square(num)):
+        print(num, "is a perfect square.");
+    else:
+        print(num, "is not a perfect square.");
+    end
+end
+
+#########################################################
+
+is_leap_year(int year): bool
+
+    if((year/4)*4 == year):
+        if((year/100)*100 != year):
+            return true;
+        end
+        if ((year/400)*400 == year):
+            return true;
+        end
+
+    end
+    return false;
+end
+
+main:
+    var:
+        year: int;
+    
+    print("Enter a year: ");
+    scanf(year);
+
+    if(is_leap_year(year)):
+        print(year, "is a leap year.");
+    else:
+        print(year, "is not a leap year.");
+    end
+end
+
+####################################################
+
+calculate_average(): void
+    var:
+        sum, num, count: int;
+
+    sum = 0;
+    num = 0;
+    count = 0;
+
+    while(num >= 0):
+        print("Enter a positive number (negative to exit): ");
+        scanf(num);
+        
+        if(num >= 0):
+            sum = sum + num;
+            count = count + 1;
+        end
+    end
+
+    if(count > 0):
+        print("Average:", sum / count);
+    else:
+        print("No positive numbers entered.");
+    end
+end
+
+main:
+    calculate_average();
+end
+
+
+####################################################
+
+add(float num1, float num2): float
+    return num1 + num2;
+end
+
+sub(float num1, float num2): float
+    return num1 - num2;
+end
+
+mult(float num1, float num2): float
+    return num1 * num2;
+end
+
+div(float num1, float num2): float
+    return num1 / num2;
+end
+
+exp(float num, int n): float
+    if (n == 0):
+        return 1.0;
+    end
+    return num * exp(num, n-1);
+end
+
+mod(int num, int n): int
+    return num - ((num/n) * n);
+end
+
+main:
+    var:
+        num: int;
+        n: int;
+    num = 5;
+    n = 2;
+    print(mod(num, n));
+end
