@@ -113,12 +113,14 @@ html, body {
 
 .div-log {
     width: 30%; 
-    height: 100vh;
+    height: 60vh;
     background-color: var(--cor-log);
     border-left: 1px solid var(--cor-bordas);
     padding: 20px;
     color: white;
+    overflow-y: scroll;
 }
+
 
 @media (max-width: 768px) {
     .container {

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import time
 from antlr4 import *
 import argparse
 from flask import Flask, render_template, request, jsonify
@@ -39,21 +40,32 @@ def read_and_forward_pty_output():
         socketio.sleep(0.01)
         if app.config["fd"]:
             timeout_sec = 0
-            (data_ready, _, _) = select.select([app.config["fd"]], [], [], timeout_sec)
+            (data_ready, _, _) = select.select(
+                [app.config["fd"]], [], [], timeout_sec)
             if data_ready:
                 output = os.read(app.config["fd"], max_read_bytes).decode(
                     errors="ignore"
                 )
-                socketio.emit("pty-output", {"output": output}, namespace="/pty")
+                socketio.emit(
+                    "pty-output", {"output": output}, namespace="/pty")
 
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
+
 def salvarCodigo(expressao):
     with open('input.txt', 'w') as f:
         f.write(expressao)
+
+
+@app.route("/showJC", methods=['GET'])
+def showJC():
+    with open('programaJasmin.j', 'r') as f:
+        expressao = f.read()
+    return jsonify({'codigo': expressao})
+
 
 @app.route("/salvacodigo", methods=['POST'])
 def salvaCode():
@@ -63,6 +75,7 @@ def salvaCode():
     pty_input({'input': "clear;python3 compiler.py\n"})
     return jsonify({'codigo': expressao})
 
+
 @socketio.on("pty-input", namespace="/pty")
 def pty_input(data):
     """write to the child pty. The pty sees this as if you are typing in a real
@@ -71,6 +84,8 @@ def pty_input(data):
     if app.config["fd"]:
         logging.debug("received input from browser: %s" % data["input"])
         os.write(app.config["fd"], data["input"].encode())
+        time.sleep(0.5)
+
 
 @socketio.on("resize", namespace="/pty")
 def resize(data):
@@ -129,8 +144,10 @@ def main():
         default="127.0.0.1",
         help="host to run server on (use 0.0.0.0 to allow access from other hosts)",
     )
-    parser.add_argument("--debug", action="store_true", help="debug the server")
-    parser.add_argument("--version", action="store_true", help="print version and exit")
+    parser.add_argument("--debug", action="store_true",
+                        help="debug the server")
+    parser.add_argument("--version", action="store_true",
+                        help="print version and exit")
     parser.add_argument(
         "--command", default="bash", help="Command to run in the terminal"
     )

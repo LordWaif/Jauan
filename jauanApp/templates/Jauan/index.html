@@ -54,6 +54,7 @@
             </div>
       </div>
       <div id="editor"></div>
+      <div class="div-log" id="div-log-princ"></div>
   </div>
 
     <a href="https://github.com/cs01/pyxtermjs" target="_blank" style="font-size: 1.4em; text-decoration: none; color:black"></a>
@@ -244,11 +245,41 @@
                     contentType: 'application/json',
                     success: function(response) {
                         $("#result").html(response);
+                        lerArquivo();
                     }
                 });
             });
         });
 
         });
+        function lerArquivo() {
+            var divLogPrint = document.getElementById('div-log-princ');
+            console.log("Iniciando requisição...");
+        
+            // Adicione um parâmetro de tempo à URL para evitar o cache
+            var url = 'showJC?' + new Date().getTime();
+        
+            fetch(url)
+                .then(response => {
+                    console.log("Resposta recebida:", response);
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Erro ao carregar o arquivo.');
+                    }
+                })
+                .then(data => {
+                    var conteudo = data.codigo;
+                    //divLogPrint.textContent = conteudo;
+                    divLogPrint.innerHTML = conteudo.replace(/\n/g, '<br>');
+                    console.log("Conteúdo atualizado");
+                    console.log("Dados recebidos:", conteudo.replace(/\n/g, '<br>'));
+                })
+                .catch(error => {
+                    divLogPrint.textContent = error.message;
+                    console.error("Erro:", error);
+                });
+        }
+        
     </script>
   </html>
